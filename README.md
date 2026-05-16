@@ -1,6 +1,6 @@
-# Video2AI: Translating Motion into Machine Understanding
+# Monte Carlo Pinpoint
 
-**A Temporal Interface for AI Video Comprehension**
+**Stochastic Coordinate Localization via VLM Probing** — arXiv preprint reproduction artifact
 
 > **About this repository (English).**
 > This repository hosts the reference implementation and reproduction
@@ -16,13 +16,21 @@
 > - Benchmark harness, datasets, and per-version result JSON files: [`benchmark/`](benchmark/)
 > - Paper LaTeX sources: [`docs/paper/`](docs/paper/)
 >
-> The repository is also the upstream of the broader **Video2AI** project
-> — a Python CLI tool for translating videos into AI-readable formats
-> (timestamped screenshots + transcripts). See the
-> [Research / Citation](#research--citation) section for the full citation,
-> or read on for the Japanese product documentation.
+> **On the naming.** The repository name `monte-carlo-pinpoint` matches the
+> method introduced in the paper. The Pinpoint implementation ships inside
+> the broader **Video2AI** project — a Python CLI / MCP toolkit for
+> translating videos and desktop screens into AI-readable formats
+> (timestamped screenshots + transcripts). Pinpoint is the desktop-agent
+> coordinate-localization primitive used by that project. The Japanese
+> product documentation for Video2AI as a whole follows below; see also
+> the [Research / Citation](#research--citation) section for the full
+> citation.
 
 ---
+
+## Video2AI: Translating Motion into Machine Understanding
+
+**A Temporal Interface for AI Video Comprehension**
 
 動画をAIが最も理解しやすい形式（画像＋テキスト）へ論理的に翻訳するインターフェース
 
