@@ -2,6 +2,28 @@
 
 **A Temporal Interface for AI Video Comprehension**
 
+> **About this repository (English).**
+> This repository hosts the reference implementation and reproduction
+> artifacts for the arXiv preprint:
+>
+> > Tomio Hisanari. *Monte Carlo Pinpoint: Stochastic Coordinate
+> > Localization via VLM Probing.* arXiv preprint, 2026.
+>
+> Tagged release for the preprint state: `v1.0-arxiv-v1`.
+>
+> Paper-specific entry points:
+> - Core algorithm: [`pinpoint_core.py`](pinpoint_core.py)
+> - Benchmark harness, datasets, and per-version result JSON files: [`benchmark/`](benchmark/)
+> - Paper LaTeX sources: [`docs/paper/`](docs/paper/)
+>
+> The repository is also the upstream of the broader **Video2AI** project
+> — a Python CLI tool for translating videos into AI-readable formats
+> (timestamped screenshots + transcripts). See the
+> [Research / Citation](#research--citation) section for the full citation,
+> or read on for the Japanese product documentation.
+
+---
+
 動画をAIが最も理解しやすい形式（画像＋テキスト）へ論理的に翻訳するインターフェース
 
 現在のAIモデル（LLM/VLM）は、動画を直接読み込むことに多くの制約を抱えています。
