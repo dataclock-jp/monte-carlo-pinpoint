@@ -1,0 +1,241 @@
+{
+  "commit": "stage_c Commit 2 dry-run (button/icon pipelines)",
+  "cases": [
+    "ui_button_01",
+    "ui_button_04",
+    "ui_button_05",
+    "ui_dense_02",
+    "ui_dense_09"
+  ],
+  "determinism_n": 10,
+  "per_case": [
+    {
+      "test_id": "ui_button_01",
+      "target": "the center of the 'Cut' button in the toolbar",
+      "approx_xy": [
+        178,
+        23
+      ],
+      "gt_xy": [
+        174,
+        22
+      ],
+      "v7_distance_px": 4.1,
+      "expected_target_type": "button",
+      "stage_c_expected": {
+        "hit": true,
+        "x": 174,
+        "y": 22,
+        "method": "button",
+        "confidence": 1.0,
+        "time_s": 0.01739215850830078,
+        "dist_from_gt_px": 0.0
+      },
+      "stage_c_menu_item": {
+        "hit": false,
+        "x": 178,
+        "y": 23,
+        "method": "menu_item_miss",
+        "match": "",
+        "dist_from_gt_px": null
+      },
+      "stage_c_generic": {
+        "hit": false,
+        "x": 178,
+        "y": 23,
+        "method": "generic_miss"
+      },
+      "generic_invariant_ok": true,
+      "determinism": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      },
+      "no_regression": true
+    },
+    {
+      "test_id": "ui_button_04",
+      "target": "the center of the 'Save' button in the toolbar",
+      "approx_xy": [
+        551,
+        13
+      ],
+      "gt_xy": [
+        538,
+        27
+      ],
+      "v7_distance_px": 19.1,
+      "expected_target_type": "button",
+      "stage_c_expected": {
+        "hit": true,
+        "x": 538,
+        "y": 26,
+        "method": "button",
+        "confidence": 0.9168518930224152,
+        "time_s": 0.0008950233459472656,
+        "dist_from_gt_px": 1.0
+      },
+      "stage_c_menu_item": {
+        "hit": false,
+        "x": 551,
+        "y": 13,
+        "method": "menu_item_miss",
+        "match": "",
+        "dist_from_gt_px": null
+      },
+      "stage_c_generic": {
+        "hit": false,
+        "x": 551,
+        "y": 13,
+        "method": "generic_miss"
+      },
+      "generic_invariant_ok": true,
+      "determinism": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      },
+      "no_regression": true
+    },
+    {
+      "test_id": "ui_button_05",
+      "target": "the center of the 'Help' button in the toolbar",
+      "approx_xy": [
+        663,
+        61
+      ],
+      "gt_xy": [
+        634,
+        62
+      ],
+      "v7_distance_px": 29.0,
+      "expected_target_type": "button",
+      "stage_c_expected": {
+        "hit": true,
+        "x": 634,
+        "y": 62,
+        "method": "button",
+        "confidence": 0.6887931105656366,
+        "time_s": 0.0013880729675292969,
+        "dist_from_gt_px": 0.0
+      },
+      "stage_c_menu_item": {
+        "hit": false,
+        "x": 663,
+        "y": 61,
+        "method": "menu_item_miss",
+        "match": "",
+        "dist_from_gt_px": null
+      },
+      "stage_c_generic": {
+        "hit": false,
+        "x": 663,
+        "y": 61,
+        "method": "generic_miss"
+      },
+      "generic_invariant_ok": true,
+      "determinism": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      },
+      "no_regression": true
+    },
+    {
+      "test_id": "ui_dense_02",
+      "target": "the center of the 'Undo' icon in the palette",
+      "approx_xy": [
+        257,
+        78
+      ],
+      "gt_xy": [
+        280,
+        85
+      ],
+      "v7_distance_px": 24.0,
+      "expected_target_type": "icon",
+      "stage_c_expected": {
+        "hit": false,
+        "x": 257,
+        "y": 78,
+        "method": "icon_miss",
+        "confidence": 0.0,
+        "time_s": 0.0009942054748535156,
+        "dist_from_gt_px": 24.0
+      },
+      "stage_c_menu_item": {
+        "hit": true,
+        "x": 262,
+        "y": 80,
+        "method": "menu_item",
+        "match": "Und0",
+        "dist_from_gt_px": 18.681541692269406
+      },
+      "stage_c_generic": {
+        "hit": false,
+        "x": 257,
+        "y": 78,
+        "method": "generic_miss"
+      },
+      "generic_invariant_ok": true,
+      "determinism": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      },
+      "no_regression": true
+    },
+    {
+      "test_id": "ui_dense_09",
+      "target": "the center of the 'Chart' icon in the menu strip",
+      "approx_xy": [
+        825,
+        28
+      ],
+      "gt_xy": [
+        812,
+        59
+      ],
+      "v7_distance_px": 33.6,
+      "expected_target_type": "icon",
+      "stage_c_expected": {
+        "hit": false,
+        "x": 825,
+        "y": 28,
+        "method": "icon_miss",
+        "confidence": 0.0,
+        "time_s": 0.0034942626953125,
+        "dist_from_gt_px": 33.6
+      },
+      "stage_c_menu_item": {
+        "hit": false,
+        "x": 825,
+        "y": 28,
+        "method": "menu_item_miss",
+        "match": "",
+        "dist_from_gt_px": null
+      },
+      "stage_c_generic": {
+        "hit": false,
+        "x": 825,
+        "y": 28,
+        "method": "generic_miss"
+      },
+      "generic_invariant_ok": true,
+      "determinism": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      },
+      "no_regression": true
+    }
+  ],
+  "summary": {
+    "cases": 5,
+    "button_hits": 3,
+    "icon_hits": 0,
+    "all_generic_invariant_ok": true,
+    "all_deterministic": true,
+    "all_no_regression": true
+  }
+}

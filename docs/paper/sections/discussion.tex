@@ -1,0 +1,498 @@
+%% ================================================================
+%%  8. DISCUSSION: COORDINATE LOCALIZATION INSIGHTS
+%%
+%%  Cross-reference to the H-*/O-* taxonomy
+%%  (Section~\ref{sec:taxonomy}, operational modes at
+%%  Section~\ref{sec:operational-failures}) sits at the top of the section.
+%% ================================================================
+\section{Discussion: Coordinate Localization Insights}
+\label{sec:discussion}
+
+This section discusses three coordinate-localization findings
+arising from the v6/v7 benchmark campaigns: the negative result on
+text-label snapping (Stage~B), the deterministic-routing
+contribution of Stage~C Phase~A, and the variance-vs-peak-precision
+tradeoff between $N{=}1$ and $N{=}3$ Phase~1 aggregation.  For the
+cognitive-versus-operational failure-mode taxonomy that grounds
+some of the references below, see Section~\ref{sec:taxonomy} and
+the operational modes at Section~\ref{sec:operational-failures}.
+
+\subsection{Stage B: A Negative Result on Text-Label Snapping}
+\label{sec:discussion-stage-b}
+
+Between the v6 and v7 campaigns we added a \textbf{Stage~B}
+refinement layer: after Phase~1 produces a coarse coordinate
+estimate, we crop a $120 \times 120$\,px window around the
+estimate, run Windows' built-in OCR engine, and---when the target
+description names a specific text label---snap the estimate to the
+center of the matching OCR bounding box.  The hit condition is
+deliberately conservative: the Phase~1 coordinate must lie
+\emph{inside} the matched bounding box.  This condition guarantees
+that a successful snap never moves the estimate further from
+ground truth than Phase~1 alone, but it also narrows the
+applicability of the method to UI elements whose click-center is
+inside the text-label bbox.
+
+The v7 measurement outcome is \textbf{0 hits in 50 cases}
+(Table~\ref{tab:stage-b-scope}).  The miss population partitions
+cleanly by category.  Three categories (\texttt{ui\_dense},
+\texttt{natural}, \texttt{precision}) contain no quoted text label
+in the target description, so the label-extraction preprocessor
+short-circuits to a miss before the OCR probe even runs.  The
+remaining two categories (\texttt{ui\_button}, \texttt{ambiguous})
+do contain quoted labels, but the OCR-detected text bounding
+boxes are systematically offset from the intended click-centers by
+$\sim$22--29\,px on real toolbar buttons: the ground-truth click
+target is the button's geometric center, while the text label
+occupies a left- or padding-offset region inside the button.
+Phase~1 therefore does not land inside the label bbox, and the
+conservative hit condition correctly refuses to snap.
+
+We report this negative result as a \emph{scope-definition}
+finding rather than as a failure.  The contract ``a snap never
+makes the result worse'' was preserved: miss-path Pinpoint is
+byte-identical to the v6 pipeline, and the overall v7 metrics
+still improve substantially over v6 (mean $54.3 \to 29.9$\,px,
+$\leq$\,5\,px $8.2\% \to 22.0\%$; Table~\ref{tab:results-guardrail-mv}).
+Those improvements come from Phase~1 and Phase~2 stability on a
+second independent run, not from Stage~B.
+
+The result also tightens the specification for a successor layer.
+A post-Phase~1 refinement layer that aspires to beat Phase~2 on
+button targets cannot rely on OCR-text centers; it must either
+recover the \emph{button geometry} (so that the snap target is the
+enclosing rectangle's center, not the label's) or use a
+geometrically aware feature extractor such as an edge / contour
+detector.  This successor, \textbf{Stage~C (Semantic--Geometric
+Refinement)}, is implemented and evaluated in the next subsection
+(Section~\ref{sec:discussion-stage-c}).  In that framing, Stage~B
+becomes the \texttt{menu\_item} sub-case of Stage~C---the one case
+where text-label snapping is geometrically aligned with the click
+target.
+
+\subsection{Stage~C Phase~A: A Deterministic Routing Layer That
+  Exposes Upstream Variance}
+\label{sec:discussion-stage-c}
+
+Stage~C replaces the single bbox-containment test of Stage~B with a
+dispatcher over \texttt{target\_type}-specific CV pipelines.
+Phase~1.5 emits a structured declaration
+$\{\texttt{target\_type}, \texttt{intent}, \texttt{label\_hint}\}$
+via a rule-based heuristic over the target prompt, and Stage~C
+dispatches to the matching pipeline: \texttt{button} or \texttt{icon}
+(Canny + morphological close +
+\texttt{findContours} + aspect-ratio/area filter + nearest-centroid
+selection, with a piecewise-linear distance-to-confidence map),
+\texttt{menu\_item} (the Stage~B OCR-snap helper, retrofitted), or
+\texttt{generic} (a miss-only passthrough that returns Phase~1
+coordinates unchanged, preserving measurement honesty in the paper
+ablation).  Only the \texttt{menu\_item} and contour pipelines are
+VLM-touching in any form; \texttt{generic} never invokes OCR or CV
+operators.  A rule-based \texttt{declare\_target} is used instead
+of a VLM tool-use call so that routing variance is zero and any A/B
+effect on hit rate is attributable to the CV pipeline, not to a
+second VLM sampling step; a tool-use variant with the same contract
+is left as follow-up work.  An implementation detail worth flagging
+for future extension: the declaration is emitted in a nested
+\texttt{phase\_1\_5\_structured} field in the benchmark result
+schema; a later tool-use variant will want two of the embedded
+fields (\texttt{source} and \texttt{confidence}) promoted to the
+top level so a 3-arm comparison (rule-based / tool-use
+deterministic / tool-use sampled) can group on them directly (the
+three-arm protocol itself is described in the Phase~B roadmap at
+the end of this subsection).
+
+\paragraph{Stage~1 subset observation: a bimodal precision effect.}
+A 20-case smoke (\texttt{ui\_button} + \texttt{ui\_dense},
+\texttt{--repeat 3}) run as Stage~1 of the A/B protocol exhibited a
+striking \emph{bimodal} split.  The left tail improved sharply
+($\leq$\,5\,px $10\% \to 20\%$, $\leq$\,10\,px $20\% \to 33\%$,
+$\leq$\,20\,px $50\% \to 58\%$) while the right tail degraded at the
+same time ($\leq$\,50\,px $90\% \to 77\%$).  Inspecting the raw
+per-repeat results makes the mechanism legible: Stage~C's button
+pipeline delivers $\leq$\,1\,px hits on cases where Phase~1 lands
+inside the button, but on the small number of cases where Phase~1
+lands on a neighbouring button, Stage~C snaps to that neighbour's
+centroid, moving the error from ``nearly right'' into
+``deterministically wrong''.  The precision boost and the
+catastrophic snap are two ends of the same deterministic rule.
+
+\paragraph{Stage~2 full scale: the bimodal split does not survive
+  single-sample evaluation.}
+The apparent divergence between Stage~1 and Stage~2 is a sampling
+artefact of the same deterministic rule: multi-sample averaging under
+\texttt{--repeat 3} reveals both bimodal ends simultaneously, while
+single-sample \texttt{--repeat 1} resolves each target onto one end
+determined by Phase~1 routing.
+At the 50-case, \texttt{--repeat 1} scale
+(Table~\ref{tab:results-stage-progression}, v8 column), the Stage~1 bimodal pattern
+disappears.  $\leq$\,5\,px drops $22.0\% \to 14.0\%$, $\leq$\,20\,px
+drops $54.0\% \to 38.0\%$, overall $\leq$\,50\,px drops
+$82.0\% \to 76.0\%$.  The per-category decomposition
+(Table~\ref{tab:results-by-category}, v8 column) is what makes this result
+interpretable rather than alarming: the $-60$\,pt collapse on
+\texttt{precision} and the $-10$\,pt on \texttt{natural} come from
+categories in which Stage~C never fires (10/10
+\texttt{generic\_miss} each), so those deltas measure Phase~1
+sampling variance between two independent runs, not Stage~C.
+Conversely, the categories in which Stage~C \emph{does} route
+through a specialized pipeline split by mechanism:
+\texttt{ui\_button} ($+10$\,pt) is the path-A success case---Stage~C
+reaches a button centroid when Phase~1 lands on the right
+button---while \texttt{ui\_dense} ($-30$\,pt) is the path-B failure
+case, where the icon pipeline's filter window is wide enough that
+Phase~1 variance can flip the chosen contour from the intended icon
+to a neighbour.  The Stage~1 bimodal observation is therefore real
+but emergent only under multi-sample averaging; a single-sample
+evaluation is dominated by whichever side of the amplifier Phase~1
+happens to land on.
+
+\paragraph{Cross-run reproducibility isolates the variance source.}
+The strongest diagnostic is the Stage~1 $\leftrightarrow$ Stage~2
+cross-run check on the $60$ rows where Stage~C dispatched to a
+specialized pipeline.  Four wrong-detection hits---including
+\texttt{ui\_button\_01} at exactly $(79, 22)$ for $95.0$\,px error
+across all three Stage~1 repeats \emph{and} the Stage~2 single
+run---are bit-identical.  Correspondingly, three perfect-hit cases
+(\texttt{ui\_button\_02}, \texttt{\_04}, \texttt{\_08} at
+$\leq$\,1\,px) are also bit-identical across runs.  Stage~C is
+therefore a \emph{deterministic function of its inputs}; all
+remaining across-run variance lives in the input
+(\texttt{approx\_xy} from Phase~1).  Quantitatively, the case-level
+standard deviations $\sigma_{\text{input}}$ and
+$\sigma_{\text{output}}$ of the coordinates entering and leaving
+Stage~C are essentially identical ($\sigma_{\text{in}} \approx
+\sigma_{\text{out}}$ on both axes in Stage~1), confirming at the
+distribution level what the bit-identical examples confirm at the
+individual level: Stage~C neither attenuates nor amplifies variance
+overall; it is a pure routing layer.  The unit-level CV-only
+determinism suite (N=10 synthetic repeats, $\sigma < 0.5$\,px per
+pipeline) corroborates this at the algorithmic layer: the empirical
+bit-identical observations on real images reflect an underlying
+algorithmic invariant verified at the unit-test level, so the
+deterministic-function claim rests on three triangulating sources
+(unit-level synthetic, case-level bit-identical, distribution-level
+$\sigma$ preservation) rather than any single one.
+
+\paragraph{What Stage~C's Phase~A actually establishes.}
+The v8 numbers would, read naively, suggest that Stage~C ``made
+things worse''---the overall $\leq$\,20\,px rate did fall by
+$16$\,pt.  The per-category breakdown and the bit-identical
+cross-run evidence refuse that reading.  Stage~C Phase~A
+establishes three claims that together are stronger than any
+left-tail success rate would have been: (i) a post-Phase~1
+refinement layer can be run as a deterministic function, with no
+routing variance of its own, with overall regression well below the
+$+20$\,px threshold agreed \emph{a priori}; (ii) when that
+refinement layer fires on the right input, it can reach the
+geometric centroid of a button to within one pixel, cleanly
+beating Phase~2 Monte Carlo voting on that subset; and (iii)
+because Stage~C itself is deterministic, all remaining error,
+including the Stage~1 $\leftrightarrow$ Stage~2 divergence and the
+per-category asymmetry, localises unambiguously to Phase~1's VLM
+sampling variance.  Future left-tail improvements therefore have
+to address Phase~1, not Stage~C.
+
+The three-agent organisation under which these claims were
+produced---a supervisor, an implementer, and an independent
+evaluator---is complementary to the task-phase decomposition
+(planner / generator / evaluator) documented contemporaneously for
+Anthropic's own harness~\cite{anthropic2026threeagentharness}.  Our
+axis is \emph{responsibility-domain} based: the supervisor owns
+design decisions and the decision log, the implementer owns the
+code landing surface, and the evaluator owns the benchmark
+artefacts and GO / NO-GO judgments.  The task-phase axis
+decomposes a single reasoning episode; the responsibility-domain
+axis decomposes the ownership of long-running artefacts.  Taken
+together they suggest a two-dimensional design space for
+multi-agent harnesses worth systematic exploration, with the
+Phase~A evidence here contributing a datapoint in which the
+responsibility-domain decomposition was sufficient to converge on
+a paper-grade contribution inside a two-week implementation
+window.
+
+\paragraph{Phase~B roadmap.}
+With the variance bottleneck localised, three follow-ups compose
+cleanly.  First, the \texttt{ui\_dense} $-30$\,pt outcome pushes
+the icon pipeline's filter window and search-radius tuning into
+Phase~B scope; the dry-run evidence (Stage~1 per-case logs) points
+at dense-toolbar geometries that the current aspect-ratio /
+area cuts do not cover.  Second, and the clear priority from
+Stage~2, is \emph{Phase~1 upstream variance reduction}: either
+majority voting or bootstrap aggregation over $k \geq 3$
+independent Phase~1 draws, or a seeded-sampling investigation at
+the VLM API surface.  The cross-run reproducibility data suggest
+that a single-sample Phase~1 spends its variance budget unevenly
+across categories---\texttt{precision} drew the unlucky sample in
+our v8 run---and that averaging a small number of draws should
+preserve Stage~C's deterministic precision gain while filling in
+its missing robustness.  Third, the rule-based \texttt{declare\_target}
+admits a drop-in tool-use variant with the same schema; comparing
+rule-based, deterministic-tool-use, and sampled-tool-use routing in
+a three-arm smoke would quantify how much of the observed Stage~C
+effect depends on the routing signal being correct (addressable by
+a VLM) versus on its being stable (already achieved by the rule
+base).  This three-arm design isolates three independently varying
+factors---(i) routing-rule complexity (rule vs.\ tool-use),
+(ii) VLM-variance exposure (deterministic vs.\ sampled), and
+(iii) downstream Stage~C effect (held constant)---so any observed
+change can be attributed to a single axis.  We position these as Phase~B; the Phase~A closeout is that
+the deterministic routing layer itself is built and measured.
+
+The v9 campaign (Section~\ref{sec:results}, ``v9 extension''
+paragraph) implements the first two of these three follow-ups
+(Workstream~1: $N=3$ majority voting at Phase~1; Workstream~2:
+icon-pipeline adaptive tuning) and closes the prediction with a
+measured $+6$\,pt gain on the primary $\leq$\,20\,px metric and a
+$+70$\,pt recovery on \texttt{precision}, the category we flagged
+above as the strongest Phase~1-VLM-variance evidence.  The third
+follow-up---the rule~/~deterministic-tool-use~/~sampled-tool-use
+three-arm smoke---remains Phase~C work.  The fact that Phase~B
+delivered the Strong-GO outcome using only the two
+upstream-variance + pipeline-conservativism follow-ups, without
+yet varying the routing signal, corroborates the Phase~A
+localisation claim: Phase~1 sampling variance was indeed the
+dominant bottleneck, and reducing it was sufficient to produce the
+predicted gain.
+
+
+\subsection{N=1 vs N=3 Aggregation: A Variance-vs-Peak-Precision Tradeoff}
+\label{sec:aggregation-discussion}
+
+While arm~A and arm~B share identical model, prompts, and
+Stage~C deterministic routing pipeline, they differ only in
+the aggregation strategy applied at the phase-1 sample stage.
+The resulting distributional contrast on the precision
+category is informative not as evidence of model-specific
+bias---Welch's $t$-test fails to reject equality of means at
+$p=0.41$---but as evidence of aggregation strategy's
+variance-reduction effect.
+
+We conducted a paired benchmark comparison between two
+aggregation strategies on the precision category ($n=10$
+sub-pixel and tiny-target cases) using Claude Opus~4.7:
+\textbf{arm~A} uses $N=3$ phase-1 sample median aggregation,
+\textbf{arm~B} uses $N=1$ single-sample baseline.  Both arms
+share identical model, prompts, target images, and Stage~C
+deterministic routing pipeline; the only variation is the
+aggregation strategy.
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{Per-case precision pinpoint distance (px) for
+    arm~A ($N=3$ median) versus arm~B ($N=1$).
+    \textbf{Bold} entries flag $>50$~px gross-error outliers
+    in arm~B (absent from arm~A).}
+  \label{tab:aggregation-percase}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{@{}llrr@{}}
+    \toprule
+    \textbf{Case} & \textbf{Target} & \textbf{arm~A} & \textbf{arm~B} \\
+    \midrule
+    precision\_00 & single red pixel                         & 18.2 & \textbf{80.4} \\
+    precision\_01 & thin blue needle (tip)                   & 1.0  & 4.0 \\
+    precision\_02 & tiny green dot                           & 34.5 & \textbf{65.3} \\
+    precision\_03 & small orange circle                      & 23.5 & 34.1 \\
+    precision\_04 & crosshair intersection                   & 10.0 & 3.0 \\
+    precision\_05 & purple diamond                           & 19.7 & \textbf{70.8} \\
+    precision\_06 & top-left corner of white square          & 21.5 & 1.0 \\
+    precision\_07 & right endpoint of horizontal yellow line & 20.2 & 2.2 \\
+    precision\_08 & innermost ring of target                 & 6.0  & 12.8 \\
+    precision\_09 & nose of small arrow                      & 28.4 & 1.4 \\
+    \midrule
+    \multicolumn{2}{r}{\textit{mean / stdev}}                & 18.30 / 10.15 & 27.50 / 32.55 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\paragraph{Descriptive statistics and statistical tests.}
+The mean of arm~B ($27.5$~px) is higher than arm~A ($18.3$~px),
+but the medians invert: arm~B median is $8.4$~px while arm~A
+median is $19.95$~px.  The standard deviations diverge sharply,
+$32.55$~px in arm~B versus $10.15$~px in arm~A, a ratio of
+$3.21\times$.  A Welch's two-sample $t$-test on the means
+(unequal variances) yields $t=-0.853$, $df=10.73$, two-tailed
+$p\approx 0.41$---i.e.\ the mean difference is \emph{not}
+statistically significant, the variance inflation in arm~B
+masking any central-tendency shift.  Conversely, an $F$-test
+for variance equality yields $F=10.29$ on $(9,9)$ degrees of
+freedom against $F_{\text{crit}}(\alpha=0.05)\approx 4.03$,
+giving $p\approx 0.0019$---i.e.\ the variance difference is highly
+significant.\footnote{Welch's $t$ failing to reject $H_0$ at
+$p=0.41$, combined with $F$-test rejection at $p \approx 0.0019$,
+formalizes the claim that $N=3$ median aggregation operates
+on the variance dimension while leaving central tendency
+invariant.}
+
+\paragraph{Threshold-stratified hit rate.}
+The hit-rate divergence by accuracy threshold makes the
+distributional contrast practically interpretable:
+
+\begin{center}
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Threshold} & \textbf{arm~A hit} & \textbf{arm~B hit} & \textbf{$\Delta$} \\
+\midrule
+$\leq 5$~px  & 1/10 (10\%)  & \textbf{5/10 (50\%)} & $+40$\,pp arm~B \\
+$\leq 10$~px & 3/10 (30\%)  & 5/10 (50\%)          & $+20$\,pp arm~B \\
+$\leq 20$~px & 5/10 (50\%)  & 6/10 (60\%)          & $+10$\,pp arm~B \\
+$\leq 50$~px & \textbf{10/10 (100\%)} & 7/10 (70\%) & $-30$\,pp arm~A \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Bimodal signature interpretation.}
+The mean-versus-median divergence in arm~B (mean $27.5$,
+median $8.4$)---combined with arm~A's mean-median agreement
+($18.3$ vs.\ $19.95$)---is the textbook quantitative
+signature of bimodal distribution.  Specifically, arm~B
+exhibits a ``hit-or-miss'' pattern: $5/10$ cases achieve
+sub-$5$~px precision (single-sample lucky), while $4/10$
+cases produce $>34$~px gross errors (single-sample unlucky).
+The $N=3$ median aggregation in arm~A trades this peak
+precision (only $1/10$ $\leq 5$~px hits) for distributional
+stability ($10/10$ $\leq 50$~px hits, zero gross-error
+outliers).
+
+\paragraph{Mechanism: bimodality suppression vs.\ peak precision.}
+The mechanism behind the variance-vs-peak-precision tradeoff
+is visible in three interlocking signatures.  First, the
+standard deviation ratio of $3.21\times$ exceeds the
+$\sqrt{3}\approx 1.73\times$ reduction expected from pure
+variance reduction over $N=3$ independent samples; the excess
+factor of $1.86\times$ indicates that median aggregation does
+not merely smooth Gaussian noise but actively suppresses
+single-sample bimodality.  Second, the mean--median
+divergence in arm~B (mean $27.5$, median $8.4$) versus the
+mean--median agreement in arm~A (mean $18.3$, median
+$19.95$) is the canonical signature of bimodal vs.\ unimodal
+distribution.  Third, the threshold-stratified hit rate
+inverts at the $\leq\!5$~px boundary: arm~B captures $50\%$
+of cases under sub-pixel precision (single-sample lucky),
+while arm~A captures only $10\%$ but achieves $100\%$ under
+the relaxed $\leq\!50$~px threshold (outlier-suppression
+benefit).
+
+\paragraph{Practical implication: threshold-dependent aggregation.}
+The choice of aggregation strategy is therefore
+target-threshold-dependent rather than universally better or
+worse.  Tasks demanding sub-$5$~px precision benefit from
+$N=1$'s winner-take-all property, accepting the $30$\,pp
+risk of gross-error outliers ($>\!50$~px tail) for the
+$40$\,pp gain in sub-pixel precision (single-sample lucky
+alignment).  Tasks requiring stable $\leq\!50$~px
+localization benefit from $N=3$ median's outlier
+suppression, sacrificing peak precision but eliminating
+catastrophic failures.  This positions aggregation strategy
+as a tunable design parameter rather than a fixed pipeline
+choice; the variance-vs-peak-precision frontier traces a
+Pareto curve that an application can place itself on by
+selecting~$N$.
+
+\paragraph{Methodological positioning: orthogonal axis of contribution.}
+This finding extends the paper's contribution along an axis
+orthogonal to the deterministic-routing claim of
+Section~\ref{sec:discussion-stage-c}: while routing is the
+\emph{geometric} backbone of the pipeline, aggregation is
+its \emph{statistical} backbone.  Together they constitute
+a co-design space whose joint tradeoffs depend on
+application-level accuracy thresholds.  We note that the
+variance-vs-peak-precision tradeoff is model-agnostic: the
+aggregation analysis applies to any phase-1 sample
+distribution and is not specific to the Opus--Sonnet
+contrast that originally motivated the W3 protocol
+(Section~\ref{sec:results}).  The result thereby refines an
+earlier ``model-specific drift'' framing into a
+methodological contribution that travels with the pipeline
+rather than with the model.
+
+\paragraph{Third regime: arm~C N=3 plurality-vote on tool-use routing.}
+The arm~C W3 Opus protocol ($N\!=\!3$ plurality-vote
+aggregation on the LLM-routed \texttt{declare\_target} CLI
+path, 30 cases completed across three stages 2026-04-28/29)
+provides a third regime intersecting the routing-path and
+aggregation-strategy axes.  The aggregate $\leq\!20$\,px hit
+rate of $\mathbf{86.7\%}$ on the pinpoint method exceeds the
+arm~A baseline ($73.3\%$, heuristic rule with $N\!=\!3$
+median) by $+13.4$\,pp, completing a reversal of the
+Stage~1 mid-fire deficit picture and providing the
+strongest single-arm precision result in the W3 series.
+
+\paragraph{Mode A/B partition reveals the selectivity gate.}
+Within the \texttt{precision} category (10 sub-pixel target
+cases), arm~C performance partitions into two modes
+\emph{by target geometry}, not by sub-pixel size.
+\textbf{Mode~A (point-target, 6 cases)}---red pixel, blue
+needle tip, green dot, purple diamond, yellow line endpoint,
+arrow nose---produces $\mathbf{6/6\!=\!100\%}$ hit at
+$\leq\!20$\,px with mean $4.13$\,px.  \textbf{Mode~B
+(boundary-ambiguous, 4 cases)}---orange-circle center,
+crosshair intersection, white-square top-left corner,
+innermost-ring center---produces $3/4\!=\!75\%$ hit, with the
+crosshair-intersection ($30.8$\,px) as the sole pinpoint miss.
+The two-mode partition isolates the arm~C selectivity gate:
+$N\!=\!3$ plurality-vote on tool-use routing absorbs the
+arm~B single-sample bimodality
+($\sigma_B\!=\!32.55$ vs.\ $\sigma_A\!=\!10.15$, $3.21\!\times$
+ratio exceeding $\sqrt{3}$) when the target geometry admits a
+unique convergent vote, and degrades to marginal improvement
+when the target's geometric center is itself ambiguous.
+
+\paragraph{Routing path $\times$ aggregation strategy as a non-additive interaction.}
+The 2$\times$2 factorial (routing: heuristic versus
+LLM-routed; aggregation: $N\!=\!1$ versus $N\!=\!3$) with
+arms A (heuristic, $N\!=\!3$), B (LLM-routed, $N\!=\!1$),
+and~C (LLM-routed, $N\!=\!3$) leaves the heuristic-$N\!=\!1$
+cell unmeasured but is informative as-is: the heuristic
+arm~A produces approximately uniform pinpoint mean
+($12.1$--$18.3$\,px range across categories) but non-uniform
+threshold-stratified hit rates ($50$--$90\%$ range, with
+\texttt{precision} as the weakest at $50\%$), whereas the
+LLM-routed arms B,~C exhibit category- and
+geometry-dependent variance (Mode~A/B partition above).  The benefit of
+$N\!=\!3$ aggregation is therefore \emph{conditioned} on
+the routing path: arm~C's $+13.4$\,pp advantage over arm~A
+is realised primarily on Mode~A point-targets where
+LLM routing both has signal to extract and converges on
+a vote, and the gain is substantively reduced on Mode~B
+boundary-ambiguous targets.  Notably, the \texttt{precision}
+category---where arm~A is also at $50\%$ hit, matching
+arm~B---shows the strongest cross-regime jump to arm~C's
+$90\%$, which is suggestive of non-additive interaction
+between routing path and aggregation strategy; however, with
+the (heuristic, $N\!=\!1$) cell unmeasured, a clean factorial
+interaction-effect estimate cannot be made from this data.
+The pattern is consistent with $N\!=\!3$ plurality-vote on
+tool-use routing occupying a regime not directly accessible
+to $N\!=\!3$ heuristic or $N\!=\!1$ tool-use under the
+partial factorial measured here.  This suggestive
+non-additivity indicates that
+aggregation-strategy and routing-path choices
+should not be tuned in isolation; the selectivity gate
+identified here is a candidate target for future
+work on adaptive-sampling control.
+
+\subsection{Resolution-method interaction}
+\label{sec:resolution-method}
+
+The guardrail set we propose was largely shaped by Claude
+Sonnet~4's effective $\sim\!1024$-pixel vision pipeline.
+With higher-resolution VLMs (e.g., Claude Opus~4.7's
+$\sim\!2576$-pixel input), several future-work
+guardrails---G-3 (hybrid post-HIT verification), G-5 (letter
+labels), G-6 (hollow ring dots)---may transition from
+speculative to empirically validatable: their failure modes
+in the guardrail-applied campaign were partially attributable to
+resolution-induced ambiguity (close-spaced markers
+indistinguishable, crowded toolbar text unreadable) rather
+than fundamental methodological flaw.  Conversely, our
+$1024$-pixel zoom cap (G-2) is itself resolution-dependent
+and should scale with VLM input resolution.  As VLMs continue
+to advance---and as displays push beyond 4K toward 8K---the
+guardrail--resolution co-design space remains under-explored.
+Future work should systematically map guardrail effectiveness
+across (model-resolution $\times$ screen-resolution
+$\times$ target-size) regimes.

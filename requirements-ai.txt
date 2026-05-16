@@ -1,0 +1,14 @@
+# AIプリフライトアドオン用（使用するバックエンドに応じて必要なものだけインストールしてください）
+
+# OpenAI (GPT-4o / GPT-4o-mini) バックエンド用
+openai>=1.0.0
+
+# Claude (Anthropic) バックエンド用
+# anthropic>=0.25.0
+
+# Grok (xAI) バックエンド用 ※ OpenAIと同じライブラリを使用
+# openai>=1.0.0  # 上記と共通
+
+# Gemini (Google) バックエンド用
+# google-generativeai>=0.7.0
+# pillow>=9.0.0

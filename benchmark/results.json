@@ -1,0 +1,262 @@
+[
+  {
+    "method": "pinpoint",
+    "x": 958,
+    "y": 543,
+    "queries": 29,
+    "time_s": 538.25,
+    "phase1_queries": 4,
+    "phase2_rounds": 8,
+    "phase2_hit_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The faint light-gray circle's center pixel is at approximately (510, 510) in the",
+    "phase1_time": 77.693,
+    "phase_1_5_time": 17.332,
+    "phase2_time": 443.225,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      958,
+      543
+    ],
+    "stage_c_output_xy": [
+      958,
+      543
+    ],
+    "stage_c_source": "",
+    "stage_c_reasoning": "",
+    "phase_1_5_structured": {},
+    "phase_1_samples": [
+      [
+        958,
+        543
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "none",
+    "test_id": "ambiguous_01",
+    "category": "ambiguous",
+    "gt_x": 960,
+    "gt_y": 540,
+    "distance_px": 3.6,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 750,
+    "y": 279,
+    "queries": 30,
+    "time_s": 599.04,
+    "phase1_queries": 5,
+    "phase2_rounds": 8,
+    "phase2_hit_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The tip of the thin blue needle pointing up is the single-pixel top end of the v",
+    "phase1_time": 92.049,
+    "phase_1_5_time": 20.307,
+    "phase2_time": 486.684,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      737,
+      302
+    ],
+    "stage_c_output_xy": [
+      737,
+      302
+    ],
+    "stage_c_source": "",
+    "stage_c_reasoning": "",
+    "phase_1_5_structured": {},
+    "phase_1_samples": [
+      [
+        737,
+        302
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "none",
+    "test_id": "precision_01",
+    "category": "precision",
+    "gt_x": 750,
+    "gt_y": 280,
+    "distance_px": 1.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 903,
+    "y": 614,
+    "queries": 29,
+    "time_s": 563.99,
+    "phase1_queries": 4,
+    "phase2_rounds": 8,
+    "phase2_hit_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the tiny green dot is at approximately pixel (775, 555) in the ima",
+    "phase1_time": 82.627,
+    "phase_1_5_time": 22.646,
+    "phase2_time": 458.718,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      800,
+      586
+    ],
+    "stage_c_output_xy": [
+      800,
+      586
+    ],
+    "stage_c_source": "",
+    "stage_c_reasoning": "",
+    "phase_1_5_structured": {},
+    "phase_1_samples": [
+      [
+        800,
+        586
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "none",
+    "test_id": "precision_02",
+    "category": "precision",
+    "gt_x": 902,
+    "gt_y": 602,
+    "distance_px": 12.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 487,
+    "y": 356,
+    "queries": 29,
+    "time_s": 571.79,
+    "phase1_queries": 4,
+    "phase2_rounds": 8,
+    "phase2_hit_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the small orange circle is at approximately (601, 544)",
+    "phase1_time": 86.963,
+    "phase_1_5_time": 17.155,
+    "phase2_time": 467.669,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      455,
+      337
+    ],
+    "stage_c_output_xy": [
+      455,
+      337
+    ],
+    "stage_c_source": "",
+    "stage_c_reasoning": "",
+    "phase_1_5_structured": {},
+    "phase_1_samples": [
+      [
+        455,
+        337
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "none",
+    "test_id": "precision_03",
+    "category": "precision",
+    "gt_x": 490,
+    "gt_y": 350,
+    "distance_px": 6.7,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1320,
+    "y": 681,
+    "queries": 29,
+    "time_s": 555.49,
+    "phase1_queries": 4,
+    "phase2_rounds": 8,
+    "phase2_hit_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The crosshair intersection is the exact center pixel where the red horizontal an",
+    "phase1_time": 70.939,
+    "phase_1_5_time": 21.343,
+    "phase2_time": 463.211,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1379,
+      688
+    ],
+    "stage_c_output_xy": [
+      1379,
+      688
+    ],
+    "stage_c_source": "",
+    "stage_c_reasoning": "",
+    "phase_1_5_structured": {},
+    "phase_1_samples": [
+      [
+        1379,
+        688
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "none",
+    "test_id": "precision_04",
+    "category": "precision",
+    "gt_x": 1320,
+    "gt_y": 680,
+    "distance_px": 1.0,
+    "repeat": 0
+  }
+]

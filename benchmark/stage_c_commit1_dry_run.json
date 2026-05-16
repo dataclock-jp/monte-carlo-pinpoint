@@ -1,0 +1,260 @@
+{
+  "commit": "stage_c Commit 1 dry-run",
+  "p1_cases": [
+    "ui_button_04",
+    "ui_dense_02",
+    "ui_dense_03",
+    "ui_dense_06",
+    "ui_dense_09"
+  ],
+  "determinism_n": 10,
+  "per_case": [
+    {
+      "test_id": "ui_button_04",
+      "target": "the center of the 'Save' button in the toolbar",
+      "approx_xy": [
+        551,
+        13
+      ],
+      "gt_xy": [
+        538,
+        27
+      ],
+      "v7_distance_px": 19.1,
+      "stage_b_ref": {
+        "hit": false,
+        "x": 551,
+        "y": 13,
+        "match": "",
+        "time_s": 1.899477481842041
+      },
+      "stage_c_menu_item": {
+        "hit": false,
+        "x": 551,
+        "y": 13,
+        "method": "menu_item_miss",
+        "confidence": 0.0,
+        "match": "",
+        "time_s": 0.47065210342407227
+      },
+      "stage_c_generic": {
+        "hit": false,
+        "x": 551,
+        "y": 13,
+        "method": "generic_miss",
+        "confidence": 0.0
+      },
+      "byte_identical_menu_vs_stage_b": true,
+      "generic_invariant_ok": true,
+      "determinism_menu_item": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      },
+      "determinism_generic": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      }
+    },
+    {
+      "test_id": "ui_dense_02",
+      "target": "the center of the 'Undo' icon in the palette",
+      "approx_xy": [
+        257,
+        78
+      ],
+      "gt_xy": [
+        280,
+        85
+      ],
+      "v7_distance_px": 24.0,
+      "stage_b_ref": {
+        "hit": true,
+        "x": 262,
+        "y": 80,
+        "match": "Und0",
+        "time_s": 0.49547433853149414
+      },
+      "stage_c_menu_item": {
+        "hit": true,
+        "x": 262,
+        "y": 80,
+        "method": "menu_item",
+        "confidence": 1.0,
+        "match": "Und0",
+        "time_s": 0.4870719909667969
+      },
+      "stage_c_generic": {
+        "hit": false,
+        "x": 257,
+        "y": 78,
+        "method": "generic_miss",
+        "confidence": 0.0
+      },
+      "byte_identical_menu_vs_stage_b": true,
+      "generic_invariant_ok": true,
+      "determinism_menu_item": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      },
+      "determinism_generic": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      }
+    },
+    {
+      "test_id": "ui_dense_03",
+      "target": "the center of the 'Image' icon in the compact bar",
+      "approx_xy": [
+        193,
+        14
+      ],
+      "gt_xy": [
+        202,
+        20
+      ],
+      "v7_distance_px": 10.8,
+      "stage_b_ref": {
+        "hit": false,
+        "x": 193,
+        "y": 14,
+        "match": "",
+        "time_s": 0.46617960929870605
+      },
+      "stage_c_menu_item": {
+        "hit": false,
+        "x": 193,
+        "y": 14,
+        "method": "menu_item_miss",
+        "confidence": 0.0,
+        "match": "",
+        "time_s": 0.4499197006225586
+      },
+      "stage_c_generic": {
+        "hit": false,
+        "x": 193,
+        "y": 14,
+        "method": "generic_miss",
+        "confidence": 0.0
+      },
+      "byte_identical_menu_vs_stage_b": true,
+      "generic_invariant_ok": true,
+      "determinism_menu_item": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      },
+      "determinism_generic": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      }
+    },
+    {
+      "test_id": "ui_dense_06",
+      "target": "the center of the 'Save' icon in the IDE toolbar",
+      "approx_xy": [
+        422,
+        35
+      ],
+      "gt_xy": [
+        430,
+        37
+      ],
+      "v7_distance_px": 8.2,
+      "stage_b_ref": {
+        "hit": false,
+        "x": 422,
+        "y": 35,
+        "match": "",
+        "time_s": 0.46475982666015625
+      },
+      "stage_c_menu_item": {
+        "hit": false,
+        "x": 422,
+        "y": 35,
+        "method": "menu_item_miss",
+        "confidence": 0.0,
+        "match": "",
+        "time_s": 0.44969630241394043
+      },
+      "stage_c_generic": {
+        "hit": false,
+        "x": 422,
+        "y": 35,
+        "method": "generic_miss",
+        "confidence": 0.0
+      },
+      "byte_identical_menu_vs_stage_b": true,
+      "generic_invariant_ok": true,
+      "determinism_menu_item": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      },
+      "determinism_generic": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      }
+    },
+    {
+      "test_id": "ui_dense_09",
+      "target": "the center of the 'Chart' icon in the menu strip",
+      "approx_xy": [
+        825,
+        28
+      ],
+      "gt_xy": [
+        812,
+        59
+      ],
+      "v7_distance_px": 33.6,
+      "stage_b_ref": {
+        "hit": false,
+        "x": 825,
+        "y": 28,
+        "match": "",
+        "time_s": 0.4559056758880615
+      },
+      "stage_c_menu_item": {
+        "hit": false,
+        "x": 825,
+        "y": 28,
+        "method": "menu_item_miss",
+        "confidence": 0.0,
+        "match": "",
+        "time_s": 0.4658546447753906
+      },
+      "stage_c_generic": {
+        "hit": false,
+        "x": 825,
+        "y": 28,
+        "method": "generic_miss",
+        "confidence": 0.0
+      },
+      "byte_identical_menu_vs_stage_b": true,
+      "generic_invariant_ok": true,
+      "determinism_menu_item": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      },
+      "determinism_generic": {
+        "stdev_x": 0.0,
+        "stdev_y": 0.0,
+        "pass": true
+      }
+    }
+  ],
+  "summary": {
+    "cases": 5,
+    "stage_c_menu_item_hits": 1,
+    "stage_c_generic_hits": 0,
+    "all_byte_identical_menu_vs_stage_b": true,
+    "all_deterministic": true
+  }
+}

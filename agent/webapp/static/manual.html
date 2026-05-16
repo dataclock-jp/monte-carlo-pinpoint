@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video2AI Desktop Agent - Manual</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #242736;
+  --border: #2e3247;
+  --text: #e4e4e7;
+  --text2: #9ca3af;
+  --accent: #6366f1;
+  --accent-hover: #818cf8;
+  --green: #22c55e;
+  --blue: #3b82f6;
+  --yellow: #eab308;
+  --orange: #f97316;
+  --radius: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+.container { max-width: 820px; margin: 0 auto; padding: 32px 24px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+h1 span { color: var(--accent); }
+.subtitle { color: var(--text2); margin-bottom: 32px; font-size: 14px; }
+h2 { font-size: 20px; margin-top: 40px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+h3 { font-size: 16px; margin-top: 24px; margin-bottom: 8px; color: var(--accent-hover); }
+p { margin-bottom: 12px; font-size: 14px; }
+a { color: var(--accent-hover); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { background: var(--surface2); padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Consolas', monospace; }
+pre { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 12px 0; overflow-x: auto; font-size: 13px; font-family: 'Consolas', monospace; line-height: 1.5; }
+ul, ol { margin: 8px 0 12px 24px; font-size: 14px; }
+li { margin-bottom: 6px; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+th, td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+th { background: var(--surface2); font-weight: 600; }
+td { background: var(--surface); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 12px 0; }
+.card-title { font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 500; }
+.badge-free { background: var(--green); color: #000; }
+.badge-paid { background: var(--orange); color: #000; }
+.badge-recommend { background: var(--accent); color: #fff; }
+.steps { counter-reset: step; list-style: none; margin-left: 0; }
+.steps li { counter-increment: step; position: relative; padding-left: 36px; margin-bottom: 12px; }
+.steps li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 24px; height: 24px; background: var(--accent); color: #fff; border-radius: 50%; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.note { background: var(--surface2); border-left: 3px solid var(--yellow); padding: 12px 16px; margin: 12px 0; border-radius: 0 var(--radius) var(--radius) 0; font-size: 13px; }
+.back-link { display: inline-block; margin-bottom: 24px; font-size: 13px; color: var(--text2); }
+.back-link:hover { color: var(--accent-hover); }
+.toc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 24px; margin-bottom: 32px; }
+.toc-title { font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+.toc ul { list-style: none; margin: 0; padding: 0; }
+.toc li { margin-bottom: 4px; }
+.toc a { color: var(--text2); font-size: 13px; }
+.toc a:hover { color: var(--accent-hover); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="/" class="back-link">&larr; Desktop Agent に戻る</a>
+
+<h1>Video2AI <span>Desktop Agent</span></h1>
+<p class="subtitle">APIのないデスクトップアプリをAIで操作するためのマニュアル</p>
+
+<div class="toc">
+  <div class="toc-title">目次</div>
+  <ul>
+    <li><a href="#quickstart">クイックスタート</a></li>
+    <li><a href="#api-keys">API Key の取得方法</a></li>
+    <li><a href="#settings">設定項目</a></li>
+    <li><a href="#usage-auto">自律モード（AIが自動操作）</a></li>
+    <li><a href="#usage-manual">手動モード（画面クリックで操作）</a></li>
+    <li><a href="#safety">安全機能</a></li>
+    <li><a href="#tips">Tips</a></li>
+  </ul>
+</div>
+
+<!-- ===== Quick Start ===== -->
+<h2 id="quickstart">クイックスタート</h2>
+
+<ol class="steps">
+  <li>ターミナルでサーバーを起動する
+    <pre>cd video2ai
+python -m agent.webapp.run</pre>
+  </li>
+  <li>ブラウザで <a href="http://localhost:8765">http://localhost:8765</a> を開く</li>
+  <li>右パネルの <strong>Settings</strong> を開き、API Key と API URL を設定する（<a href="#api-keys">取得方法</a>）</li>
+  <li>Goal 欄にやりたいことを入力する（例：「メモ帳を開いてHello Worldと入力する」）</li>
+  <li><strong>Dry Run</strong> をONにしたまま <strong>Start</strong> を押して動作を確認する</li>
+  <li>問題なければ Dry Run をOFFにして再度 Start &mdash; AIが実際に操作を開始する</li>
+</ol>
+
+<!-- ===== API Keys ===== -->
+<h2 id="api-keys">API Key の取得方法</h2>
+<p>Desktop Agent は LLM Vision API を使って画面を解析します。以下のいずれかのプロバイダーから API Key を取得してください。</p>
+
+<!-- Gemini -->
+<div class="card">
+  <div class="card-title">
+    Google Gemini
+    <span class="badge badge-free">無料枠あり</span>
+    <span class="badge badge-recommend">おすすめ</span>
+  </div>
+  <p>コストを抑えて試すなら Gemini がおすすめです。無料枠で十分テストできます。</p>
+  <table>
+    <tr><th>対応モデル</th><td><code>gemini-2.5-flash</code>、<code>gemini-2.5-pro</code></td></tr>
+    <tr><th>API Key 取得</th><td><a href="https://aistudio.google.com/apikey" target="_blank">https://aistudio.google.com/apikey</a></td></tr>
+    <tr><th>API URL</th><td><code>https://generativelanguage.googleapis.com/v1beta/openai</code></td></tr>
+    <tr><th>料金</th><td>Flash: 無料枠あり（1日1500リクエスト）/ Pro: 従量課金</td></tr>
+  </table>
+  <h3>取得手順</h3>
+  <ol class="steps">
+    <li><a href="https://aistudio.google.com/apikey" target="_blank">Google AI Studio</a> にアクセスし、Googleアカウントでログイン</li>
+    <li>「APIキーを作成」をクリック</li>
+    <li>プロジェクトを選択（なければ新規作成）して「キーを作成」</li>
+    <li>表示された API Key（<code>AIza...</code> で始まる文字列）をコピー</li>
+    <li>Desktop Agent の Settings に以下を入力:
+      <ul>
+        <li><strong>API Key</strong>: コピーした API Key</li>
+        <li><strong>API URL</strong>: <code>https://generativelanguage.googleapis.com/v1beta/openai</code></li>
+        <li><strong>Model</strong>: <code>Gemini 2.5 Flash</code></li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<!-- Anthropic Claude -->
+<div class="card">
+  <div class="card-title">
+    Anthropic Claude
+    <span class="badge badge-paid">従量課金</span>
+    <span class="badge badge-recommend">高精度</span>
+  </div>
+  <p>画面解析の精度が高く、複雑な操作手順も正確に実行できます。有料プランならレート制限も余裕があります。</p>
+  <table>
+    <tr><th>対応モデル</th><td><code>claude-opus-4-6</code>、<code>claude-sonnet-4-6</code>、<code>claude-haiku-4-5</code></td></tr>
+    <tr><th>API Key 取得</th><td><a href="https://console.anthropic.com/settings/keys" target="_blank">https://console.anthropic.com/settings/keys</a></td></tr>
+    <tr><th>API URL</th><td>設定不要（自動設定）</td></tr>
+    <tr><th>料金</th><td>Sonnet: $3/1M入力 $15/1M出力 / Haiku: $0.80/1M入力 $4/1M出力 / Opus: $15/1M入力 $75/1M出力</td></tr>
+  </table>
+  <h3>取得手順</h3>
+  <ol class="steps">
+    <li><a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a> にアクセスし、アカウント作成・ログイン</li>
+    <li>左メニューの「API Keys」をクリック</li>
+    <li>「Create Key」をクリックし、名前を付けて作成</li>
+    <li>表示された API Key（<code>sk-ant-...</code> で始まる文字列）をコピー</li>
+    <li>Desktop Agent の Settings に以下を入力:
+      <ul>
+        <li><strong>API Key</strong>: コピーした API Key</li>
+        <li><strong>API URL</strong>: 入力不要（Claude選択時は自動で非表示になります）</li>
+        <li><strong>Model</strong>: <code>Claude Sonnet 4.6</code>（コスパ重視）または <code>Claude Opus 4.6</code>（最高精度）</li>
+      </ul>
+    </li>
+  </ol>
+  <div class="note">初回は支払い方法の登録とクレジットのチャージ（$5〜）が必要です。</div>
+</div>
+
+<!-- OpenAI -->
+<div class="card">
+  <div class="card-title">
+    OpenAI (GPT-4o)
+    <span class="badge badge-paid">従量課金</span>
+  </div>
+  <p>高精度な画面解析が必要な場合に。</p>
+  <table>
+    <tr><th>対応モデル</th><td><code>gpt-4o</code>、<code>gpt-4o-mini</code></td></tr>
+    <tr><th>API Key 取得</th><td><a href="https://platform.openai.com/api-keys" target="_blank">https://platform.openai.com/api-keys</a></td></tr>
+    <tr><th>API URL</th><td>空欄でOK（デフォルトで <code>https://api.openai.com</code>）</td></tr>
+    <tr><th>料金</th><td>GPT-4o: $2.50/1M入力 $10/1M出力 / Mini: $0.15/1M入力 $0.60/1M出力</td></tr>
+  </table>
+  <h3>取得手順</h3>
+  <ol class="steps">
+    <li><a href="https://platform.openai.com/signup" target="_blank">OpenAI Platform</a> でアカウント作成・ログイン</li>
+    <li>左メニューの「API keys」をクリック</li>
+    <li>「Create new secret key」をクリックし、名前を付けて作成</li>
+    <li>表示された API Key（<code>sk-...</code> で始まる文字列）をコピー</li>
+    <li>Desktop Agent の Settings に以下を入力:
+      <ul>
+        <li><strong>API Key</strong>: コピーした API Key</li>
+        <li><strong>API URL</strong>: 空欄</li>
+        <li><strong>Model</strong>: <code>GPT-4o</code> または <code>GPT-4o Mini</code></li>
+      </ul>
+    </li>
+  </ol>
+  <div class="note">初回は支払い方法の登録とクレジットのチャージ（$5〜）が必要です。</div>
+</div>
+
+<!-- xAI Grok -->
+<div class="card">
+  <div class="card-title">
+    xAI Grok
+    <span class="badge badge-free">無料枠あり</span>
+  </div>
+  <table>
+    <tr><th>対応モデル</th><td><code>grok-3-mini</code></td></tr>
+    <tr><th>API Key 取得</th><td><a href="https://console.x.ai/" target="_blank">https://console.x.ai/</a></td></tr>
+    <tr><th>API URL</th><td><code>https://api.x.ai/v1</code></td></tr>
+    <tr><th>料金</th><td>毎月 $25 の無料クレジット付与</td></tr>
+  </table>
+  <h3>取得手順</h3>
+  <ol class="steps">
+    <li><a href="https://console.x.ai/" target="_blank">xAI Console</a> にアクセスし、アカウント作成・ログイン</li>
+    <li>ダッシュボードの「API Keys」から新しいキーを作成</li>
+    <li>表示された API Key をコピー</li>
+    <li>Desktop Agent の Settings に以下を入力:
+      <ul>
+        <li><strong>API Key</strong>: コピーした API Key</li>
+        <li><strong>API URL</strong>: <code>https://api.x.ai/v1</code></li>
+        <li><strong>Model</strong>: <code>Grok 3 Mini</code></li>
+      </ul>
+    </li>
+  </ol>
+</div>
+
+<!-- ===== Settings ===== -->
+<h2 id="settings">設定項目</h2>
+<table>
+  <tr><th>項目</th><th>説明</th><th>推奨値</th></tr>
+  <tr><td><strong>Model</strong></td><td>使用するLLMモデル</td><td><code>gemini-2.5-flash</code>（コスパ重視）</td></tr>
+  <tr><td><strong>API Key</strong></td><td>プロバイダーから取得したキー</td><td>-</td></tr>
+  <tr><td><strong>API URL</strong></td><td>APIエンドポイント</td><td>プロバイダーにより異なる（上記参照）</td></tr>
+  <tr><td><strong>Method</strong></td><td>画面変化の検知方式</td><td><code>diff</code>（高速）</td></tr>
+  <tr><td><strong>Threshold</strong></td><td>変化として認識する感度（0〜1、小さいほど敏感）</td><td><code>0.02</code></td></tr>
+  <tr><td><strong>Interval</strong></td><td>画面キャプチャの間隔（秒）</td><td><code>1.0</code></td></tr>
+  <tr><td><strong>Max Steps</strong></td><td>最大ステップ数（0 = 無制限）</td><td><code>0</code> または <code>20</code>（テスト時）</td></tr>
+  <tr><td><strong>Language</strong></td><td>AIの応答言語</td><td><code>Japanese</code></td></tr>
+  <tr><td><strong>Dry Run</strong></td><td>ONで操作をシミュレーションのみ（実際のクリック等なし）</td><td>初回はON推奨</td></tr>
+</table>
+
+<div class="note">設定はブラウザの localStorage に保存されるため、次回アクセス時も引き継がれます。</div>
+
+<!-- ===== Auto Mode ===== -->
+<h2 id="usage-auto">自律モード（AIが自動操作）</h2>
+<p>Goal を入力して Start すると、AIが画面を見ながら自動的にマウス・キーボード操作を実行します。</p>
+
+<h3>使い方</h3>
+<ol>
+  <li>Goal 欄に目標を具体的に入力する</li>
+  <li><strong>Dry Run ON</strong> で Start して、AIがどんな操作を提案するか確認</li>
+  <li>問題なければ Stop → Dry Run OFF → 再度 Start</li>
+  <li>Pause で一時停止、Stop で完全停止</li>
+</ol>
+
+<h3>Goal の書き方のコツ</h3>
+<ul>
+  <li>具体的に: 「ファイルを保存」→「メモ帳でCtrl+Sを押してファイルを保存する」</li>
+  <li>手順を含める: 「Excelのセル A1 に "Hello" と入力し、Enterキーを押す」</li>
+  <li>完了条件を明示: 「...して、保存ダイアログが閉じるまで」</li>
+</ul>
+
+<!-- ===== Manual Mode ===== -->
+<h2 id="usage-manual">手動モード（画面クリックで操作）</h2>
+<p>エージェントを起動しなくても、画面プレビューを直接操作できます。</p>
+
+<table>
+  <tr><th>操作</th><th>方法</th></tr>
+  <tr><td><strong>クリック</strong></td><td>画面プレビュー上の操作したい場所をクリック</td></tr>
+  <tr><td><strong>テキスト入力</strong></td><td>下部バーにテキストを入力して「Type」ボタン</td></tr>
+  <tr><td><strong>キー入力</strong></td><td>下部バーにキー名を入力して「Key」ボタン（例: <code>Return</code>, <code>ctrl+s</code>, <code>Escape</code>）</td></tr>
+  <tr><td><strong>スクロール</strong></td><td>「Scroll Up」「Scroll Down」ボタン</td></tr>
+</table>
+
+<h3>キー名の例</h3>
+<p><code>Return</code> <code>Escape</code> <code>Tab</code> <code>BackSpace</code> <code>Delete</code> <code>space</code> <code>ctrl+s</code> <code>ctrl+c</code> <code>ctrl+v</code> <code>ctrl+z</code> <code>alt+F4</code> <code>ctrl+shift+s</code></p>
+
+<!-- ===== Safety ===== -->
+<h2 id="safety">安全機能</h2>
+
+<h3>Dry Run モード</h3>
+<p>ヘッダーの Dry Run トグルを ON にすると、AIが操作を「提案」するだけで実際のマウス・キーボード操作は行われません。初回テストでは必ず ON にしてください。</p>
+
+<h3>安全ルール（上級者向け）</h3>
+<p>JSON ファイルで禁止領域・禁止キー・確認ダイアログを設定できます。</p>
+<pre>{
+  "rules": [
+    {
+      "id": "no-taskbar",
+      "type": "forbidden_region",
+      "message": "タスクバーへの操作は禁止",
+      "region": {"x1": 0, "y1": 1040, "x2": 1920, "y2": 1080}
+    },
+    {
+      "id": "no-alt-f4",
+      "type": "forbidden_key",
+      "message": "Alt+F4 は禁止",
+      "keys": ["alt+F4"]
+    },
+    {
+      "id": "confirm-delete",
+      "type": "keyword_confirm",
+      "message": "削除操作を実行しますか？",
+      "keywords": ["delete", "削除", "remove"],
+      "fields": ["target", "reasoning"]
+    }
+  ]
+}</pre>
+
+<!-- ===== Tips ===== -->
+<h2 id="tips">Tips</h2>
+<ul>
+  <li><strong>画面プレビューにブラウザ自身が映る:</strong> ブラウザを最小化するか、セカンドモニターに移動してください</li>
+  <li><strong>操作速度が遅い:</strong> Interval を小さくする（例: <code>0.5</code>）と反応が速くなりますが、API コストが増えます</li>
+  <li><strong>誤操作を防ぐ:</strong> Max Steps を小さめ（<code>10</code>〜<code>20</code>）に設定し、段階的に進めてください</li>
+  <li><strong>変化検知が敏感すぎる:</strong> Threshold を上げてください（例: <code>0.05</code>）</li>
+  <li><strong>Action Log で動作を確認:</strong> 全ての操作とAIの判断がログに記録されます</li>
+  <li><strong>ポート変更:</strong> <code>python -m agent.webapp.run --port 9000</code></li>
+</ul>
+
+</div>
+</body>
+</html>

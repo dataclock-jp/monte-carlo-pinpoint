@@ -1,0 +1,209 @@
+Using claude CLI (subscription) for VLM calls
+Benchmark: 30 cases x 2 methods x 1 repeats = 60 runs (60 to do)
+Model: claude-sonnet-4-20250514
+======================================================================
+
+[ui_button_00] target='the center of the 'Import' button in the toolbar' gt=(70,25)
+  grid       rep0: (8,21) dist=62.1px Q=4 t=62.25s
+  pinpoint   rep0: (39,7) dist=35.8px Q=37 t=556.78s
+
+[ui_button_01] target='the center of the 'Cut' button in the toolbar' gt=(174,22)
+  grid       rep0: (135,21) dist=39.0px Q=4 t=58.86s
+  pinpoint   rep0: (174,22) dist=0.0px Q=12 t=184.85s
+
+[ui_button_02] target='the center of the 'Save' button in the toolbar' gt=(286,84)
+  grid       rep0: (250,79) dist=36.3px Q=4 t=59.12s
+  pinpoint   rep0: (286,84) dist=0.0px Q=12 t=175.04s
+
+[ui_button_03] target='the center of the 'Open' button in the toolbar' gt=(514,39)
+  grid       rep0: (478,20) dist=40.7px Q=4 t=57.01s
+  pinpoint   rep0: (503,37) dist=11.2px Q=37 t=550.46s
+
+[ui_button_04] target='the center of the 'Save' button in the toolbar' gt=(538,27)
+  grid       rep0: (540,7) dist=20.1px Q=4 t=67.85s
+  pinpoint   rep0: (538,26) dist=1.0px Q=12 t=186.94s
+
+[ui_button_05] target='the center of the 'Help' button in the toolbar' gt=(634,62)
+  grid       rep0: (645,20) dist=43.4px Q=4 t=59.1s
+  pinpoint   rep0: (667,46) dist=36.7px Q=37 t=563.49s
+
+[ui_button_06] target='the center of the 'File' button in the toolbar' gt=(769,24)
+  grid       rep0: (707,21) dist=62.1px Q=4 t=62.62s
+  pinpoint   rep0: (742,9) dist=30.9px Q=37 t=539.61s
+
+[ui_button_07] target='the center of the 'Redo' button in the toolbar' gt=(1080,30)
+  grid       rep0: (1044,4) dist=44.4px Q=4 t=56.16s
+  pinpoint   rep0: (1080,29) dist=1.0px Q=12 t=185.13s
+
+[ui_button_08] target='the center of the 'Search' button in the toolbar' gt=(349,74)
+  grid       rep0: (373,63) dist=26.4px Q=4 t=60.06s
+  pinpoint   rep0: (348,74) dist=1.0px Q=12 t=170.94s
+
+[ui_button_09] target='the center of the 'Print' button in the toolbar' gt=(393,34)
+  grid       rep0: (370,5) dist=37.0px Q=4 t=54.9s
+  pinpoint   rep0: (453,32) dist=60.0px Q=37 t=530.04s
+
+[ui_dense_00] target='the center of the 'Image' icon in the ribbon' gt=(45,52)
+  grid       rep0: (3,42) dist=43.2px Q=4 t=55.99s
+  pinpoint   rep0: (37,55) dist=8.5px Q=37 t=612.9s
+
+[ui_dense_01] target='the center of the 'Bell' icon in the dark toolbar' gt=(85,30)
+  grid       rep0: (62,4) dist=34.7px Q=4 t=57.68s
+  pinpoint   rep0: (84,18) dist=12.0px Q=37 t=529.12s
+
+[ui_dense_02] target='the center of the 'Undo' icon in the palette' gt=(280,85)
+  grid       rep0: (203,63) dist=80.1px Q=4 t=58.89s
+  pinpoint   rep0: (278,79) dist=6.3px Q=37 t=522.03s
+
+[ui_dense_03] target='the center of the 'Image' icon in the compact bar' gt=(202,20)
+  grid       rep0: (203,1) dist=19.0px Q=4 t=68.62s
+  pinpoint   rep0: (201,0) dist=20.0px Q=30 t=453.53s
+
+[ui_dense_04] target='the center of the 'Link' icon in the dark grid' gt=(322,72)
+  grid       rep0: (411,42) dist=93.9px Q=4 t=58.99s
+  pinpoint   rep0: (310,66) dist=13.4px Q=37 t=547.96s
+
+[ui_dense_05] target='the center of the 'Stop' icon in the wide buttons' gt=(775,50)
+  grid       rep0: (707,4) dist=82.1px Q=4 t=58.08s
+  pinpoint   rep0: (819,37) dist=45.9px Q=37 t=550.67s
+
+[ui_dense_06] target='the center of the 'Save' icon in the IDE toolbar' gt=(430,37)
+  grid       rep0: (433,7) dist=30.1px Q=4 t=61.88s
+  pinpoint   rep0: (429,27) dist=10.0px Q=37 t=534.3s
+
+[ui_dense_07] target='the center of the 'Save' icon in the card grid' gt=(680,72)
+  grid       rep0: (707,20) dist=58.6px Q=4 t=56.67s
+  pinpoint   rep0: (701,79) dist=22.1px Q=37 t=530.73s
+
+[ui_dense_08] target='the center of the 'Ruler' icon in the status bar' gt=(519,31)
+  grid       rep0: (522,0) dist=31.1px Q=4 t=57.93s
+  pinpoint   rep0: (514,18) dist=13.9px Q=37 t=561.81s
+
+[ui_dense_09] target='the center of the 'Chart' icon in the menu strip' gt=(812,59)
+  grid       rep0: (828,7) dist=54.4px Q=4 t=55.19s
+  pinpoint   rep0: (799,47) dist=17.7px Q=39 t=560.55s
+
+[precision_00] target='the single red pixel' gt=(1100,400)
+  grid       rep0: (1210,584) dist=214.4px Q=4 t=55.51s
+  pinpoint   rep0: (1086,586) dist=186.5px Q=37 t=522.38s
+
+[precision_01] target='the tip of the thin blue needle pointing up' gt=(750,280)
+  grid       rep0: (757,302) dist=23.1px Q=5 t=70.97s
+  pinpoint   rep0: (749,280) dist=1.0px Q=40 t=577.85s
+
+[precision_02] target='the center of the tiny green dot' gt=(902,602)
+  grid       rep0: (875,593) dist=28.5px Q=4 t=59.71s
+  pinpoint   rep0: (876,657) dist=60.8px Q=37 t=530.18s
+
+[precision_03] target='the exact center of the small orange circle' gt=(490,350)
+  grid       rep0: (478,337) dist=17.7px Q=4 t=58.06s
+  pinpoint   rep0: (492,311) dist=39.1px Q=37 t=517.48s
+
+[precision_04] target='the crosshair intersection' gt=(1320,680)
+  grid       rep0: (1379,688) dist=59.5px Q=4 t=56.95s
+  pinpoint   rep0: (1321,682) dist=2.2px Q=37 t=507.83s
+
+[precision_05] target='the center of the purple diamond shape' gt=(625,730)
+  grid       rep0: (645,723) dist=21.2px Q=4 t=55.07s
+  pinpoint   rep0: (628,746) dist=16.3px Q=37 t=525.36s
+
+[precision_06] target='the top-left corner of the white square' gt=(350,500)
+  grid       rep0: (354,510) dist=10.8px Q=4 t=56.91s
+  pinpoint   rep0: (351,500) dist=1.0px Q=37 t=525.72s
+
+[precision_07] target='the right endpoint of the horizontal yellow line' gt=(920,200)
+  grid       rep0: (876,194) dist=44.4px Q=4 t=65.28s
+  pinpoint   rep0: (946,207) dist=26.9px Q=38 t=553.01s
+
+[precision_08] target='the center of the innermost ring of the target' gt=(1400,850)
+  grid       rep0: (1390,843) dist=12.2px Q=4 t=57.21s
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+  pinpoint   rep0: (1383,865) dist=22.7px Q=37 t=392.8s
+
+[precision_09] target='the nose of the small arrow pointing right' gt=(320,150)
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+  grid       rep0: (None,None) dist=FAIL Q=2 t=19.91s
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+WARNING:root:CLI error (rc=1): 
+  pinpoint   rep0: (960,540) dist=749.5px Q=32 t=297.69s
+
+Results: D:\ClaudeProject\Video2AI. Translating Motion into Machine Understanding\video2ai\benchmark\results.json
+
+================================================================================
+BENCHMARK SUMMARY
+================================================================================
+
+Category        |       grid dist    grid Q |   pinpoint dist  pinpoint Q
+-------------------------------------------------------------------------
+precision       |     48.0px     4.1 |    110.6px    36.9
+ui_button       |     41.1px     4.0 |     17.8px    24.5
+ui_dense        |     52.7px     4.0 |     17.0px    36.5
+
+SUCCESS RATE
+--------------------------------------------------
+  <=  5px:  grid=  0.0%  pinpoint= 26.7%
+  <= 10px:  grid=  0.0%  pinpoint= 36.7%
+  <= 20px:  grid= 13.8%  pinpoint= 60.0%
+  <= 50px:  grid= 69.0%  pinpoint= 86.7%
+
+STAGE B
+--------------------------------------------------
+  hit rate: 0/30 = 0.0%
+
+Summary: D:\ClaudeProject\Video2AI. Translating Motion into Machine Understanding\video2ai\benchmark\summary.txt

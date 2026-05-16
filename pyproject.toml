@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "video2ai"
+version = "1.7.0"
+description = "Translate video into AI-readable format: change-detected screenshots + timestamped transcripts"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    { name = "tbtomo" },
+]
+keywords = [
+    "video",
+    "ai",
+    "screenshot",
+    "transcription",
+    "whisper",
+    "opencv",
+    "change-detection",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+license-files = ["LICENSE"]
+
+dependencies = [
+    "opencv-python-headless>=4.8.0",
+    "openai-whisper>=20231117",
+    "numpy>=1.24.0",
+    "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+youtube = [
+    "yt-dlp>=2024.0.0",
+    "youtube-transcript-api>=0.6.2",
+]
+ai = [
+    "openai>=1.0.0",
+]
+mcp = [
+    "mcp>=1.2.0",
+]
+diarize = [
+    "pyannote.audio>=3.3.0",
+]
+agent = [
+    "mss>=9.0.0",
+    "pyautogui>=0.9.54",
+    "Pillow>=9.0.0",
+    "pyperclip>=1.8.0",
+]
+webapp = [
+    "video2ai[agent,ai]",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+]
+all = [
+    "video2ai[youtube,ai,mcp,diarize,agent,webapp]",
+]
+
+[project.urls]
+Homepage = "https://github.com/dataclock-jp/monte-carlo-pinpoint"
+Repository = "https://github.com/dataclock-jp/monte-carlo-pinpoint"
+Issues = "https://github.com/dataclock-jp/monte-carlo-pinpoint/issues"
+
+[project.scripts]
+video2ai = "main:main"
+video2ai-youtube = "addons.youtube_main:main"
+video2ai-agent = "agent.webapp.run:main"
+
+[tool.setuptools]
+py-modules = ["main", "screenshot", "transcribe", "sync_map", "v2ai_archive", "agent_loop"]
+packages = ["addons", "agent", "agent.webapp"]

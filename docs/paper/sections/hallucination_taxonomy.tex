@@ -1,0 +1,502 @@
+%% ================================================================
+%%  NEW SECTION DRAFT — FAILURE MODE ANALYSIS AND
+%%  HALLUCINATION TAXONOMY
+%%
+%%  Intended placement: between §5 Experimental Evaluation and §6
+%%  Design Insights.  LaTeX auto-numbering will renumber subsequent
+%%  sections.
+%%
+%%  Status: DRAFT — awaiting v6 benchmark results for final numbers
+%%  in §X.1 and empirical validation of class-level guardrail impact
+%%  in §X.4.  All v5 statistics below are from
+%%  benchmark/full_run_v5_improvements.log and benchmark/summary.txt
+%%  of the v5 run committed in bd3a0cb.
+%%
+%%  2026-04-11 addendum: §X.6 Operational Failure Modes (O-1..O-3)
+%%  added at supervisor's request after the 2026-04-11 22:28 incident
+%%  where a v6 rerun aborted at 90 s on "Credit balance is too low"
+%%  hidden inside CLI stdout.  The three pipeline countermeasures
+%%  cited in §X.6 are implemented in commit 811028c.
+%% ================================================================
+
+\section{Failure Mode Analysis and Hallucination Taxonomy}
+\label{sec:taxonomy}
+
+Section~\ref{sec:results} reports Pinpoint's aggregate accuracy against
+the baselines.  Before we turn to design insights
+(§\ref{sec:insights}), we dissect \emph{why} Pinpoint fails when it
+fails.  Prior work on VLM-based GUI grounding treats grounding errors
+monolithically---Nguyen's iterative narrowing paper, for example,
+describes its own failure cases as ``context loss''~\cite{nguyen2024iterativenarrowing}
+without further decomposition.  We find that Pinpoint's errors are
+neither monolithic nor random: they decompose into a small number of
+structurally distinct hallucination classes, each rooted in a specific
+prompt-design or perceptual property.  Naming these classes is the
+prerequisite for targeted interventions.
+
+\subsection{A Bimodal Error Distribution}
+\label{sec:taxonomy-bimodal}
+
+Re-examining the 50-case pre-guardrail benchmark (Section~\ref{sec:experiments})
+case by case rather than in aggregate, we find that the Pinpoint error
+distribution is not unimodal.  Two disjoint regimes dominate:
+
+\paragraph{Mode~A ($34/50 = 68\%$, median $29$\,px).}
+When the Phase~1 grid search lands within the Phase~2 search radius
+$s_0 = 100$\,px of the true target, Pinpoint's Monte Carlo dot
+convergence succeeds: the median error in this subset is
+$29$\,px, and \emph{two cases reach $1.0$\,px}---confirming that
+pixel-level localization is achievable with a single VLM family
+when the algorithm is on-target.
+
+\paragraph{Mode~B ($16/50 = 32\%$, median $155$\,px).}
+When Phase~1 lands outside $s_0$ of the true target, Pinpoint does not
+recover.  Phase~2's per-round ``HIT'' on a hex-stencil dot simply
+selects the dot that looks closest to the VLM's internal expectation
+of the target within the already-misplaced search disc, returning a
+garbage answer with full confidence.  Critically, the catastrophic
+failures
+($>$200\,px) in this regime are \emph{tightly correlated} between
+Grid and Pinpoint---for example, on \texttt{ui\_dense\_08} a Grid
+estimate $388$\,px from the target is followed by a Pinpoint
+estimate $391$\,px from the same target.  Phase~2 does not correct
+Phase~1 errors; it faithfully propagates them.
+
+The overall Pinpoint median of $57$\,px across all $50$ cases is
+therefore a mixture artefact.  It describes neither Mode~A's
+near-target convergence ($29$\,px) nor Mode~B's cascade-propagated
+breakdown ($155$\,px); it is the centroid of two populations that
+require different interventions.  A Pinpoint that merely sharpens
+Mode~A will not move the aggregate median by much as long as Mode~B
+dominates the right tail.
+
+\subsection{Anatomy of a Mode~B Failure: Cascading Hallucination}
+\label{sec:taxonomy-cascade}
+
+Tracing through a single Mode~B case makes the mechanism concrete.
+The target is \texttt{ui\_button\_03}: ``the centre of the `Open'
+button in the toolbar'', ground truth $(514, 39)$.  Phase~1's
+axis-wise grid search lands at $(279, 21)$---it has correctly
+localized the \emph{row} of toolbar buttons (within $18$\,px
+vertically) but picked the wrong button within that row, a
+$235$\,px horizontal error that places the search disc entirely
+away from the target.
+
+Phase~1.5 then asks the VLM to declare the anchor.  The prompt is
+shown the Phase~1 context crop, which now contains the wrong button
+but not the target.  It is instructed to ``describe the exact pixel
+location you will target''.  The target is not in the crop, but the
+prompt does not allow the VLM to say so: it is a declarative command,
+not a binary check.  The VLM resolves the conflict in the only way it
+can---by re-interpreting the target to fit what it sees.  It declares
+the anchor as \emph{``the exact center pixel of the purple `Open'
+button''}, describing a visually similar toolbar button that happens
+to occupy the centre of the Phase~1 crop.
+
+Every subsequent round of Phase~2 now uses this corrupted description
+as its judgement criterion.  The majority vote
+(Section~\ref{sec:phase2}) faithfully picks the dot closest to
+the \emph{described} anchor, which is the wrong button's centre.
+After eight rounds of convergence, Pinpoint returns $(261, 24)$---
+$253$\,px from the true target---with unanimous agreement across
+all voting rounds.
+
+The failure is not random; it is \emph{cascading}: a single
+declaration error---forced by a prompt that does not permit
+non-existence---propagates through eight rounds of self-reinforcing
+confirmation.  A majority vote is powerless because every voter is
+ranking against the same contaminated anchor.
+
+This walkthrough motivates our taxonomy.  The cascading failure is
+not one bug but a chain: each step exposes a different hallucination
+class, each with its own prompt-level or perceptual root cause.
+
+\subsection{Hallucination Classes (H-$\ast$)}
+\label{sec:taxonomy-classes}
+
+We identify seven visual-grounding hallucination classes (H-1
+through H-7) by analyzing the exact prompts, image rendering,
+and voting procedure of our pre-guardrail Pinpoint implementation.  The
+classes are summarized in Table~\ref{tab:taxonomy} and elaborated
+below.  A given failure
+typically involves multiple classes; Mode~B failures are dominated by
+\textbf{H-3}.
+
+\begin{table*}[t]
+  \centering
+  \small
+  \caption{A taxonomy of VLM grounding hallucinations observed in
+    the pre-guardrail Pinpoint.  Severity reflects the frequency with which the
+    class appears in benchmark failures and its contribution to
+    Mode~B.  ``Root'' marks the class identified as the dominant
+    cause of cascading Mode~B failures.}
+  \label{tab:taxonomy}
+  \begin{tabular}{@{}llp{6.2cm}p{3.5cm}c@{}}
+    \toprule
+    \textbf{ID} & \textbf{Name} & \textbf{Failure mechanism} &
+    \textbf{Prompt / render trigger} & \textbf{Severity} \\
+    \midrule
+    H-1 & Forced choice         & Prompt insists the VLM pick one dot,
+                                   producing false-positive HITs when
+                                   the target is absent                       & ``you must pick one''          & High \\
+    H-2 & Pseudo majority       & Identical prompts at temperature~0
+                                   yield non-independent votes, so a
+                                   ``majority'' filter behaves like a
+                                   single sample                              & 3 votes of same image, $T{=}0$  & Medium \\
+    H-3 & Anchor contamination  & Declaration forced on an absent-target
+                                   crop; VLM picks a similar element as
+                                   anchor, corrupting all later rounds        & ``declare the target pixel''   & \textbf{Root} \\
+    H-4 & Target occlusion      & Filled dots physically cover the very
+                                   pixels they purport to mark, denying
+                                   the VLM ground evidence                   & radius-2 filled circles         & Medium \\
+    H-5 & Salience capture      & Bright dot colours and numeric labels
+                                   dominate attention at the expense of
+                                   the underlying target                     & 7 saturated hues                & Low--Med \\
+    H-6 & Label displacement    & Numeric labels drawn at $+$3,$-$10
+                                   offset from dot centre; VLM may
+                                   reference the label, not the dot          & text offset relative to marker  & Low \\
+    H-7 & Relative ``closest''  & ``closest'' is scale-free: any dot can
+                                   be closest, even 50\,px away               & no distance threshold           & Medium \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+
+\paragraph{H-1 Forced choice.}
+The Phase~2 prompt includes the phrase ``there is always a closest
+dot---you must pick one''.  This wording was introduced to discourage
+the VLM from refusing to answer, but it also eliminates the
+possibility of the VLM reporting that no dot is on the target.  In
+Mode~B cases, where the search disc does not contain the true target,
+the VLM is structurally compelled to return a dot.  The returned
+number is indistinguishable, from the caller's perspective, from a
+genuine HIT.
+
+\paragraph{H-2 Pseudo-majority vote.}
+\label{par:h2-pseudo-majority}
+The pre-guardrail implementation calls the VLM three times per Phase~2 round on
+\emph{identical} images and prompts at temperature zero, and takes
+the majority answer.  With a deterministic decoder this is not a vote
+over independent samples: all three calls are expected to return the
+same answer, and any systematic bias (e.g.\ colour preference, label
+position bias) appears in all three votes in the same direction.  The
+majority filter therefore removes sporadic decoding noise but cannot
+correct structural bias.  This observation is the empirical caveat to
+condition~(ii) of Theorem~\ref{thm:convergence}'s convergence
+guarantee: the independent-trial assumption underlying
+Table~\ref{tab:convergence-error} is violated under this decoder
+configuration.
+
+\paragraph{H-3 Anchor contamination (root cause of Mode~B).}
+This is the class exhibited in §\ref{sec:taxonomy-cascade}.  The
+anchor declaration prompt is declarative, not interrogative.  It
+assumes the target is visible and asks the VLM to describe its exact
+pixel.  When Phase~1 is off-target, the VLM has no way to push back:
+it must produce a description, and it produces the best description
+it can of whatever \emph{is} in the crop.  This description then
+becomes the judgement criterion for eight rounds of Phase~2, each of
+which faithfully ranks dots against it.  Faithfulness bias
+\cite{kadavath2022language} guarantees that the VLM will find a
+winner.  Because the anchor is the only object that persists across
+rounds, corrupting it corrupts everything downstream.
+
+\paragraph{H-4 Target occlusion.}
+Dots are rendered as 4-pixel filled circles with a 1-pixel white
+outline.  Their purpose is to mark candidate positions, but a
+filled dot placed on the target necessarily \emph{covers} the
+target's pixels in the image the VLM sees.  The VLM is then judging
+``is this dot on the target?'' using only the pixels at the dot's
+perimeter---a far weaker evidence source than the pixel actually
+under the dot centre.  This is a second-order effect but compounds
+H-5 and H-7.
+
+\paragraph{H-5 Salience capture.}
+At the resolution the VLM perceives, the dots are some of the most
+visually salient features in the image: small, saturated, distinct
+from almost any background.  This is deliberate for legibility, but
+it creates a risk that VLM attention becomes dominated by the dots
+themselves rather than their relationship to the target.  Anecdotally
+we have observed the VLM's self-reported reasoning refer to dot
+colour properties (``the red dot'') more often than target properties
+(``the button label''), suggesting dot-centric rather than
+target-centric attention.
+
+\paragraph{H-6 Label displacement.}
+Each dot is drawn with its numeric label at offset $(+3, -10)$ from
+the dot centre, so the label does not overlap the dot.  The VLM is
+instructed to ``identify which numbered dot is closest to the target''
+and reply with ``D\textless number\textgreater''.  But the spatial
+reference for ``D3'' is ambiguous: is it the location of the coloured
+circle, or the location of the text ``3''?  A 10-pixel upward offset
+is within one image patch at typical vision-encoder resolutions, so
+the VLM's notion of ``dot~3's location'' may be biased several pixels
+upward.  The effect is small but systematic.
+
+\paragraph{H-7 Relative ``closest''.}
+The phrase ``which dot is \emph{closest}'' defines closeness as a
+ranking, not a threshold.  If every dot is 50\,px away from the
+target, the VLM will still return ``the closest one''.  There is no
+prompt-level mechanism for the VLM to say ``no dot is \emph{on} the
+target''.  Combined with H-1, this means that Phase~2 rounds never
+report ``MISS for the right reason''.
+
+\subsection{Guardrails as Structured Responses}
+\label{sec:taxonomy-guardrails}
+
+With the failure classes named, the guardrail design problem becomes
+concrete: each guardrail should be analyzable as a targeted response
+to one or more classes, and the set of guardrails should cover the
+set of classes.  Table~\ref{tab:guardrail-matrix} maps the guardrails
+implemented or proposed in this work to the classes they address.
+
+\begin{table}[t]
+  \centering
+  \small
+  \caption{Guardrails (rows) by hallucination class (columns).
+    $\bullet$ = primary target, $\circ$ = secondary effect.  P1 and
+    P2 (G-1, G-2) are implemented in the guardrail-applied run reported in
+    Section~\ref{sec:results}; P3 (G-3), textual labelling (G-5),
+    perturbation voting (G-4), hollow rings (G-6), and directional
+    bisection (G-7) are future work targeting visual grounding
+    (H-1..H-7).}
+  \label{tab:guardrail-matrix}
+  \resizebox{\columnwidth}{!}{%
+  \begin{tabular}{@{}lccccccc l@{}}
+    \toprule
+    \textbf{Guardrail} & \multicolumn{7}{c}{\textbf{Visual grounding (H-1..H-7)}} & \textbf{Status} \\
+    \cmidrule(lr){2-8}
+                       & H-1 & H-2 & H-3 & H-4 & H-5 & H-6 & H-7 & \\
+    \midrule
+    G-1 Visibility check (P2)              & $\bullet$ &           & $\bullet$ &           &           &           & $\circ$   & applied \\
+    G-2 Zoom cap 1024\,px (P1)             &           &           &           & $\circ$   &           &           &           & applied \\
+    G-3 Hybrid post-HIT verification (P3)  & $\circ$   &           &           &           &           &           & $\bullet$ & future \\
+    G-4 Perturbation majority              &           & $\bullet$ &           &           & $\circ$   &           &           & future \\
+    G-5 Letter labels (A, B, C$\dots$)     &           &           &           &           & $\bullet$ & $\circ$   &           & future \\
+    G-6 Hollow ring dots                   &           &           &           & $\bullet$ &           &           &           & future \\
+    G-7 Directional bisection              & $\bullet$ &           &           & $\bullet$ &           & $\bullet$ &           & future \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+\paragraph{G-1: visibility check (this work, P2).}
+We replace the declarative anchor prompt (``describe the exact target
+pixel'') with an interrogative one (``is this target clearly visible?
+VISIBLE:\textellipsis\ or ABSENT:\textellipsis'').  This gives the VLM
+a structured escape hatch before it commits to a description, breaking
+the H-3 faithfulness chain at its source.  On an \texttt{ABSENT}
+response the anchor declaration is retried at a wider crop (one third
+of the screen) and, if still absent, on the full image.  Persistent
+absence is logged as a Mode~B signal for downstream confidence
+scoring.  G-1 also closes H-1 because the VLM is no longer in a
+``pick one'' regime; and it partially addresses H-7 because the
+``visible'' condition is a de facto proximity threshold.
+
+\paragraph{G-2: zoom cap (this work, P1).}
+Independent guidance from both the Claude API optimization documentation and
+empirical investigation indicates that Claude~3.5~Sonnet silently downscales
+images whose longer side exceeds roughly $1092$\,pixels at 1:1 aspect
+ratio.  Our pre-guardrail pipeline upscales context crops to $1200 \times 1200$
+and refinement crops to $1600 \times 1600$---both in the downscaled
+regime, losing approximately~17\% of the spatial resolution the
+operator believes they are providing.  Capping the upscale at $1024
+\times 1024$ eliminates this silent loss at no cost in latency or
+queries.  G-2 is a secondary contribution to H-4: sharper pixel
+evidence at the dot's edge.  We note that the $1024$-pixel cap
+is VLM-resolution-dependent: it was tuned to Sonnet~4's
+effective resolution.  For higher-resolution VLMs such as
+Opus~4.7 ($\sim\!2576$~px), the cap should scale accordingly;
+the principle generalizes, the constant does not
+(Section~\ref{sec:resolution-method}).
+
+\paragraph{Future guardrails (G-3 through G-7).}
+The remaining guardrails are deferred to future work but merit brief
+discussion because the taxonomy motivates them precisely.
+\textbf{G-3} adds a zero-shot post-HIT verification call---``is the
+target within 5\,px of dot D\textit{n}?''---that must use a completely
+independent API call with no prior conversational history to avoid
+confirmation bias.  \textbf{G-4} replaces the identical-input
+majority vote with input perturbation: cyclic colour shift and
+horizontal mirroring with inverse transform, so that a systematic
+bias in any single rendering is broken in the others.  \textbf{G-5}
+replaces numeric ``D3''-style labels with single-letter labels
+``A, B, C, \textellipsis'', exploiting the VLM's OCR pathway which
+prior work reports as $\approx$20\% more accurate at spatial
+localization than colour-based labels~\cite{you2023ferret}.
+\textbf{G-6} uses hollow ring dots with transparent centres so that
+the VLM can see the target pixels under a dot.  \textbf{G-7}
+replaces the closest-dot question with a directional bisection
+(``is the target north or south of dot A?''), converting an $N$-way
+classification into a sequence of binary relative-spatial
+judgements.  VLMs show measurably higher log-probability separation
+for binary spatial questions than for $N$-way categorical
+ones~\cite{seeclick, showui}.
+
+\subsection{Discussion}
+
+Two observations from this taxonomy are worth highlighting.
+
+\paragraph{Root cause is prompt shape, not model capability.}
+H-3, the class we identify as the root cause of Mode~B, is not a
+limitation of the underlying VLM's visual reasoning.  The same model
+that produces a contaminated anchor in an absent-target crop is able,
+given the same crop and an \emph{interrogative} prompt, to correctly
+report that the target is not present---as our G-1 experiment
+(Section~\ref{sec:results}) demonstrates.  The failure was built into
+the prompt.  This is a hopeful finding: it suggests that the ceiling
+on VLM grounding accuracy is not yet bounded by model capability but
+by the design of the prompting pipeline that wraps it.
+
+\paragraph{Aggregate metrics hide mode structure.}
+A median of $57$\,px and a mean of $87$\,px, in isolation, would lead
+a researcher to conclude that VLM grounding needs ``better models''
+or ``more training data''.  The bimodal structure reveals a very
+different diagnosis: in 68\,\% of cases Phase~1 lands within the
+Phase~2 search radius and Pinpoint converges to a median of $29$\,px
+(with two cases at $1.0$\,px), while in the remaining 32\,\% Phase~2
+cascades from a misplaced search disc into a garbage answer whose
+median distance is $155$\,px.  The failure in the latter 32\,\% is
+not an intrinsic precision limit; it is an \emph{entrained} error
+whose root cause is a single forced-commitment prompt.  We therefore
+encourage future VLM grounding papers to report
+\emph{mode-stratified} accuracy---accuracy conditioned on whether the
+coarse search landed in the correct neighbourhood---alongside
+aggregate metrics.  Publishing only aggregates can mask
+qualitatively different failure populations and misdirect research
+effort toward the wrong bottleneck.
+
+\subsection{Operational Failure Modes}
+\label{sec:operational-failures}
+
+The seven visual-grounding classes H-1 through H-7 describe failures
+\emph{internal to the model's reasoning}: the VLM is fed a well-formed
+image and prompt, and the resulting answer is wrong.  A parallel
+family of failures, which we denote with the O-$\ast$ family,
+occurs \emph{outside} the model---in the surrounding pipeline that
+shuttles images, prompts, and answers between components.  Operational
+failures are not cognitive errors; they are infrastructural faults
+that the model itself cannot observe, and that aggregate metrics
+silently absorb unless the pipeline is instrumented to detect them.
+We document them here because a grounding system that reports 58\,\%
+Mode~B in the field is indistinguishable from one reporting 58\,\%
+O-1 in the benchmark logs: both look like catastrophic failure, but
+the remedies are disjoint.  This distinction was forced on us by a
+real incident during this work; we report it as a worked example.
+
+\paragraph{O-1 Cascading silent failure.}
+The VLM API call returns a non-zero exit status, but the surrounding
+code path does not distinguish ``error'' from ``empty answer''.  The
+benchmark's \texttt{\_vlm\_call\_cli} helper captures \texttt{stdout}
+with \texttt{subprocess.run(capture\_output=True)}, and the underlying
+\texttt{claude\ -p} command writes its error message to
+\texttt{stdout} rather than \texttt{stderr}.  As a result, the caller
+logs only a generic \texttt{CLI\ error\ (rc=1):} line, swallows the
+specific cause (in our incident, \emph{``Credit balance is too
+low''}), and proceeds to the next case.  Every subsequent case
+records a \texttt{FAIL} result that is indistinguishable from a
+genuine grounding failure.  In a long run this can consume hours of
+wall clock time and produce a results file that passes sanity checks
+but contains no signal.
+
+\paragraph{O-2 Phantom miss via rate limit.}
+The API returns an HTTP success status but with a throttled or
+truncated body.  The caller parses a blank response as an empty
+answer, which the benchmark records as \texttt{FAIL} with distance
+\texttt{null}.  Unlike O-1 the exit status is clean, so no warning is
+emitted; the failure only becomes visible when a per-category failure
+rate spikes above its historical baseline.  A fleet of such phantom
+misses can halve headline accuracy without tripping any single
+alarm.
+
+\paragraph{O-3 Credit exhaustion mid-run.}
+An otherwise healthy run is interrupted part-way because a metered
+resource (API credit, disk quota, session lease) is depleted.  If the
+pipeline writes results in a single batch at the end of the run, all
+partial progress is lost on interrupt.  This occurred in our own pre-guardrail
+benchmark: 115 minutes of data were lost when the run was terminated
+near its cost ceiling, because \texttt{results.json} was written only
+after the outer loop completed.
+
+\paragraph{O-4 Audit-trail invisibility.}
+A different gap appears at the boundary between a guardrail and the
+operators who must trust its decisions.  When a mid-pipeline
+guardrail silently rejects, quarantines, or transforms its
+input---a dual-LLM quarantine boundary, an output sanitization
+step, a policy filter---downstream consumers observe only the
+post-filter result.  Operators investigating a false positive or a
+false negative have no structured trail to reconstruct what the
+guardrail saw, which mitigation fired, or why.  This is distinct
+from O-2 phantom miss, where an external API silently returns a
+throttled empty body: in O-4 the guardrail acted exactly as
+designed, but its action was not externalised in a queryable form.
+Aggregate accuracy figures absorb both classes into the same FAIL
+bucket while their remedies are disjoint.  Standard structured
+logging only partially addresses this, because a fully internalised
+log couples the engine to a persistence layer the engine has no
+business knowing about.  The mitigation we landed in this work---an
+injected callable audit sink, with each guardrail emitting a
+Pydantic-typed row (\texttt{LLMQAuditEntry} and
+\texttt{SanitizationAuditEntry}) through it---preserves the
+engine-server boundary while admitting opt-in observability,
+mirroring the inversion-of-control pattern previously used for
+approval-gate callbacks in the same engine.  The API was added at
+commit \texttt{4464902} on 2026-05-07; production wiring of the
+sink to a durable store remains future work.
+
+\paragraph{Countermeasures.}
+Three pipeline changes render O-1 through O-3 survivable, and a
+state-callback audit sink renders O-4 reconstructible, all without
+any change to the model or prompts.
+\textbf{First}, a \emph{90-second smoke check}: within 90--120 seconds
+of launch, the harness verifies that the first test case produced a
+non-null prediction.  If not, the run is aborted and the operator is
+notified.  In our incident this bounded the damage of O-1 to a single
+case---instead of several hours.
+\textbf{Second}, \emph{JSONL partial writes with fsync}: each case
+writes one line to a \texttt{results.json.partial} file and flushes
+to disk before the next VLM call.  A corrupted trailing line (from
+interrupt mid-write) is tolerated on reload.  This renders O-3
+fully recoverable.
+\textbf{Third}, \emph{unbuffered stdout}: replacing the default
+block-buffered stream with \texttt{line\_buffering=True} makes the
+live log file reflect real-time progress, so an operator watching a
+tail can catch O-1 and O-2 long before the smoke check would.
+\textbf{Fourth}, a \emph{structured audit emission API via
+state-callback sink}: each privileged guardrail emits Pydantic-typed
+audit rows---one schema per guardrail class---through a callable
+injected into workflow state at startup; the engine carries no
+compile-time dependency on the persistence layer, and a
+downstream server-side consumer can attach the sink to a durable
+store.  This renders O-4
+detectable by reconstruction without coupling the engine to log
+infrastructure, and the JSON round-trippable schema admits standard
+log aggregator interop.
+These three pipeline changes were introduced in our codebase as a
+single commit after the incident; we recommend them as defaults for
+any benchmark harness that wraps a metered external model.  The
+fourth, an admission rubric, was added subsequently at the workflow
+policy layer as agent ecosystems expanded beyond a single model
+boundary.  The fifth, an opaque-key-anchored polling primitive, was
+implemented directly in the dialogue server used in this work as a
+coordination-layer primitive that renders the cross-channel race
+condition unrepresentable by construction.  The sixth, a
+rephrase-confirm protocol, was adopted as a coordination norm
+during a development session in which two parse-divergence
+incidents occurred within hours, and is applied at the dispatch
+layer rather than the codebase.  The seventh, a structured audit
+emission API, was implemented in the engine layer at commit
+\texttt{4464902} as part of a pattern-coverage integration phase,
+with downstream persistence wiring staged for production.
+
+Operational failures occupy a different corner of the failure space
+than hallucinations, but they enter the same numerator in any
+headline accuracy figure.  A grounding system evaluated only on
+end-to-end accuracy cannot tell whether it lost 10\,\% to H-3 or to
+O-1, and the two require orthogonal remedies.  We therefore suggest
+that benchmark reports separate the two axes explicitly: one number
+for cognitive failures (H-$\ast$) and one for operational failures
+(O-$\ast$), with the latter expected to trend toward zero as
+infrastructure matures.
+
+%% ================================================================
+%%  END NEW SECTION DRAFT
+%% ================================================================

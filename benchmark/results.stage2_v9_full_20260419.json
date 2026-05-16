@@ -1,0 +1,3852 @@
+[
+  {
+    "method": "grid",
+    "x": 1,
+    "y": 21,
+    "queries": 4,
+    "time_s": 60.09,
+    "test_id": "ui_button_00",
+    "category": "ui_button",
+    "gt_x": 70,
+    "gt_y": 25,
+    "distance_px": 69.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 54,
+    "y": 26,
+    "queries": 37,
+    "time_s": 545.32,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Import' button is at approximately (328, 105) — t",
+    "phase1_time": 177.992,
+    "phase_1_5_time": 13.866,
+    "phase2_time": 353.442,
+    "stage_b_hit": false,
+    "stage_b_time": 0.019,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.019,
+    "stage_c_input_xy": [
+      1,
+      21
+    ],
+    "stage_c_output_xy": [
+      1,
+      21
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Import",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1,
+        21
+      ],
+      [
+        1,
+        21
+      ],
+      [
+        1,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_00",
+    "category": "ui_button",
+    "gt_x": 70,
+    "gt_y": 25,
+    "distance_px": 16.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 62,
+    "y": 0,
+    "queries": 4,
+    "time_s": 63.01,
+    "test_id": "ui_button_01",
+    "category": "ui_button",
+    "gt_x": 174,
+    "gt_y": 22,
+    "distance_px": 114.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 79,
+    "y": 22,
+    "queries": 12,
+    "time_s": 208.16,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 208.158,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.715,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      62,
+      0
+    ],
+    "stage_c_output_xy": [
+      79,
+      22
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Cut",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        203,
+        21
+      ],
+      [
+        47,
+        0
+      ],
+      [
+        62,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      86.064,
+      12.557
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_01",
+    "category": "ui_button",
+    "gt_x": 174,
+    "gt_y": 22,
+    "distance_px": 95.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 250,
+    "y": 79,
+    "queries": 4,
+    "time_s": 55.19,
+    "test_id": "ui_button_02",
+    "category": "ui_button",
+    "gt_x": 286,
+    "gt_y": 84,
+    "distance_px": 36.3,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 305,
+    "y": 72,
+    "queries": 37,
+    "time_s": 531.89,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Save' button is at approximately (604, 222), the ",
+    "phase1_time": 173.181,
+    "phase_1_5_time": 13.614,
+    "phase2_time": 345.091,
+    "stage_b_hit": false,
+    "stage_b_time": 0.002,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.002,
+    "stage_c_input_xy": [
+      250,
+      20
+    ],
+    "stage_c_output_xy": [
+      250,
+      20
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        236,
+        20
+      ],
+      [
+        250,
+        75
+      ],
+      [
+        250,
+        18
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.227,
+      32.052
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_02",
+    "category": "ui_button",
+    "gt_x": 286,
+    "gt_y": 84,
+    "distance_px": 22.5,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 703,
+    "y": 0,
+    "queries": 4,
+    "time_s": 55.21,
+    "test_id": "ui_button_03",
+    "category": "ui_button",
+    "gt_x": 514,
+    "gt_y": 39,
+    "distance_px": 193.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 540,
+    "y": 25,
+    "queries": 39,
+    "time_s": 569.74,
+    "phase1_queries": 14,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Open' button is at approximately (608, 108), the ",
+    "phase1_time": 203.982,
+    "phase_1_5_time": 14.754,
+    "phase2_time": 351.006,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.161,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      478,
+      0
+    ],
+    "stage_c_output_xy": [
+      478,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Open",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        478,
+        0
+      ],
+      [
+        475,
+        12
+      ],
+      [
+        478,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      1.732,
+      6.928
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_03",
+    "category": "ui_button",
+    "gt_x": 514,
+    "gt_y": 39,
+    "distance_px": 29.5,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 537,
+    "y": 1,
+    "queries": 4,
+    "time_s": 58.01,
+    "test_id": "ui_button_04",
+    "category": "ui_button",
+    "gt_x": 538,
+    "gt_y": 27,
+    "distance_px": 26.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 538,
+    "y": 26,
+    "queries": 12,
+    "time_s": 195.9,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 195.902,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.767,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      538,
+      1
+    ],
+    "stage_c_output_xy": [
+      538,
+      26
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        540,
+        0
+      ],
+      [
+        538,
+        7
+      ],
+      [
+        522,
+        1
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      9.987,
+      3.969
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_04",
+    "category": "ui_button",
+    "gt_x": 538,
+    "gt_y": 27,
+    "distance_px": 1.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 645,
+    "y": 4,
+    "queries": 4,
+    "time_s": 54.23,
+    "test_id": "ui_button_05",
+    "category": "ui_button",
+    "gt_x": 634,
+    "gt_y": 62,
+    "distance_px": 59.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 665,
+    "y": 64,
+    "queries": 37,
+    "time_s": 544.11,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Help' button is at approximately pixel (460, 165), at the hor",
+    "phase1_time": 172.366,
+    "phase_1_5_time": 14.334,
+    "phase2_time": 357.41,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.032,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      645,
+      4
+    ],
+    "stage_c_output_xy": [
+      645,
+      4
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Help",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        645,
+        4
+      ],
+      [
+        645,
+        12
+      ],
+      [
+        645,
+        4
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      4.763
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_05",
+    "category": "ui_button",
+    "gt_x": 634,
+    "gt_y": 62,
+    "distance_px": 31.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 707,
+    "y": 21,
+    "queries": 4,
+    "time_s": 59.65,
+    "test_id": "ui_button_06",
+    "category": "ui_button",
+    "gt_x": 769,
+    "gt_y": 24,
+    "distance_px": 62.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 736,
+    "y": 29,
+    "queries": 37,
+    "time_s": 540.78,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'File' button is at approximately pixel (683, 55), at the hori",
+    "phase1_time": 179.256,
+    "phase_1_5_time": 15.733,
+    "phase2_time": 345.787,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.253,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      707,
+      21
+    ],
+    "stage_c_output_xy": [
+      707,
+      21
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "File",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        707,
+        21
+      ],
+      [
+        707,
+        21
+      ],
+      [
+        707,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_06",
+    "category": "ui_button",
+    "gt_x": 769,
+    "gt_y": 24,
+    "distance_px": 33.4,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1044,
+    "y": 4,
+    "queries": 4,
+    "time_s": 58.16,
+    "test_id": "ui_button_07",
+    "category": "ui_button",
+    "gt_x": 1080,
+    "gt_y": 30,
+    "distance_px": 44.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1100,
+    "y": 17,
+    "queries": 37,
+    "time_s": 527.01,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Redo' button is at approximately pixel (601, 75), the midpoin",
+    "phase1_time": 167.538,
+    "phase_1_5_time": 14.886,
+    "phase2_time": 344.584,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.299,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      1044,
+      0
+    ],
+    "stage_c_output_xy": [
+      1044,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Redo",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1044,
+        0
+      ],
+      [
+        1044,
+        0
+      ],
+      [
+        1044,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_07",
+    "category": "ui_button",
+    "gt_x": 1080,
+    "gt_y": 30,
+    "distance_px": 23.9,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 373,
+    "y": 63,
+    "queries": 4,
+    "time_s": 54.5,
+    "test_id": "ui_button_08",
+    "category": "ui_button",
+    "gt_x": 349,
+    "gt_y": 74,
+    "distance_px": 26.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 348,
+    "y": 74,
+    "queries": 12,
+    "time_s": 177.47,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 177.467,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.737,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      373,
+      63
+    ],
+    "stage_c_output_xy": [
+      348,
+      74
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Search",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        373,
+        63
+      ],
+      [
+        373,
+        63
+      ],
+      [
+        373,
+        63
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_08",
+    "category": "ui_button",
+    "gt_x": 349,
+    "gt_y": 74,
+    "distance_px": 1.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 370,
+    "y": 0,
+    "queries": 4,
+    "time_s": 55.92,
+    "test_id": "ui_button_09",
+    "category": "ui_button",
+    "gt_x": 393,
+    "gt_y": 34,
+    "distance_px": 41.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 356,
+    "y": 23,
+    "queries": 37,
+    "time_s": 546.66,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Print' button is at approximately pixel (570, 68), at the hor",
+    "phase1_time": 175.754,
+    "phase_1_5_time": 15.181,
+    "phase2_time": 355.729,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.427,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      370,
+      0
+    ],
+    "stage_c_output_xy": [
+      370,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Print",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        370,
+        0
+      ],
+      [
+        370,
+        0
+      ],
+      [
+        370,
+        30
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      16.887
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_09",
+    "category": "ui_button",
+    "gt_x": 393,
+    "gt_y": 34,
+    "distance_px": 38.6,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1,
+    "y": 10,
+    "queries": 4,
+    "time_s": 67.03,
+    "test_id": "ui_dense_00",
+    "category": "ui_dense",
+    "gt_x": 45,
+    "gt_y": 52,
+    "distance_px": 60.8,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 30,
+    "y": 50,
+    "queries": 37,
+    "time_s": 537.26,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Imag' (Image) icon — the red rectangle button in the top-left",
+    "phase1_time": 182.625,
+    "phase_1_5_time": 15.5,
+    "phase2_time": 339.137,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      3,
+      7
+    ],
+    "stage_c_output_xy": [
+      3,
+      7
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Image",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        5,
+        7
+      ],
+      [
+        1,
+        7
+      ],
+      [
+        3,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      1.887,
+      3.897
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_00",
+    "category": "ui_dense",
+    "gt_x": 45,
+    "gt_y": 52,
+    "distance_px": 15.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 8,
+    "y": 21,
+    "queries": 4,
+    "time_s": 55.2,
+    "test_id": "ui_dense_01",
+    "category": "ui_dense",
+    "gt_x": 85,
+    "gt_y": 30,
+    "distance_px": 77.5,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 34,
+    "y": 30,
+    "queries": 12,
+    "time_s": 183.87,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 183.871,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "icon",
+    "stage_c_confidence": 0.669,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      21,
+      21
+    ],
+    "stage_c_output_xy": [
+      34,
+      30
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Bell",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        47,
+        0
+      ],
+      [
+        21,
+        30
+      ],
+      [
+        21,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      14.722,
+      15.498
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_01",
+    "category": "ui_dense",
+    "gt_x": 85,
+    "gt_y": 30,
+    "distance_px": 51.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 203,
+    "y": 58,
+    "queries": 4,
+    "time_s": 68.15,
+    "test_id": "ui_dense_02",
+    "category": "ui_dense",
+    "gt_x": 280,
+    "gt_y": 85,
+    "distance_px": 81.6,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 272,
+    "y": 79,
+    "queries": 37,
+    "time_s": 540.65,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the green 'Undo' button is at approximately pixel (706, 205).",
+    "phase1_time": 191.349,
+    "phase_1_5_time": 15.296,
+    "phase2_time": 334.004,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      203,
+      58
+    ],
+    "stage_c_output_xy": [
+      203,
+      58
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Undo",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        203,
+        63
+      ],
+      [
+        203,
+        58
+      ],
+      [
+        280,
+        42
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      44.6,
+      11.057
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_02",
+    "category": "ui_dense",
+    "gt_x": 280,
+    "gt_y": 85,
+    "distance_px": 10.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": null,
+    "y": 0,
+    "queries": 4,
+    "time_s": 68.04,
+    "test_id": "ui_dense_03",
+    "category": "ui_dense",
+    "gt_x": 202,
+    "gt_y": 20,
+    "distance_px": null,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 209,
+    "y": 0,
+    "queries": 36,
+    "time_s": 545.08,
+    "phase1_queries": 11,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center pixel of the 'Imag' (Image) button is at approximately (497, 47).",
+    "phase1_time": 181.694,
+    "phase_1_5_time": 15.165,
+    "phase2_time": 348.217,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      204,
+      0
+    ],
+    "stage_c_output_xy": [
+      204,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Image",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        207,
+        0
+      ],
+      [
+        null,
+        0
+      ],
+      [
+        203,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      2.652,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_03",
+    "category": "ui_dense",
+    "gt_x": 202,
+    "gt_y": 20,
+    "distance_px": 21.2,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 280,
+    "y": 58,
+    "queries": 4,
+    "time_s": 59.48,
+    "test_id": "ui_dense_04",
+    "category": "ui_dense",
+    "gt_x": 322,
+    "gt_y": 72,
+    "distance_px": 44.3,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 320,
+    "y": 59,
+    "queries": 37,
+    "time_s": 540.88,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Link' icon (purple square, top row, second column) is at appr",
+    "phase1_time": 182.786,
+    "phase_1_5_time": 14.88,
+    "phase2_time": 343.208,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      411,
+      42
+    ],
+    "stage_c_output_xy": [
+      411,
+      42
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Link",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        411,
+        42
+      ],
+      [
+        411,
+        54
+      ],
+      [
+        411,
+        42
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      7.361
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_04",
+    "category": "ui_dense",
+    "gt_x": 322,
+    "gt_y": 72,
+    "distance_px": 13.2,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 708,
+    "y": 10,
+    "queries": 4,
+    "time_s": 57.0,
+    "test_id": "ui_dense_05",
+    "category": "ui_dense",
+    "gt_x": 775,
+    "gt_y": 50,
+    "distance_px": 78.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 765,
+    "y": 40,
+    "queries": 38,
+    "time_s": 541.77,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 1,
+    "anchor": "The center of the 'Stop' button (teal/cyan wide button in the top-right area) is",
+    "phase1_time": 171.328,
+    "phase_1_5_time": 28.008,
+    "phase2_time": 342.434,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      707,
+      4
+    ],
+    "stage_c_output_xy": [
+      707,
+      4
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Stop",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        707,
+        4
+      ],
+      [
+        707,
+        4
+      ],
+      [
+        707,
+        7
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      1.732
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_05",
+    "category": "ui_dense",
+    "gt_x": 775,
+    "gt_y": 50,
+    "distance_px": 14.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 433,
+    "y": 25,
+    "queries": 4,
+    "time_s": 61.77,
+    "test_id": "ui_dense_06",
+    "category": "ui_dense",
+    "gt_x": 430,
+    "gt_y": 37,
+    "distance_px": 12.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 486,
+    "y": 34,
+    "queries": 37,
+    "time_s": 544.48,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the orange-brown 'Save' button is at approximately pixel (651, 88)",
+    "phase1_time": 171.993,
+    "phase_1_5_time": 13.527,
+    "phase2_time": 358.956,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.062,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      370,
+      7
+    ],
+    "stage_c_output_xy": [
+      370,
+      7
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        370,
+        7
+      ],
+      [
+        317,
+        3
+      ],
+      [
+        370,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      30.744,
+      9.073
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_06",
+    "category": "ui_dense",
+    "gt_x": 430,
+    "gt_y": 37,
+    "distance_px": 56.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 660,
+    "y": 54,
+    "queries": 4,
+    "time_s": 61.7,
+    "test_id": "ui_dense_07",
+    "category": "ui_dense",
+    "gt_x": 680,
+    "gt_y": 72,
+    "distance_px": 26.9,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 700,
+    "y": 61,
+    "queries": 37,
+    "time_s": 539.64,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the blue-purple 'Save' button label is at approximatel",
+    "phase1_time": 181.976,
+    "phase_1_5_time": 14.424,
+    "phase2_time": 343.235,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      675,
+      54
+    ],
+    "stage_c_output_xy": [
+      675,
+      54
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        675,
+        54
+      ],
+      [
+        675,
+        20
+      ],
+      [
+        660,
+        54
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.66,
+      19.919
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_07",
+    "category": "ui_dense",
+    "gt_x": 680,
+    "gt_y": 72,
+    "distance_px": 22.8,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 522,
+    "y": 0,
+    "queries": 4,
+    "time_s": 66.73,
+    "test_id": "ui_dense_08",
+    "category": "ui_dense",
+    "gt_x": 519,
+    "gt_y": 31,
+    "distance_px": 31.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 389,
+    "y": 27,
+    "queries": 39,
+    "time_s": 561.11,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 3,
+    "anchor": "The image shows a grid of labeled colored buttons (Bell, Atta, Grid, Imag, Sear,",
+    "phase1_time": 176.458,
+    "phase_1_5_time": 45.656,
+    "phase2_time": 338.997,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      522,
+      0
+    ],
+    "stage_c_output_xy": [
+      522,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Ruler",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        522,
+        0
+      ],
+      [
+        522,
+        0
+      ],
+      [
+        507,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.227,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_08",
+    "category": "ui_dense",
+    "gt_x": 519,
+    "gt_y": 31,
+    "distance_px": 130.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 828,
+    "y": 4,
+    "queries": 4,
+    "time_s": 58.27,
+    "test_id": "ui_dense_09",
+    "category": "ui_dense",
+    "gt_x": 812,
+    "gt_y": 59,
+    "distance_px": 57.3,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 806,
+    "y": 42,
+    "queries": 39,
+    "time_s": 566.5,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 2,
+    "anchor": "The 'Chart' (truncated as 'Char') icon is the teal/green button in the top row, ",
+    "phase1_time": 176.413,
+    "phase_1_5_time": 47.425,
+    "phase2_time": 342.663,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      828,
+      4
+    ],
+    "stage_c_output_xy": [
+      828,
+      4
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Chart",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        828,
+        4
+      ],
+      [
+        875,
+        4
+      ],
+      [
+        813,
+        4
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      32.066,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_09",
+    "category": "ui_dense",
+    "gt_x": 812,
+    "gt_y": 59,
+    "distance_px": 18.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 966,
+    "y": 491,
+    "queries": 4,
+    "time_s": 57.03,
+    "test_id": "natural_00",
+    "category": "natural",
+    "gt_x": 960,
+    "gt_y": 450,
+    "distance_px": 41.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 960,
+    "y": 452,
+    "queries": 37,
+    "time_s": 546.56,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The tip of the red triangle is the apex pixel at approximately (503, 408) in the",
+    "phase1_time": 170.909,
+    "phase_1_5_time": 15.749,
+    "phase2_time": 359.907,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      966,
+      491
+    ],
+    "stage_c_output_xy": [
+      966,
+      491
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "tip",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        966,
+        491
+      ],
+      [
+        951,
+        491
+      ],
+      [
+        966,
+        491
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.66,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "natural_00",
+    "category": "natural",
+    "gt_x": 960,
+    "gt_y": 450,
+    "distance_px": 2.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 645,
+    "y": 405,
+    "queries": 4,
+    "time_s": 56.27,
+    "test_id": "natural_01",
+    "category": "natural",
+    "gt_x": 700,
+    "gt_y": 400,
+    "distance_px": 55.2,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 721,
+    "y": 421,
+    "queries": 37,
+    "time_s": 534.98,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the yellow circle is at approximately (700, 490).",
+    "phase1_time": 178.526,
+    "phase_1_5_time": 14.543,
+    "phase2_time": 341.911,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      630,
+      405
+    ],
+    "stage_c_output_xy": [
+      630,
+      405
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        630,
+        405
+      ],
+      [
+        623,
+        405
+      ],
+      [
+        638,
+        388
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      7.5,
+      9.526
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "natural_01",
+    "category": "natural",
+    "gt_x": 700,
+    "gt_y": 400,
+    "distance_px": 29.7,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 951,
+    "y": 534,
+    "queries": 4,
+    "time_s": 55.51,
+    "test_id": "natural_02",
+    "category": "natural",
+    "gt_x": 950,
+    "gt_y": 500,
+    "distance_px": 34.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1000,
+    "y": 521,
+    "queries": 37,
+    "time_s": 535.8,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact crossing point of the two white diagonal lines is at approximately pix",
+    "phase1_time": 176.603,
+    "phase_1_5_time": 13.866,
+    "phase2_time": 345.336,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      958,
+      534
+    ],
+    "stage_c_output_xy": [
+      958,
+      534
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "intersection",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        958,
+        543
+      ],
+      [
+        997,
+        522
+      ],
+      [
+        951,
+        534
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      24.965,
+      10.58
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "natural_02",
+    "category": "natural",
+    "gt_x": 950,
+    "gt_y": 500,
+    "distance_px": 54.2,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 783,
+    "y": 312,
+    "queries": 4,
+    "time_s": 62.42,
+    "test_id": "natural_03",
+    "category": "natural",
+    "gt_x": 800,
+    "gt_y": 300,
+    "distance_px": 20.8,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 810,
+    "y": 297,
+    "queries": 37,
+    "time_s": 521.86,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact apex pixel of the green triangular mountain peak is at approximately (",
+    "phase1_time": 171.739,
+    "phase_1_5_time": 14.124,
+    "phase2_time": 335.993,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      783,
+      321
+    ],
+    "stage_c_output_xy": [
+      783,
+      321
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "top",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        783,
+        321
+      ],
+      [
+        798,
+        321
+      ],
+      [
+        783,
+        308
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.66,
+      7.361
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "natural_03",
+    "category": "natural",
+    "gt_x": 800,
+    "gt_y": 300,
+    "distance_px": 10.4,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1380,
+    "y": 345,
+    "queries": 4,
+    "time_s": 63.91,
+    "test_id": "natural_04",
+    "category": "natural",
+    "gt_x": 1400,
+    "gt_y": 350,
+    "distance_px": 20.6,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1425,
+    "y": 361,
+    "queries": 38,
+    "time_s": 553.98,
+    "phase1_queries": 13,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the white star is at approximately (567, 520).",
+    "phase1_time": 195.397,
+    "phase_1_5_time": 13.686,
+    "phase2_time": 344.899,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1379,
+      345
+    ],
+    "stage_c_output_xy": [
+      1379,
+      345
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1302,
+        345
+      ],
+      [
+        1379,
+        345
+      ],
+      [
+        1390,
+        345
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      47.747,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "natural_04",
+    "category": "natural",
+    "gt_x": 1400,
+    "gt_y": 350,
+    "distance_px": 27.3,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 470,
+    "y": 688,
+    "queries": 4,
+    "time_s": 55.76,
+    "test_id": "natural_05",
+    "category": "natural",
+    "gt_x": 500,
+    "gt_y": 700,
+    "distance_px": 32.3,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 526,
+    "y": 755,
+    "queries": 37,
+    "time_s": 539.56,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The eye of the spiral pattern is at approximately pixel (530, 510), the tight cu",
+    "phase1_time": 170.63,
+    "phase_1_5_time": 15.066,
+    "phase2_time": 353.859,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      470,
+      688
+    ],
+    "stage_c_output_xy": [
+      470,
+      688
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        470,
+        688
+      ],
+      [
+        478,
+        688
+      ],
+      [
+        462,
+        688
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      7.878,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "natural_05",
+    "category": "natural",
+    "gt_x": 500,
+    "gt_y": 700,
+    "distance_px": 60.8,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1257,
+    "y": 543,
+    "queries": 4,
+    "time_s": 57.61,
+    "test_id": "natural_06",
+    "category": "natural",
+    "gt_x": 1240,
+    "gt_y": 550,
+    "distance_px": 18.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1309,
+    "y": 557,
+    "queries": 37,
+    "time_s": 519.76,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The rightmost tip pixel of the orange right-pointing arrowhead is at approximate",
+    "phase1_time": 170.387,
+    "phase_1_5_time": 15.905,
+    "phase2_time": 333.47,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1257,
+      543
+    ],
+    "stage_c_output_xy": [
+      1257,
+      543
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "tip",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1257,
+        543
+      ],
+      [
+        1212,
+        543
+      ],
+      [
+        1257,
+        543
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      25.981,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "natural_06",
+    "category": "natural",
+    "gt_x": 1240,
+    "gt_y": 550,
+    "distance_px": 69.4,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 951,
+    "y": 499,
+    "queries": 4,
+    "time_s": 60.46,
+    "test_id": "natural_07",
+    "category": "natural",
+    "gt_x": 1000,
+    "gt_y": 500,
+    "distance_px": 49.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1000,
+    "y": 504,
+    "queries": 37,
+    "time_s": 528.88,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the bullseye is at approximately (420, 510) — the whit",
+    "phase1_time": 171.98,
+    "phase_1_5_time": 17.546,
+    "phase2_time": 339.35,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1027,
+      499
+    ],
+    "stage_c_output_xy": [
+      1027,
+      499
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        951,
+        499
+      ],
+      [
+        1027,
+        499
+      ],
+      [
+        1027,
+        518
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      44.167,
+      10.825
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "natural_07",
+    "category": "natural",
+    "gt_x": 1000,
+    "gt_y": 500,
+    "distance_px": 4.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 615,
+    "y": 310,
+    "queries": 4,
+    "time_s": 55.82,
+    "test_id": "natural_08",
+    "category": "natural",
+    "gt_x": 600,
+    "gt_y": 300,
+    "distance_px": 18.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 620,
+    "y": 289,
+    "queries": 37,
+    "time_s": 524.07,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The brightest point of the gradient is the small near-white highlight at approxi",
+    "phase1_time": 178.057,
+    "phase_1_5_time": 17.629,
+    "phase2_time": 328.383,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      615,
+      310
+    ],
+    "stage_c_output_xy": [
+      615,
+      310
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        615,
+        310
+      ],
+      [
+        615,
+        310
+      ],
+      [
+        615,
+        310
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "natural_08",
+    "category": "natural",
+    "gt_x": 600,
+    "gt_y": 300,
+    "distance_px": 22.8,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1119,
+    "y": 774,
+    "queries": 4,
+    "time_s": 57.35,
+    "test_id": "natural_09",
+    "category": "natural",
+    "gt_x": 1100,
+    "gt_y": 700,
+    "distance_px": 76.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1064,
+    "y": 791,
+    "queries": 37,
+    "time_s": 519.0,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The corner where the green triangle's apex, the red circle's bottom edge, and th",
+    "phase1_time": 169.544,
+    "phase_1_5_time": 14.495,
+    "phase2_time": 334.963,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1104,
+      752
+    ],
+    "stage_c_output_xy": [
+      1104,
+      752
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "corner",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1104,
+        752
+      ],
+      [
+        1149,
+        744
+      ],
+      [
+        1077,
+        752
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      36.034,
+      4.763
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "natural_09",
+    "category": "natural",
+    "gt_x": 1100,
+    "gt_y": 700,
+    "distance_px": 97.9,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 485,
+    "y": 397,
+    "queries": 4,
+    "time_s": 57.26,
+    "test_id": "ambiguous_00",
+    "category": "ambiguous",
+    "gt_x": 500,
+    "gt_y": 400,
+    "distance_px": 15.3,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 521,
+    "y": 395,
+    "queries": 37,
+    "time_s": 536.1,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The slightly darker square's center pixel is at approximately (573, 543).",
+    "phase1_time": 176.982,
+    "phase_1_5_time": 23.096,
+    "phase2_time": 336.019,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      485,
+      397
+    ],
+    "stage_c_output_xy": [
+      485,
+      397
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        485,
+        397
+      ],
+      [
+        485,
+        397
+      ],
+      [
+        485,
+        397
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ambiguous_00",
+    "category": "ambiguous",
+    "gt_x": 500,
+    "gt_y": 400,
+    "distance_px": 21.6,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 958,
+    "y": 543,
+    "queries": 4,
+    "time_s": 63.39,
+    "test_id": "ambiguous_01",
+    "category": "ambiguous",
+    "gt_x": 960,
+    "gt_y": 540,
+    "distance_px": 3.6,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 996,
+    "y": 551,
+    "queries": 37,
+    "time_s": 525.25,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the faint circle is at approximately (510, 505) in the",
+    "phase1_time": 177.838,
+    "phase_1_5_time": 13.567,
+    "phase2_time": 333.841,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      958,
+      543
+    ],
+    "stage_c_output_xy": [
+      958,
+      543
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        958,
+        543
+      ],
+      [
+        875,
+        538
+      ],
+      [
+        958,
+        543
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      48.064,
+      2.598
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ambiguous_01",
+    "category": "ambiguous",
+    "gt_x": 960,
+    "gt_y": 540,
+    "distance_px": 37.6,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1128,
+    "y": 302,
+    "queries": 5,
+    "time_s": 68.87,
+    "test_id": "ambiguous_02",
+    "category": "ambiguous",
+    "gt_x": 1200,
+    "gt_y": 300,
+    "distance_px": 72.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1209,
+    "y": 310,
+    "queries": 40,
+    "time_s": 590.37,
+    "phase1_queries": 15,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the tiny red dot is at approximately (693, 507).",
+    "phase1_time": 228.574,
+    "phase_1_5_time": 14.705,
+    "phase2_time": 347.088,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1128,
+      302
+    ],
+    "stage_c_output_xy": [
+      1128,
+      302
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1128,
+        302
+      ],
+      [
+        1128,
+        302
+      ],
+      [
+        1155,
+        302
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      15.588,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ambiguous_02",
+    "category": "ambiguous",
+    "gt_x": 1200,
+    "gt_y": 300,
+    "distance_px": 13.5,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 783,
+    "y": 690,
+    "queries": 4,
+    "time_s": 62.95,
+    "test_id": "ambiguous_03",
+    "category": "ambiguous",
+    "gt_x": 800,
+    "gt_y": 700,
+    "distance_px": 19.7,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 803,
+    "y": 702,
+    "queries": 37,
+    "time_s": 519.22,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The small red cross mark's center pixel is at approximately (557, 532).",
+    "phase1_time": 168.153,
+    "phase_1_5_time": 14.298,
+    "phase2_time": 336.769,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      783,
+      693
+    ],
+    "stage_c_output_xy": [
+      783,
+      693
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        783,
+        693
+      ],
+      [
+        783,
+        693
+      ],
+      [
+        783,
+        690
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      2.165
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ambiguous_03",
+    "category": "ambiguous",
+    "gt_x": 800,
+    "gt_y": 700,
+    "distance_px": 3.6,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": null,
+    "y": null,
+    "queries": 3,
+    "time_s": 48.98,
+    "test_id": "ambiguous_04",
+    "category": "ambiguous",
+    "gt_x": 650,
+    "gt_y": 500,
+    "distance_px": null,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 847,
+    "y": 573,
+    "queries": 34,
+    "time_s": 532.02,
+    "phase1_queries": 9,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The single blue pixel is located at approximately (510, 502) — a faint but disti",
+    "phase1_time": 176.197,
+    "phase_1_5_time": 15.971,
+    "phase2_time": 339.85,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      650,
+      500
+    ],
+    "stage_c_output_xy": [
+      650,
+      500
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        null,
+        null
+      ],
+      [
+        null,
+        null
+      ],
+      [
+        null,
+        null
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ambiguous_04",
+    "category": "ambiguous",
+    "gt_x": 650,
+    "gt_y": 500,
+    "distance_px": 210.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1672,
+    "y": 20,
+    "queries": 4,
+    "time_s": 59.83,
+    "test_id": "ambiguous_05",
+    "category": "ambiguous",
+    "gt_x": 1600,
+    "gt_y": 60,
+    "distance_px": 82.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1636,
+    "y": 40,
+    "queries": 39,
+    "time_s": 553.67,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 2,
+    "anchor": "The center pixel of the blue \"Apply\" button in the upper-right area is at approx",
+    "phase1_time": 177.904,
+    "phase_1_5_time": 46.369,
+    "phase2_time": 329.394,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1672,
+      20
+    ],
+    "stage_c_output_xy": [
+      1672,
+      20
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1672,
+        21
+      ],
+      [
+        1672,
+        20
+      ],
+      [
+        1687,
+        20
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.66,
+      0.433
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ambiguous_05",
+    "category": "ambiguous",
+    "gt_x": 1600,
+    "gt_y": 60,
+    "distance_px": 41.2,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 943,
+    "y": 1019,
+    "queries": 4,
+    "time_s": 58.01,
+    "test_id": "ambiguous_06",
+    "category": "ambiguous",
+    "gt_x": 960,
+    "gt_y": 950,
+    "distance_px": 71.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 957,
+    "y": 935,
+    "queries": 39,
+    "time_s": 574.54,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 2,
+    "anchor": "The center pixel of the small green square icon is at approximately (512, 506).",
+    "phase1_time": 174.018,
+    "phase_1_5_time": 43.351,
+    "phase2_time": 357.173,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      943,
+      1027
+    ],
+    "stage_c_output_xy": [
+      943,
+      1027
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "bottom",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        943,
+        1027
+      ],
+      [
+        951,
+        1057
+      ],
+      [
+        936,
+        1019
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      7.128,
+      20.129
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ambiguous_06",
+    "category": "ambiguous",
+    "gt_x": 960,
+    "gt_y": 950,
+    "distance_px": 15.3,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 386,
+    "y": 543,
+    "queries": 4,
+    "time_s": 55.49,
+    "test_id": "ambiguous_07",
+    "category": "ambiguous",
+    "gt_x": 400,
+    "gt_y": 540,
+    "distance_px": 14.3,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 449,
+    "y": 545,
+    "queries": 37,
+    "time_s": 512.46,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The second circle from the left is the yellow-green circle on the right side of ",
+    "phase1_time": 167.846,
+    "phase_1_5_time": 14.049,
+    "phase2_time": 330.56,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      357,
+      543
+    ],
+    "stage_c_output_xy": [
+      357,
+      543
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        357,
+        543
+      ],
+      [
+        357,
+        543
+      ],
+      [
+        357,
+        543
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ambiguous_07",
+    "category": "ambiguous",
+    "gt_x": 400,
+    "gt_y": 540,
+    "distance_px": 49.3,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 203,
+    "y": 210,
+    "queries": 4,
+    "time_s": 59.16,
+    "test_id": "ambiguous_08",
+    "category": "ambiguous",
+    "gt_x": 300,
+    "gt_y": 200,
+    "distance_px": 97.5,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 269,
+    "y": 209,
+    "queries": 37,
+    "time_s": 525.3,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The green \"OK\" button's center pixel is at approximately (789, 502).",
+    "phase1_time": 176.025,
+    "phase_1_5_time": 13.518,
+    "phase2_time": 335.758,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      203,
+      209
+    ],
+    "stage_c_output_xy": [
+      203,
+      209
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        203,
+        209
+      ],
+      [
+        203,
+        209
+      ],
+      [
+        203,
+        209
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ambiguous_08",
+    "category": "ambiguous",
+    "gt_x": 300,
+    "gt_y": 200,
+    "distance_px": 32.3,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 914,
+    "y": 538,
+    "queries": 4,
+    "time_s": 56.85,
+    "test_id": "ambiguous_09",
+    "category": "ambiguous",
+    "gt_x": 960,
+    "gt_y": 540,
+    "distance_px": 46.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 916,
+    "y": 642,
+    "queries": 37,
+    "time_s": 524.41,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center pixel of the outlined rectangle is at approximately (628, 518), the g",
+    "phase1_time": 168.872,
+    "phase_1_5_time": 14.722,
+    "phase2_time": 340.811,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      914,
+      538
+    ],
+    "stage_c_output_xy": [
+      914,
+      538
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        914,
+        538
+      ],
+      [
+        914,
+        513
+      ],
+      [
+        914,
+        538
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      14.289
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ambiguous_09",
+    "category": "ambiguous",
+    "gt_x": 960,
+    "gt_y": 540,
+    "distance_px": 111.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1236,
+    "y": 483,
+    "queries": 5,
+    "time_s": 80.39,
+    "test_id": "precision_00",
+    "category": "precision",
+    "gt_x": 1100,
+    "gt_y": 400,
+    "distance_px": 159.3,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1096,
+    "y": 400,
+    "queries": 38,
+    "time_s": 676.09,
+    "phase1_queries": 13,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The single red pixel is located at approximately (104, 300) on the left side of ",
+    "phase1_time": 318.381,
+    "phase_1_5_time": 15.553,
+    "phase2_time": 342.153,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1259,
+      483
+    ],
+    "stage_c_output_xy": [
+      1259,
+      483
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        null,
+        399
+      ],
+      [
+        1254,
+        483
+      ],
+      [
+        1264,
+        483
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      7.425,
+      48.497
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "precision_00",
+    "category": "precision",
+    "gt_x": 1100,
+    "gt_y": 400,
+    "distance_px": 4.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 757,
+    "y": 302,
+    "queries": 5,
+    "time_s": 100.91,
+    "test_id": "precision_01",
+    "category": "precision",
+    "gt_x": 750,
+    "gt_y": 280,
+    "distance_px": 23.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 751,
+    "y": 302,
+    "queries": 37,
+    "time_s": 559.36,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact tip pixel of the thin blue needle pointing upward is at approximately ",
+    "phase1_time": 210.849,
+    "phase_1_5_time": 14.594,
+    "phase2_time": 333.917,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      751,
+      302
+    ],
+    "stage_c_output_xy": [
+      751,
+      302
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "tip",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        712,
+        302
+      ],
+      [
+        751,
+        302
+      ],
+      [
+        751,
+        302
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      22.517,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "precision_01",
+    "category": "precision",
+    "gt_x": 750,
+    "gt_y": 280,
+    "distance_px": 22.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 875,
+    "y": 603,
+    "queries": 4,
+    "time_s": 58.28,
+    "test_id": "precision_02",
+    "category": "precision",
+    "gt_x": 902,
+    "gt_y": 602,
+    "distance_px": 27.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 901,
+    "y": 597,
+    "queries": 37,
+    "time_s": 528.04,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the tiny green dot is at pixel (581, 536).",
+    "phase1_time": 165.364,
+    "phase_1_5_time": 14.684,
+    "phase2_time": 347.992,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      875,
+      593
+    ],
+    "stage_c_output_xy": [
+      875,
+      593
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        875,
+        603
+      ],
+      [
+        875,
+        593
+      ],
+      [
+        875,
+        593
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      6.062
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "precision_02",
+    "category": "precision",
+    "gt_x": 902,
+    "gt_y": 602,
+    "distance_px": 5.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 478,
+    "y": 337,
+    "queries": 4,
+    "time_s": 58.76,
+    "test_id": "precision_03",
+    "category": "precision",
+    "gt_x": 490,
+    "gt_y": 350,
+    "distance_px": 17.7,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 476,
+    "y": 349,
+    "queries": 37,
+    "time_s": 522.44,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the small orange circle is at approximately (618, 544)",
+    "phase1_time": 167.292,
+    "phase_1_5_time": 13.431,
+    "phase2_time": 341.719,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      448,
+      337
+    ],
+    "stage_c_output_xy": [
+      448,
+      337
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        462,
+        337
+      ],
+      [
+        448,
+        345
+      ],
+      [
+        448,
+        337
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.227,
+      4.763
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "precision_03",
+    "category": "precision",
+    "gt_x": 490,
+    "gt_y": 350,
+    "distance_px": 14.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1379,
+    "y": 688,
+    "queries": 4,
+    "time_s": 60.01,
+    "test_id": "precision_04",
+    "category": "precision",
+    "gt_x": 1320,
+    "gt_y": 680,
+    "distance_px": 59.5,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1319,
+    "y": 681,
+    "queries": 37,
+    "time_s": 531.09,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The crosshair intersection is the exact center pixel where the red horizontal an",
+    "phase1_time": 171.12,
+    "phase_1_5_time": 20.44,
+    "phase2_time": 339.534,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1379,
+      688
+    ],
+    "stage_c_output_xy": [
+      1379,
+      688
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "intersection",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1379,
+        688
+      ],
+      [
+        1416,
+        688
+      ],
+      [
+        1379,
+        688
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      21.651,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "precision_04",
+    "category": "precision",
+    "gt_x": 1320,
+    "gt_y": 680,
+    "distance_px": 1.4,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 645,
+    "y": 723,
+    "queries": 4,
+    "time_s": 66.21,
+    "test_id": "precision_05",
+    "category": "precision",
+    "gt_x": 625,
+    "gt_y": 730,
+    "distance_px": 21.2,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 628,
+    "y": 774,
+    "queries": 37,
+    "time_s": 521.6,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the purple diamond shape is at approximately (503, 530",
+    "phase1_time": 164.47,
+    "phase_1_5_time": 15.774,
+    "phase2_time": 341.353,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      630,
+      723
+    ],
+    "stage_c_output_xy": [
+      630,
+      723
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        630,
+        723
+      ],
+      [
+        630,
+        723
+      ],
+      [
+        538,
+        723
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      53.261,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "precision_05",
+    "category": "precision",
+    "gt_x": 625,
+    "gt_y": 730,
+    "distance_px": 44.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 346,
+    "y": 518,
+    "queries": 4,
+    "time_s": 52.66,
+    "test_id": "precision_06",
+    "category": "precision",
+    "gt_x": 350,
+    "gt_y": 500,
+    "distance_px": 18.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 352,
+    "y": 501,
+    "queries": 37,
+    "time_s": 529.42,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The top-left corner of the white square is at approximately pixel (500, 475), wh",
+    "phase1_time": 179.452,
+    "phase_1_5_time": 17.393,
+    "phase2_time": 332.57,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      354,
+      513
+    ],
+    "stage_c_output_xy": [
+      354,
+      513
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "top",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        354,
+        510
+      ],
+      [
+        354,
+        513
+      ],
+      [
+        354,
+        513
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      2.165
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "precision_06",
+    "category": "precision",
+    "gt_x": 350,
+    "gt_y": 500,
+    "distance_px": 2.2,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 894,
+    "y": 209,
+    "queries": 5,
+    "time_s": 67.93,
+    "test_id": "precision_07",
+    "category": "precision",
+    "gt_x": 920,
+    "gt_y": 200,
+    "distance_px": 27.5,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 921,
+    "y": 200,
+    "queries": 38,
+    "time_s": 607.28,
+    "phase1_queries": 13,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The right endpoint of the horizontal yellow line is at approximately pixel (609,",
+    "phase1_time": 212.759,
+    "phase_1_5_time": 14.541,
+    "phase2_time": 379.975,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      881,
+      209
+    ],
+    "stage_c_output_xy": [
+      881,
+      209
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        894,
+        194
+      ],
+      [
+        881,
+        209
+      ],
+      [
+        881,
+        209
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      7.794,
+      8.66
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "precision_07",
+    "category": "precision",
+    "gt_x": 920,
+    "gt_y": 200,
+    "distance_px": 1.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1438,
+    "y": 821,
+    "queries": 4,
+    "time_s": 57.8,
+    "test_id": "precision_08",
+    "category": "precision",
+    "gt_x": 1400,
+    "gt_y": 850,
+    "distance_px": 47.8,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1400,
+    "y": 855,
+    "queries": 37,
+    "time_s": 631.29,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the innermost ring (the small white dot at the bullseye) is at app",
+    "phase1_time": 218.787,
+    "phase_1_5_time": 16.209,
+    "phase2_time": 396.292,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1420,
+      825
+    ],
+    "stage_c_output_xy": [
+      1420,
+      825
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1420,
+        825
+      ],
+      [
+        1420,
+        891
+      ],
+      [
+        1431,
+        821
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      6.062,
+      39.036
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "precision_08",
+    "category": "precision",
+    "gt_x": 1400,
+    "gt_y": 850,
+    "distance_px": 5.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 280,
+    "y": 144,
+    "queries": 4,
+    "time_s": 63.01,
+    "test_id": "precision_09",
+    "category": "precision",
+    "gt_x": 320,
+    "gt_y": 150,
+    "distance_px": 40.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 323,
+    "y": 151,
+    "queries": 37,
+    "time_s": 547.04,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The rightmost tip (nose) of the right-pointing arrowhead is at approximately pix",
+    "phase1_time": 206.988,
+    "phase_1_5_time": 14.206,
+    "phase2_time": 325.841,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "generic_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      280,
+      148
+    ],
+    "stage_c_output_xy": [
+      280,
+      148
+    ],
+    "phase_1_5_structured": {
+      "target_type": "generic",
+      "intent": "center",
+      "label_hint": "",
+      "source": "heuristic",
+      "confidence": 0.5,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        266,
+        148
+      ],
+      [
+        280,
+        148
+      ],
+      [
+        294,
+        148
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      14.25,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "precision_09",
+    "category": "precision",
+    "gt_x": 320,
+    "gt_y": 150,
+    "distance_px": 3.2,
+    "repeat": 0
+  }
+]

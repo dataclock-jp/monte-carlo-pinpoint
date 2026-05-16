@@ -1,0 +1,2006 @@
+%%
+%% Monte Carlo Pinpoint: Stochastic Coordinate Localization via VLM Probing
+%% ACM sigconf format (CHI / UIST)
+%%
+
+\documentclass[sigconf,nonacm]{acmart}
+%% Remove 'nonacm' when submitting to an actual ACM venue.
+
+\usepackage{amsmath}
+\let\Bbbk\relax
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{listings}
+
+%% Listing style for pseudocode
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  breaklines=true,
+  frame=single
+}
+
+%% ----------------------------------------------------------------
+%%  Metadata
+%% ----------------------------------------------------------------
+\title{Monte Carlo Pinpoint: Stochastic Coordinate Localization via VLM Probing}
+
+\author{Tomio Hisanari}
+\affiliation{%
+  \institution{Independent Researcher}
+  \country{Japan}
+}
+\email{tabby\_tomo\_srv@hotmail.co.jp}
+
+%% ----------------------------------------------------------------
+%%  Abstract
+%% ----------------------------------------------------------------
+\begin{abstract}
+For AI agents that autonomously operate graphical user interfaces,
+accurate coordinate localization on screen remains a fundamental challenge.
+The dominant approach, Set-of-Mark (SoM) prompting, relies on
+OpenCV contour detection and can only mark \emph{UI elements}.
+However, real-world tasks often require localizing arbitrary semantic
+positions---the tip of a character's nose, a specific object inside a painting,
+a defect on a textured surface---that are \emph{not} UI elements at all.
+
+We propose \textbf{Monte Carlo Pinpoint}, a three-phase method that
+converts coordinate estimation (a regression problem) into a ranking
+problem by asking a Vision--Language Model (VLM)
+``\emph{Which dot is closest to the target?}''
+Phase~1 uses deterministic grid bisection to narrow the search to a
+coarse region ($\pm G$ pixels).
+Phase~1.5 elicits an \emph{anchor declaration} from the VLM to stabilize
+subsequent judgments.
+Phase~2 places a deterministic seven-point hexagonal stencil inside
+the region, asks the VLM to select the closest dot with majority vote,
+and halves the search radius on each majority-HIT round (with bounded
+MISS retries that do not shrink the radius)---guaranteeing convergence
+when the target lies within the initial search disk and the VLM
+selects the closest dot on each HIT round.
+
+We prove that the expected number of VLM queries is
+$O(v \cdot \log(s_0/\varepsilon))$, where $v$ is the majority vote
+size, $s_0$ the initial search radius, and $\varepsilon$ the target
+precision---a logarithmic improvement over the $O(s_0^2)$ cost of
+exhaustive search.
+On a benchmark of 50 synthetic conditions across five categories,
+evaluated with a single VLM backbone and one trial per condition,
+Pinpoint---among the empirically evaluated Grid baseline and Pinpoint
+variants---is the only method in this evaluated set that achieves
+practical accuracy on the non-UI targets in this synthetic benchmark,
+while remaining competitive on standard UI elements; broader
+evaluation across additional VLM backbones, real-desktop tasks,
+repeat trials, and additional baselines (e.g., Direct/SoM-family
+methods) is reserved for future work
+(\S\ref{sec:limitations}).
+We additionally distill a failure-mode taxonomy of VLM
+coordinate-localization hallucinations (the H-$\ast$ family of
+seven cognitive failure classes) and benchmark-execution
+operational failures (the O-$\ast$ family covering pipeline,
+rate-limit, credit-exhaustion, and audit-trail layers), with
+corresponding guardrail countermeasures grounded in real
+benchmark-execution incidents.
+\end{abstract}
+
+%% ----------------------------------------------------------------
+%%  CCS Concepts and Keywords
+%% ----------------------------------------------------------------
+\begin{CCSXML}
+<ccs2012>
+   <concept>
+       <concept_id>10003120.10003121.10003122</concept_id>
+       <concept_desc>Human-centered computing~HCI design and evaluation methods</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+   <concept>
+       <concept_id>10010147.10010178</concept_id>
+       <concept_desc>Computing methodologies~Artificial intelligence</concept_desc>
+       <concept_significance>500</concept_significance>
+   </concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Human-centered computing~HCI design and evaluation methods}
+\ccsdesc[500]{Computing methodologies~Artificial intelligence}
+
+\keywords{GUI agents, coordinate localization, vision--language models,
+  Monte Carlo methods, visual prompting}
+
+%% ----------------------------------------------------------------
+\begin{document}
+\maketitle
+
+%% Allow modest extra inter-word stretch on otherwise unfixable lines
+%% (e.g., paragraphs containing long monospace identifiers and
+%% multi-key citations).  Avoids visual overflow without altering text.
+%% Bumped 3em -> 5em in Bundle 2.17 M4 to clear ~48pt overfull on
+%% lines containing long monospace VLM identifiers.
+\setlength{\emergencystretch}{5em}
+%% Permit hyperref-managed boxes (cite, ref, url) to break across lines.
+\hypersetup{breaklinks=true}
+
+%% ================================================================
+%%  1. INTRODUCTION
+%% ================================================================
+\section{Introduction}
+
+\subsection{Problem Statement}
+
+GUI agents such as CogAgent, SeeClick, and Claude Computer Use possess
+the ability to ``see the screen and take actions,'' yet the
+\emph{accuracy of coordinate localization} remains their principal
+bottleneck~\cite{seeclick,uitars}.
+When a VLM is asked directly for the coordinates of an on-screen
+element, it frequently \emph{hallucinates}---producing estimates that
+are tens to hundreds of pixels away from the true
+location~\cite{localization-biases}.
+The very existence of dedicated Computer Use APIs is evidence that
+VLM-based coordinate regression cannot yet be trusted.
+
+\subsection{Limitations of Existing Approaches}
+
+\begin{table}[t]
+\caption{Limitations of existing coordinate localization approaches.}
+\label{tab:existing-limits}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Method} & \textbf{Principle} & \textbf{Limitation} \\
+\midrule
+Direct regression & Ask VLM for coords & Hallucination ($\pm$50--200\,px) \\
+SoM & OpenCV contours + labels & UI elements only \\
+UI Automation & OS accessibility API & Programmable elements only \\
+Template matching & Pre-registered images & Requires prior registration \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Table~\ref{tab:existing-limits} summarizes the landscape.  The
+\textbf{core gap} is that no existing method can localize an
+\emph{arbitrary semantic position inside an image} to pixel precision.
+
+\subsection{Contributions}
+
+This paper makes five contributions:
+
+\begin{enumerate}
+  \item \textbf{Monte Carlo Pinpoint algorithm}: a three-layer
+    architecture combining deterministic grid bisection, anchor
+    declaration, and deterministic hex-stencil probing with HIT-only
+    radius halving.
+  \item \textbf{Theoretical analysis}: derivation of the expected
+    query count $O(v \cdot \log(s_0/\varepsilon))$ via closest-dot
+    convergence, including a model of VLM judgment error impact.
+  \item \textbf{Benchmark}: empirical evaluation across five categories
+    (UI buttons, dense UI, natural images, ambiguous targets,
+    precision tests) with 50~conditions.
+  \item \textbf{Open-source implementation}: released as the
+    \texttt{pinpoint} tool in the \texttt{video2ai-desktop} MCP server
+    (entry point: \texttt{mcp\_server.py} at the repository root).
+    The Phase~2 dot-placement primitive (\texttt{pinpoint\_core.py})
+    is shared with the benchmark harness, preventing future
+    dot-placement drift between the two paths.  Reported hex-stencil
+    numerical results are reproduced from the 50-case rerun on the
+    CLI subscription variant (Table~\ref{tab:hex-stencil-50case}).
+  \item \textbf{Failure mode analysis}: a taxonomy of VLM
+    coordinate-localization cognitive failures (the H-$\ast$
+    taxonomy of seven classes) and benchmark-execution
+    operational failures (the O-$\ast$ family covering pipeline,
+    rate-limit, credit-exhaustion, and audit-trail layers), with
+    matching pipeline-layer and audit-emission countermeasures
+    grounded in a series of real benchmark-execution incidents
+    and engineering experience.
+\end{enumerate}
+
+
+%% ================================================================
+%%  2. RELATED WORK
+%% ================================================================
+\section{Related Work}
+\label{sec:related-work}
+
+\subsection{Direct Coordinate Regression}
+
+Several systems ask VLMs to output coordinates as text tokens.
+SeeClick~\cite{seeclick} fine-tunes a VLM specifically for GUI
+grounding and proposes the ScreenSpot benchmark.
+UI-TARS~\cite{uitars} operates from screenshots alone with a
+coordinate-based action space.
+OS-ATLAS~\cite{osatlas} compiles a 13\,M-sample grounding dataset
+and finds 11.3\% mislabeled entries in ScreenSpot.
+Recent work~\cite{localization-biases} demonstrates systematic spatial
+biases in VLM coordinate predictions, providing theoretical
+justification for Pinpoint's regression-to-classification transform.
+Explicit position-to-coordinate mapping~\cite{pos2coord} analyzes the
+limits of generating coordinates as text tokens and improves regression
+through explicit position encoding; Pinpoint instead abandons
+regression entirely.
+Talking Points~\cite{rusanovsky2025talkingpoints} pairs a point
+descriptor with a learned localizer for pixel-level grounding from
+natural-language descriptions; Pinpoint differs in remaining training-
+free and in deriving its precision from a Monte~Carlo voting budget
+rather than from a regressed coordinate.
+
+\subsection{Fine-tuned Grounding Models}
+
+UGround~\cite{uground} trains a universal GUI grounding model on
+large-scale synthetic web data.
+Aria-UI~\cite{ariaui} achieves purely visual grounding without HTML or
+accessibility trees but depends on task-specific training.
+ShowUI~\cite{showui} introduces UI-guided token selection for
+efficient screenshot processing.
+MolmoPoint~\cite{molmopoint} adds grounding-specific tokens to the VLM
+architecture.
+Pinpoint requires \emph{no fine-tuning} and works with any off-the-shelf VLM.
+
+\subsection{Segmentation-Dependent Methods (SoM Family)}
+
+Set-of-Mark (SoM)~\cite{som} overlays numbered labels on regions
+detected by segmentation (SAM / OpenCV) and asks the VLM to select
+among them.  It is the closest prior work to Pinpoint but is
+\emph{inherently limited to segmentable regions}---i.e., UI elements.
+OmniParser~\cite{omniparser} uses fine-tuned detection and captioning
+models, again limited to UI elements.
+MEGA-GUI~\cite{megagui} adopts a coarse ROI selection followed by
+fine localization, but relies on trained models.
+Pinpoint replaces segmentation with a deterministic hex-stencil dot
+arrangement, eliminating the dependency on element detectors.
+
+\subsection{Zoom and Iterative Refinement}
+
+This family of methods is conceptually closest to Pinpoint's Phase~1.
+RegionFocus~\cite{regionfocus} zooms into candidate regions at test
+time and re-queries the VLM---training-free but lacking a
+probabilistic refinement phase.
+AdaZoom-GUI~\cite{adazoom} adapts zoom level to element size and
+refines instructions at each step, resembling Phase~1 + Phase~1.5
+but without Monte Carlo refinement.
+A systematic study of zooming~\cite{zooming-study} confirms that zoom
+improves GUI grounding accuracy but does not address how to go beyond
+the zoom limit.
+GUI-Spotlight~\cite{gui-spotlight} uses iterative spotlighting with
+think-with-image, requiring training.
+Chain-of-Ground~\cite{chain-of-ground} narrows the search space
+through iterative reasoning steps in text; Pinpoint uses \emph{visual}
+overlays (grids, dots) as the reasoning medium.
+Several contemporaneous works extend the zoom paradigm with explicit
+uncertainty signals: UI-Zoomer~\cite{tang2026uizoomer} drives zoom
+selection by token-distribution uncertainty,
+AutoFocus~\cite{yao2026autofocus} uses token-level perplexity to
+model spatial uncertainty for active visual search, Zoom
+Consistency~\cite{kim2026zoomconsistency} shows that geometric
+agreement across zoom steps is itself a calibration-free confidence
+signal, and BAMI~\cite{zhang2026bami} addresses precision and
+ambiguity biases in {GUI} grounding through training-free coarse-to-
+fine focusing with candidate selection; Pinpoint instead uses
+deterministic grid bisection followed by Monte Carlo voting, deriving
+its certainty guarantee from a sample budget rather than from a
+learned uncertainty estimator or a focusing heuristic.
+
+\subsection{Test-Time Voting and Scaling}
+
+GUI-RC~\cite{guirc} constructs a spatial voting grid from multiple
+predictions and uses region consistency---the most directly related
+work.  However, GUI-RC aggregates predictions \emph{across queries},
+whereas Pinpoint converts the problem to classification \emph{within a
+single query}.
+DiMo-GUI~\cite{dimogui} provides a training-free framework with
+dynamic visual grounding and modality switching.
+GTA1~\cite{gta1} learns test-time scaling via RL; Pinpoint is purely
+inference-time.
+GAIA~\cite{gaia} uses best-of-$N$ selection, conceptually similar to
+Pinpoint's majority vote but over complete action predictions rather
+than dot classifications.
+
+\subsection{Coordinate-Free Approaches}
+
+GUI-Actor~\cite{guiactor} replaces coordinate regression with an
+attention-based action head.  While it shares Pinpoint's problem
+recognition (coordinate regression is ill-suited for VLMs), it
+requires \emph{architectural changes}; Pinpoint is a pure prompting
+strategy applicable to any VLM.
+
+\subsection{Visual Prompting}
+
+VP-VLA~\cite{vpvla} overlays spatial anchors (crosshairs, bounding
+boxes) on visual input for robotics tasks, sharing Pinpoint's
+philosophy of augmenting images with visual prompts.
+V2P~\cite{v2p} uses background suppression and center peaking to
+improve coordinate regression---still a regression approach addressed
+via data augmentation, whereas Pinpoint replaces regression with
+classification.
+
+\subsection{Agent Orchestration and Harnesses}
+
+Concurrent with this work, a wave of open-source orchestration
+specs and harness patterns has emerged at the systems level:
+OpenAI's Symphony~\cite{openai2026symphony,openai2026symphonyrepo},
+released 2026-04-27 under Apache~2.0, treats a Linear
+project board as the control plane for autonomous Codex
+agents, with workflow loaders, retry backoff, and structured
+logging surfaces; alongside this, industry harnesses such
+as Anthropic's three-agent pattern~\cite{anthropic2026threeagentharness}
+decompose long-running tasks across planner / generator /
+evaluator phases (analysed further in
+Section~\ref{sec:discussion-stage-c}).  Symphony's scope is full
+task lifecycle orchestration---issue pickup, agent restart,
+PR landing---operating at the workflow-orchestration layer,
+above the per-task agent layer that hosts primitives like
+Pinpoint.  Pinpoint, by contrast, uses agentic tool-use as
+a \emph{probing primitive}: a single coordinate query is
+wrapped in a structured tool call (Section~\ref{sec:results},
+the CLI subscription variant), and $N\!=\!3$ plurality voting
+on tool-use responses (the CLI plurality-vote variant) yields
+measurable selectivity gains
+(Section~\ref{sec:aggregation-discussion}).  The two layers
+compose: a Symphony-style orchestrator could dispatch
+Pinpoint as a coordinate-finding tool.  We position Pinpoint
+as the lower-level visual-grounding component such an
+orchestration stack would invoke.
+
+Concurrent work by Augment Code introduces
+``Intent''~\cite{augmentcode2026intent}, an agentic development
+environment that ``coordinates agents through a shared living
+spec rather than wiring them together through code''.  Intent
+employs a Coordinator--Implementor--Verifier topology---a
+Coordinator agent proposes a plan as a spec, Implementor agents
+execute in parallel waves, and a Verifier checks results against
+the spec---and thus shares the three-role harness structure
+under which Pinpoint was developed.  Two axes distinguish the
+present work from such spec-driven orchestrators: a
+heterogeneous-model consultant tier that supplies independent
+cross-validation of same-model reviewer agreement (Codex CLI in
+our deployment), and a visual--plus--text dual-surface
+programming model that neither pure-CLI orchestrators (e.g.,
+Symphony or Intent) nor pure-visual workflow platforms occupy.
+
+\subsection{System-layer Computer Use and GUI Grounding}
+
+Beyond the algorithmic sub-pixel grounding primitives we
+survey above, a complementary research line addresses
+the \emph{system layer}: how an agent should perceive,
+navigate, and click within full desktop and browser
+environments.  OpenAI's Computer-Using
+Agent~\cite{openai2025cua} reports OSWorld 38.1\,\%,
+WebArena 58.1\,\%, and WebVoyager 87.0\,\%
+(self-reported, January 2025).  Anthropic's
+computer-use tool~\cite{anthropic2026computeruse}
+provides 1\,:\,1 native coordinate handling for
+screenshots up to 2576\,px on the long edge with an
+explicit \texttt{zoom} action for inspecting
+sub-regions at full resolution.  On the
+high-resolution professional grounding benchmark
+ScreenSpot-Pro~\cite{li2025screenspotpro}, accuracy
+has progressed from an initial 18.9\,\% to
+ScreenSeekeR's 48.1\,\% via cascaded visual search,
+GUI-Actor-7B + Qwen2.5-VL-7B's 44.6\,\% via
+coordinate-free attention~\cite{guiactor},
+OSWorld-G/Jedi-7B's 39.5\,\% via grounding-data
+scaling~\cite{xie2025jedi}, and RegionFocus's
+61.6\,\% via test-time zoom on a Qwen2.5-VL-72B
+base~\cite{regionfocus}.  The published values remain
+below human level for the highest-resolution
+targets, and apples-to-apples comparison is
+complicated by base-model size and search-augmentation
+variation.  Pinpoint, the algorithm-layer primitive
+we present, is positioned to plug into any of these
+system-layer harnesses as a deterministic
+coordinate-inference fallback for boundary-ambiguous
+and sub-pixel targets that remain difficult for
+end-to-end VLMs.
+
+\subsection{Agent Failure Taxonomies and Incident Analysis}
+\label{sec:agent-failure-taxonomies}
+
+Beyond the algorithm-layer and system-layer prior art surveyed
+above, a parallel literature classifies the failures of
+\emph{agent systems themselves}.  We position our
+H-$\ast$/O-$\ast$ split against five lines of this work.
+Recent multi-agent-system work classifies traces into
+system-design, inter-agent-misalignment, and task-verification
+failures~\cite{cemri2025mast}; our taxonomy instead separates
+VLM-internal visual grounding hallucinations from operational
+failures in the surrounding benchmark and agent infrastructure.
+At the single-agent level, AgentErrorTaxonomy localizes
+failures across memory, reflection, planning, action, and
+system-level modules~\cite{zhu2025agenterror}, whereas our
+H/O split isolates visual-grounding hallucinations from
+non-model operational faults in the benchmark harness.
+On the software-engineering side, empirical studies of
+agentic-AI repositories classify faults by type, symptom,
+root cause, and architectural
+dimension~\cite{shah2026agenticfaults}; our O-$\ast$ family
+narrows that lens to the operational layers that affected a
+VLM grounding benchmark.
+Agent-incident-analysis frameworks distinguish system-related,
+contextual, and cognitive
+factors~\cite{ezell2025incidentanalysis}; our taxonomy
+operationalizes a related split at benchmark scale by
+separating VLM coordinate-localization hallucinations from
+pipeline, rate-limit, credit-exhaustion, and audit-trail
+failures.
+Two transferred-discipline analogues motivate the layered
+diagnostic stance: HFACS~\cite{wiegmann2003hfacs} separates
+immediate unsafe acts from latent organizational conditions,
+a stance our O-$\ast$ stack applies to benchmark-execution
+workflows; and ODC~\cite{chillarege1992odc} treats defect
+classifications as in-process measurement signals, mirroring
+how separating H-$\ast$ and O-$\ast$ preserves whether
+accuracy loss came from model grounding or operational
+infrastructure.
+None of the above provides the specific
+cognitive-vs-operational separation we propose for VLM
+grounding systems, but each informs where our taxonomy sits
+in the broader agent-failure analysis landscape.
+
+\subsection{Positioning of This Work}
+
+\begin{table}[t]
+\caption{Comparison of approaches. Pinpoint combines deterministic
+  grid narrowing, anchor declaration, and hex-stencil dot voting---a
+  combination absent from all prior work.}
+\label{tab:positioning}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Approach} & \textbf{Representative} & \textbf{Pinpoint Advantage} \\
+\midrule
+Direct regression & SeeClick, UI-TARS & Avoids hallucination via classification \\
+Fine-tuning & UGround, Aria-UI & Training-free; any VLM \\
+Segmentation-dep. & SoM, OmniParser & No detector; non-UI targets \\
+Zoom refinement & RegionFocus & Probabilistic phase beyond zoom limit \\
+Test-time voting & GUI-RC, GAIA & Intra-query classification voting \\
+Architecture change & GUI-Actor & Prompting only; no model changes \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Table~\ref{tab:positioning} summarizes the positioning.
+No existing method combines all three phases of Pinpoint:
+deterministic grid narrowing, anchor-based self-consistency, and
+hex-stencil dot voting.
+The use of distinctly colored hex-stencil dots for \emph{intra-query
+regression-to-classification} conversion is novel.
+
+
+%% ================================================================
+%%  3. METHOD
+%% ================================================================
+\section{Method}
+
+\subsection{Problem Formalization}
+\label{sec:formalization}
+
+\textbf{Input:} An image $I$ and a natural-language target description
+$T$ (e.g., ``the center of the gear icon'').
+
+\textbf{Output:} Target coordinates $(x^*, y^*) \pm \varepsilon$ pixels.
+
+\textbf{Oracle:} A VLM $V(I', Q) \to A$, which returns an answer $A$
+to a textual question $Q$ given a (possibly annotated) image $I'$.
+
+\textbf{Core transformation:} We convert coordinate estimation
+(regression) into the ranking question ``\emph{Which dot is closest
+to the target?}''
+
+\subsection{Algorithm Overview}
+\label{sec:overview}
+
+The algorithm proceeds in three (optionally four) phases:
+
+\begin{description}
+  \item[Phase 1 --- Deterministic Grid Search.]
+    Narrows the target to a $\pm G$-pixel region via axis-independent
+    binary search over grid cells.
+  \item[Phase 1.5 --- Anchor Declaration (Guardrail).]
+    Elicits a precise natural-language self-declaration from the VLM
+    of \emph{exactly which pixel} it aims at, anchoring subsequent
+    judgments.
+  \item[Phase 2 --- Hex-Stencil Dot Probing.]
+    Places a deterministic seven-point hexagonal stencil ($k{=}7$) in
+    the region, asks the VLM which dot is closest to the anchor, and
+    halves the search radius on each majority-HIT round (with bounded
+    MISS retries that do not shrink the radius); converges under the
+    containment and judgment assumptions stated in
+    Section~\ref{sec:convergence}.
+  \item[Phase 3 --- Super-Zoom Refinement (Optional).]
+    For $\varepsilon < 5$, re-probes at extreme magnification around the
+    Phase~2 hit point to reach 1\,px accuracy.
+\end{description}
+
+Figure~\ref{fig:overview} illustrates the flow.
+
+\begin{figure}[t]
+  \centering
+  \resizebox{\columnwidth}{!}{\input{figures/algorithm_overview}}
+  \caption{Overview of the Monte Carlo Pinpoint pipeline.
+    Phase~1 uses deterministic grid bisection; Phase~1.5 elicits an
+    anchor declaration; Phase~2 applies deterministic hex-stencil
+    probing with HIT-only radius halving and majority vote; Phase~3
+    optionally refines to 1\,px precision.}
+  \label{fig:overview}
+  \Description{Block diagram of the four-phase Monte Carlo Pinpoint
+    pipeline showing data flow from an input screenshot through
+    Phase~1 deterministic grid bisection, Phase~1.5 anchor
+    declaration, Phase~2 deterministic hex-stencil probing with
+    majority voting and HIT-only radius halving, and an optional
+    Phase~3 sub-pixel refinement step.}
+\end{figure}
+
+
+\subsection{Phase 1: Deterministic Grid Search}
+\label{sec:phase1}
+
+The $X$ and $Y$ axes are searched independently via binary bisection.
+At each step, $n$ labeled grid lines are drawn on the image and the VLM
+is asked ``\emph{Which line is closest to the target?}''  The VLM
+replies with either an exact line (``L5'') or a between-lines interval
+(``B3-4'').  Each response narrows the search region by a factor of
+$\sim n$.
+
+Two refinement mechanisms improve accuracy:
+
+\begin{itemize}
+  \item \textbf{Force zoom on first exact hit.}
+    When the VLM reports an exact line on the first iteration, the
+    result is treated as a between-lines interval spanning the adjacent
+    lines (e.g., L5 $\to$ B4-6).  This forces a zoom refinement pass,
+    mitigating VLM overconfidence at coarse scale.
+  \item \textbf{Zoom mode.}
+    When the search interval drops below $w/3$ pixels, the region is
+    cropped and magnified to 1200\,px before re-querying.  This
+    provides the VLM with higher-resolution input for the final
+    bisection steps.  Image dimensions are clamped to 7900\,px to
+    respect API limits.
+\end{itemize}
+
+\textbf{Failure fallback.}  If the grid search fails to locate the
+target on either axis (VLM returns ``NONE''), the algorithm falls back
+to a single direct VLM coordinate estimation query for the failed
+axis.  This adds one query but prevents catastrophic failure where the
+search center defaults to the image midpoint.
+
+Each axis requires 2--4 VLM queries (typically 2 normal + 1--2 zoom).
+Temperature is set to~0 for reproducibility.
+
+
+\subsection{Phase 1.5: Anchor Declaration}
+\label{sec:anchor}
+
+Before entering the stochastic phase, we stabilize the VLM's judgment
+criterion:
+
+\begin{enumerate}
+  \item The Phase~1 region is cropped and magnified.
+  \item The VLM is asked to \emph{declare} in natural language
+    the exact pixel it aims at---e.g., ``the gear icon'' becomes
+    ``the exact center pixel of the gear icon's hub circle.''
+  \item This declaration is used as the judgment criterion for all
+    Phase~2 rounds.
+  \item On the ABSENT wider-crop retry path, the anchor is
+    re-requested; periodic re-declaration and semantic drift
+    comparison are reserved as future / interactive-server
+    guardrails.
+\end{enumerate}
+
+\textbf{Failure recovery.}  If the VLM cannot identify the target in
+the initial crop (detected by responses beginning with ``I cannot
+locate\ldots''), the crop is widened to $\pm w/3$ pixels (one-third
+of the image dimension) and the anchor is re-requested.  This handles
+cases where Phase~1's grid estimate is sufficiently inaccurate that the
+target falls outside the narrow context crop.
+
+\textbf{Rationale.} VLMs tend to \emph{drift} in their interpretation
+of the target across multiple rounds.  An explicit anchor declaration
+forces consistency and enables metacognitive correction when drift is
+detected.
+
+
+\subsection{Phase 2: Monte Carlo Dot Probing}
+\label{sec:phase2}
+
+Phase~2 uses a \emph{closest-dot convergence} strategy with a
+deterministic seven-point hexagonal half-net rather than a binary
+HIT/MISS test.  Each round proceeds as follows:
+
+\begin{enumerate}
+  \item Place the seven-point hexagonal stencil (one center dot,
+    six on the ring of radius $\frac{\sqrt{3}}{2}\,s$ at $60^\circ$
+    increments) inside the current search disk centered at
+    $(\hat{x}, \hat{y})$ with radius $s$.
+  \item Crop the context area ($3 \times s$) and magnify to a
+    no-loss capped image (for Claude-class VLMs, 1024\,px on the
+    longer axis).
+  \item Annotate each dot with a numbered label and a unique color
+    (adaptively selected for background contrast).
+  \item Ask the VLM: ``\emph{Which dot is closest to the anchor
+    position?}''  The VLM \emph{must} pick one---there is always a
+    closest dot, and by Theorem~\ref{thm:rounds} the chosen dot lies
+    within $s/2$ of the target under closest-dot semantics.
+  \item \textbf{Majority vote:} repeat the query $v = 3$ times;
+    accept only if $\geq 2$ agree on the same dot.
+  \item On consensus (HIT), recenter on the chosen dot and halve the
+    search radius: $s \gets \max(2, \lfloor s/2 \rfloor)$.  On no
+    consensus (MISS), retry with the same $(\text{center}, s)$ up to
+    $3$ consecutive times; if all $3$ retries also MISS, Phase~2
+    halts and the algorithm returns the Phase~1 estimate.
+\end{enumerate}
+
+The hex stencil's $s/2$-cover guarantee (Fig.~\ref{fig:hex-stencil})
+ensures the chosen dot on a HIT is close enough that recentering and
+halving preserves containment.  After $n$ HIT rounds the search radius
+follows the integer-clamped recurrence $s_n = \max(2, \lfloor
+s_{n-1}/2\rfloor)$, converging to the $2$-pixel floor in $\lceil
+\log_2(s_0/2)\rceil$ rounds.
+
+\textbf{Design choices.}
+Dot radius is 4\,px (on the magnified image) for visibility, with
+number labels offset to avoid overlap.
+Dot colors are \emph{adaptively selected} based on background
+brightness: bright colors for dark backgrounds, saturated dark colors
+for light backgrounds, and default high-saturation colors otherwise.
+A minimum spacing constraint ensures dots are $\geq 2$\,px apart from
+each other.
+The zoom size of 1200\,px provides sufficient resolution for the VLM
+to distinguish fine details.
+
+
+\subsection{Phase 3: Super-Zoom Refinement}
+\label{sec:phase3}
+
+When the requested precision $\varepsilon < 5$\,px, Phase~3 takes the
+Phase~2 hit point and magnifies a $\pm(\varepsilon+2)$\,px region to
+$1600 \times 1600$\,px.  Dot radius is reduced to~1, and the probing
+is repeated to achieve the theoretical limit of 1-pixel accuracy.
+
+
+%% ================================================================
+%%  4. THEORETICAL ANALYSIS
+%% ================================================================
+\section{Theoretical Analysis}
+
+\subsection{Expected Query Count}
+\label{sec:query-count}
+
+Phase~2 uses a closest-dot convergence strategy with a deterministic
+seven-point hexagonal half-net.  Each round, the algorithm places seven
+dots in the current search disk: one at the center and six on a ring
+of radius $\frac{\sqrt{3}}{2}\,s$ at angles
+$0^\circ, 60^\circ, \ldots, 300^\circ$
+(Fig.~\ref{fig:hex-stencil}).  The VLM is asked to pick the dot closest
+to the target.  On a majority HIT the search center moves to the chosen
+dot and the search radius halves; on a MISS (no consensus) both the
+center and the radius are preserved and the round is retried with the
+same stencil.  Halving therefore occurs on HIT rounds only.
+
+\begin{theorem}[Convergence of Phase~2 under hexagonal half-net]
+\label{thm:rounds}
+Let $D_n$ denote the search disk on HIT round $n$, with radius $s_n$.
+The seven-point hexagonal stencil placed in $D_n$ is an
+$\frac{s_n}{2}$-cover of $D_n$: every point in $D_n$ lies within
+$\frac{s_n}{2}$ of at least one stencil dot.
+
+Under closest-dot semantics combined with $v$-vote majority and
+\emph{HIT-only halving}, the algorithm tolerates up to $3$ consecutive
+MISS retries per HIT round and halts on the $4$th consecutive MISS,
+returning the Phase~1 estimate.  Provided the target is contained in
+$D_0$, the returned center after $n$ HIT rounds is within
+$s_n = s_0/2^n$ of the target.  Each MISS round
+retries with the same $(\text{center}, s)$ and does not advance the
+search radius.  The number of HIT rounds needed to reach precision
+$\varepsilon$ from initial radius $s_0$ is
+\begin{equation}
+  n_{\text{HIT}}
+    = \left\lceil \log_2\!\left(\frac{s_0}{\varepsilon}\right) \right\rceil\,.
+  \label{eq:rounds}
+\end{equation}
+\end{theorem}
+
+\noindent
+\textbf{Proof sketch.}
+(i)~The cover claim is geometric: the worst-case point in a unit disk
+relative to the stencil is the disk boundary at the angular midpoint
+between two outer dots, e.g.\ $(\frac{\sqrt 3}{2}, \frac{1}{2})$, whose
+distance to the nearer outer dot $(\frac{\sqrt 3}{2}, 0)$ is exactly
+$\frac{1}{2}$; interior points within radius $\frac{1}{2}$ of the
+center are covered by the center dot.  Scaling by $s_n$ gives the
+$\frac{s_n}{2}$-cover.
+(ii)~On a HIT, the cover places the chosen dot within $s_n/2$ of the
+target; recentering on the dot and halving the radius keeps the
+target inside $D_{n+1}$.  This is the only step that advances $n$.
+(iii)~On a MISS, the algorithm retries with the same $(\text{center},
+s_n)$; containment in $D_n$ is unchanged, the retry counter
+increments, and Phase~2 halts on the $4$th consecutive MISS (i.e.\
+after up to $3$ tolerated retries within the current HIT round),
+returning the Phase~1 estimate.
+(iv)~Termination: the outer loop is bounded by HIT count $n_{\text{HIT}}
+\le \texttt{max\_rounds}$ and the inner retry budget is bounded by $3$,
+so the total query batches are $O(n_{\text{HIT}})$ in the typical case
+and $O(1)$ on early-MISS exhaustion.
+By induction on $n$, the returned center after $n$ HIT rounds is within
+$s_0/2^n$ of the target, as claimed.
+\qed
+
+\medskip
+\noindent
+The convergence rate in Theorem~\ref{thm:rounds} is \emph{deterministic
+in HIT count}: the halving occurs on HIT rounds only and the
+$\frac{s_n}{2}$-cover guarantee fixes the per-HIT shrink factor.  The
+VLM's accuracy affects how many query batches Phase~2 spends per HIT
+(consecutive MISSes consume retry budget without advancing the
+radius), not the per-HIT shrink rate.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}[scale=1.4]
+    % search disk
+    \draw[dashed, gray] (0,0) circle (1.0);
+    \node[gray] at (0.78, -0.78) {\small $D_n$ ($s_n$)};
+    % center dot
+    \filldraw[fill=red!70, draw=black] (0,0) circle (0.05);
+    \node[anchor=west] at (0.07, 0.05) {\small $0$};
+    % six outer dots at radius (sqrt(3)/2)
+    \foreach \i/\a in {1/0,2/60,3/120,4/180,5/240,6/300} {
+      \filldraw[fill=blue!60, draw=black]
+        ({0.866*cos(\a)},{0.866*sin(\a)}) circle (0.05);
+      \node at ({1.0*cos(\a)},{1.0*sin(\a)}) {\small $\i$};
+    }
+    % s/2 cover annotation
+    \draw[<->, gray, thin] (0.866, 0) -- (0.866, 0.5);
+    \node[gray, anchor=west] at (0.92, 0.25) {\small $s_n/2$};
+  \end{tikzpicture}
+  \caption{Phase~2 hexagonal half-net (seven dots).  One dot at the
+    disk center plus six on the ring of radius
+    $\frac{\sqrt{3}}{2}\,s_n$ at $60^\circ$ increments.  The maximum
+    distance from any point in $D_n$ to the nearest dot is
+    $\frac{s_n}{2}$, achieved at the angular midpoint between adjacent
+    outer dots.  This is the $\frac{s_n}{2}$-cover guarantee that
+    Theorem~\ref{thm:rounds} relies on.}
+  \label{fig:hex-stencil}
+  \Description{Diagram of seven dots arranged as a hexagonal
+    half-net inside a search disk: one dot at the center of the disk
+    and six dots evenly spaced around a ring at approximately
+    0.866 of the disk radius.  An arrow shows that the worst-case
+    distance from any disk point to the nearest dot is half the disk
+    radius.}
+\end{figure}
+
+Phase~2 issues query batches of $v$ VLM votes each (majority vote).
+Let $n_{\text{HIT}}$ denote the number of \emph{accepted} HIT rounds
+(the round counter advanced by Theorem~\ref{thm:rounds}) and
+$n_{\text{MISS}}$ the number of MISS retry batches issued; Phase~2's
+total batch count is
+$B_{\text{Phase2}} = n_{\text{HIT}} + n_{\text{MISS}}$.  In the
+empirical-result tables, $n_{\text{HIT}}$ is reported as
+\texttt{phase2\_hit\_rounds} and $B_{\text{Phase2}}$ as
+\texttt{phase2\_rounds}.  The associated query count is
+\begin{equation}
+  Q_{\text{Phase2}} = B_{\text{Phase2}} \times v\,.
+  \label{eq:phase2-queries}
+\end{equation}
+The Phase~2 batch budget depends on the trajectory class:
+\begin{itemize}
+  \item \textbf{No-MISS lower bound} (clean trajectory): every round
+    is a HIT, so $B_{\text{Phase2}} = n_{\text{HIT}}
+    = \lceil \log_2(s_0/\varepsilon) \rceil$.
+  \item \textbf{Successful non-terminal trajectory} (every HIT round
+    accepts within at most 3 MISS retries):
+    $B_{\text{Phase2}} \le 4\,n_{\text{HIT}}$.
+  \item \textbf{Terminal MISS exhaustion} (Phase~2 halts on the 4th
+    consecutive MISS within an unaccepted round): the final unaccepted
+    round contributes up to 4 batches with no HIT advance, so
+    $B_{\text{Phase2}} \le 4\,n_{\text{HIT}} + 4$.  This handles
+    edge cases such as $\texttt{MMMM}$ ($B = 4$, $n_{\text{HIT}} = 0$)
+    and $\texttt{HMMMM}$ ($B = 5$, $n_{\text{HIT}} = 1$), which violate
+    the unqualified $4\,n_{\text{HIT}}$ bound.
+  \item \textbf{Absolute implementation bound} (independent of
+    trajectory class):
+    $B_{\text{Phase2}} \le 4\,\texttt{max\_rounds} = 32$ at the default
+    schedule, so $Q_{\text{Phase2}} \le 96$ at $v = 3$.
+\end{itemize}
+
+Combining Phase~1, the anchor declaration, and Phase~2, the total
+query count for a full Pinpoint run is
+\begin{equation}
+  Q_{\text{pinpoint}}
+    = \underbrace{2 \times (2\text{--}4)}_{\text{Phase 1}}
+    + \underbrace{1}_{\text{Anchor}}
+    + \underbrace{B_{\text{Phase2}} \times v}_{\text{Phase 2}}\,,
+  \label{eq:total-queries}
+\end{equation}
+with $B_{\text{Phase2}}$ bounded by the trajectory-class cases listed
+above; in particular the absolute implementation bound is
+$B_{\text{Phase2}} \le 32$ for the default schedule
+($\texttt{max\_rounds} = 8$),
+where $s_0$ is the initial Phase~2 search radius, set to
+$s_0 = 100$\,px in the evaluated implementation to absorb the
+$\sim$$68$th-percentile Phase~1 error envelope.  Earlier drafts of
+this paper used $s_0 = G + 2$ (tying the Phase~2 radius to the
+Phase~1 grid pitch); the widened constant decouples Phase~2
+convergence from grid-pitch drift.
+
+
+\subsection{Numerical Example}
+\label{sec:numerical}
+
+\begin{table}[t]
+\caption{Default parameter settings and resulting query counts.}
+\label{tab:numerical}
+\begin{tabular}{llr}
+\toprule
+\textbf{Parameter} & \textbf{Symbol} & \textbf{Value} \\
+\midrule
+Screen width & $N$ & 1920\,px \\
+Grid precision & $G$ & 20\,px \\
+Initial search radius & $s_0$ & 100\,px \\
+Dots per round & $k$ & 7 \\
+Majority vote size & $v$ & 3 \\
+Max rounds & & 8 \\
+\midrule
+Phase~1 queries (2 axes) & & $\approx 4$--8 \\
+Anchor query & & 1 \\
+Phase~2 queries, no-MISS ($8 \times 3$) & & 24 \\
+Phase~2 queries, worst-case ($\le 32 \times 3$) & & $\le 96$ \\
+\midrule
+\textbf{Total, no-MISS} & & $\approx 29$--33 \\
+\textbf{Total, worst-case} & & $\le 101$--$105$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:numerical} shows that the default configuration's
+no-MISS lower bound is approximately 29~VLM queries to localize a
+target on a 1920-pixel-wide screen, with an absolute implementation
+upper bound of $\le 105$ queries when MISS retries are exhausted on
+every HIT round.  The measured mean of 29.1~queries closely matches
+the no-MISS lower bound, indicating MISS retries are rare on the
+evaluation set.
+
+\begin{table}[t]
+\caption{Scaling comparison: exhaustive search vs.\ Monte Carlo
+  Pinpoint Phase~2 ($v=3$ votes per round).}
+\label{tab:scaling}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Method} & \textbf{$s_0$=20} & \textbf{$s_0$=100} &
+  \textbf{Complexity} \\
+\midrule
+Exhaustive (worst) & 400 & 10{,}000 & $O(s_0^2)$ \\
+Pinpoint Phase~2 & $\sim$15 & $\sim$21 &
+  $O(v \cdot \log(s_0/\varepsilon))$ \\
+\midrule
+\textbf{Speedup} & $27\times$ & $476\times$ & $O(s_0^2 / \log s_0)$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+\subsection{Impact of VLM Judgment Error Rate}
+\label{sec:error-rate}
+
+Let $p$ denote the probability that the VLM correctly identifies the
+closest dot to the target.  An incorrect selection causes the search
+center to move toward a non-target dot, degrading convergence
+direction while the radius still halves.
+
+\textbf{Without majority vote} ($v=1$): each round has probability
+$(1-p)$ of moving toward a wrong dot.  After $n$ rounds, the expected
+number of correct moves is $np$, giving a random-walk component that
+increases final error.
+
+\textbf{With majority vote} ($v=3$, majority rule, subject to the
+H-2 pseudo-majority caveat at Section~\ref{sec:convergence}):
+the probability of a correct consensus is
+\begin{equation}
+  P_{\text{correct}} = 3p^2(1-p) + p^3 = p^2(3-2p)\,.
+  \label{eq:majority}
+\end{equation}
+For $p=0.8$, $P_{\text{correct}} = 0.896$ (a $\sim$10 percentage-point
+improvement).  For $p=0.9$, $P_{\text{correct}} = 0.972$.
+When no consensus is reached (all three votes disagree), the center
+and search radius are unchanged and the round is retried with the
+same hex stencil.  A per-HIT-round retry counter caps consecutive
+MISSes at $3$; on the $4$th MISS in a row Phase~2 halts and the
+algorithm returns the Phase~1 estimate.  Halving is HIT-only: the
+inductive containment invariant in Theorem~\ref{thm:rounds} requires
+that the search radius shrink only after a chosen dot has been placed
+within $s/2$ of the target.
+
+\textbf{Practical implication.} With $v=3$ and 8~max rounds, the
+algorithm tolerates up to $\sim$2 incorrect rounds while still
+converging within 20\,px of the target from $s_0 = 100$\,px (the continuous-ideal $s_8 = 100/256 \approx 0.39$\,px upper bound is a useful intuition; under the integer-clamped recurrence of equation~\eqref{eq:discrete-recurrence} the radius reaches the 2\,px floor in 6 HIT rounds and the actual final-error bound is given by Theorem~\ref{thm:convergence}).
+
+
+\subsection{Convergence Guarantee for Phase~2}
+\label{sec:convergence}
+
+The hex-stencil closest-dot strategy guarantees convergence in search
+radius across HIT rounds, conditional on (i)~the target lying within
+the initial Phase~1 search disk and (ii)~the VLM correctly selecting
+the closest dot on each HIT round; \S\ref{sec:taxonomy-classes}
+(H-2 Pseudo-majority vote) documents the empirical caveat to (ii)
+under temperature-zero deterministic decoding, where Table~\ref{tab:convergence-error}'s independent-trial assumption is violated.
+In implementation, the radius follows the
+integer-clamped recurrence
+\begin{equation}
+  s_{t+1} \;=\; \max\!\bigl(2,\, \lfloor s_t / 2 \rfloor\bigr)\,,
+  \label{eq:discrete-recurrence}
+\end{equation}
+so for $s_0 = 100$\,px the actual sequence is $100 \to 50 \to 25 \to
+12 \to 6 \to 3 \to 2 \to 2 \to 2$, reaching the floor of $2$\,px after
+$6$ HIT rounds.  The continuous bound $s_n = s_0/2^n$ is tight up to a
+$1$-pixel rounding slack and is the right asymptotic.
+
+\begin{theorem}[Accuracy bound under correct VLM judgments]
+\label{thm:convergence}
+If the VLM correctly selects the closest dot on every HIT round, the
+final error after $n$ HIT rounds is bounded by the hex-stencil cover
+at the radius used to place the $n$-th HIT (i.e.\ the
+\emph{pre-halving} radius $s_{n-1}$):
+\begin{equation}
+  d_{\text{final}} \;\leq\; \frac{s_{n-1}}{2} \,+\, \delta_{\text{grid}}\,,
+  \label{eq:convergence-bound}
+\end{equation}
+where $\delta_{\text{grid}} \in [0, 1)$\,px absorbs both the
+floor-rounding slack of equation~\eqref{eq:discrete-recurrence} and
+the integer-coordinate clipping applied to stencil dots near image
+edges.  For $s_0 = 100$, $n = 6$: the 6th HIT is selected from the
+stencil built at $s_5 = 3$\,px, so
+$d_{\text{final}} \leq 1.5\text{\,px} + \delta_{\text{grid}}$.  After
+the 6th HIT the stored radius drops to the 2\,px floor, so
+subsequent HITs (rounds 7 and 8 in the default schedule) cannot
+sharpen the bound below $\approx 1$\,px without changing the floor.
+\end{theorem}
+
+In practice, VLM judgment errors prevent reaching this theoretical
+limit.  Table~\ref{tab:convergence-error} shows the degradation.
+
+\begin{table}[t]
+\caption{Final error as a function of VLM accuracy $p$
+  ($s_0 = 100$, $n = 8$, $k = 7$, $v = 3$).  With majority vote,
+  even moderate VLM accuracy yields practical precision.}
+\label{tab:convergence-error}
+\begin{tabular}{rrrr}
+\toprule
+$p$ & $P_{\text{correct}}$ ($v$=3) & Expected wrong rounds & Typical error \\
+\midrule
+1.0 & 1.000 & 0.0 & $<$1\,px \\
+0.9 & 0.972 & 0.2 & $\sim$5\,px \\
+0.8 & 0.896 & 0.8 & $\sim$15\,px \\
+0.7 & 0.784 & 1.7 & $\sim$40\,px \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+%% ================================================================
+%%  5. EXPERIMENTAL EVALUATION
+%% ================================================================
+\section{Experimental Evaluation}
+\label{sec:experiments}
+
+\subsection{Benchmark Design}
+
+We construct a benchmark of \textbf{5~categories $\times$ 10~conditions
+each = 50~test cases}, generated synthetically
+(\texttt{generate\_test\_images.py}) with known ground-truth pixel
+coordinates.
+
+\begin{table}[t]
+\caption{Benchmark categories.}
+\label{tab:categories}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lll}
+\toprule
+\textbf{Category} & \textbf{Description} & \textbf{SoM Capability} \\
+\midrule
+\texttt{ui\_button} & Standard UI buttons/icons & Strong \\
+\texttt{ui\_dense} & Dense UI (toolbars, tab bars) & Moderate \\
+\texttt{natural} & Non-UI (semantic points in natural images) & \textbf{Impossible} \\
+\texttt{ambiguous} & Low-contrast / small / vague targets & Weak \\
+\texttt{precision} & Small/fine targets (2--60\,px features) & Weak \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+\subsection{Compared Methods}
+
+\begin{enumerate}
+  \item \textbf{Direct} (discussed for context; not evaluated
+    empirically in this work): Ask the VLM ``What are the coordinates
+    of X?''  The hallucination failure mode is structural
+    (Table~\ref{tab:existing-limits}); we omit an empirical row
+    because the comparison would not contribute new information.
+  \item \textbf{SoM} (discussed for context; not evaluated
+    empirically in this work): OpenCV contour detection $\to$
+    numbered labels $\to$ VLM selection~\cite{som}.  SoM is
+    constrained to UI elements detectable by contour analysis
+    (Section~\ref{sec:related-work}).
+  \item \textbf{Grid} (empirically evaluated): Deterministic grid
+    bisection only (equivalent to Pinpoint Phase~1).
+  \item \textbf{Pinpoint (Ours)} (empirically evaluated): Phase~1 +
+    1.5 + 2 (+3).
+\end{enumerate}
+
+
+\subsection{Evaluation Metrics}
+
+\begin{itemize}
+  \item \textbf{Accuracy}: Euclidean distance (px) from ground truth.
+  \item \textbf{Success rate}: Fraction within tolerance thresholds
+    (5\,px, 10\,px, 20\,px).
+  \item \textbf{VLM queries}: Number of API calls per localization.
+  \item \textbf{Wall-clock time}: Including network latency.
+  \item \textbf{Cost}: API usage (input tokens $\times$ unit price).
+\end{itemize}
+
+
+\subsection{Experimental Setup}
+
+Baseline experiments across the pre-guardrail, guardrail-applied,
+and Stage-B-augmented campaigns use Claude Sonnet~4
+(\texttt{claude-sonnet-4-20250514}, $\mathrm{temperature}=0$,
+accessed via the \texttt{claude -p} subscription CLI) on
+$1920 \times 1080$ screenshots upscaled to $2560$\,px for grid
+line visibility.  The API HTTP baseline and the CLI subscription
+variant comparisons (Section~\ref{sec:results}) use Claude
+Opus~4.7 (\texttt{claude-opus-4-7}, released 2026-04-16) for
+explicit model variation analysis.
+These models also differ substantially in vision pipeline:
+Sonnet~4 silently downscales to $\sim\!1024$~px effective
+resolution, while Opus~4.7 supports up to $\sim\!2576$~px
+($\approx\!3\times$ higher).  This resolution gap shapes both
+the design rationale of certain guardrails (G-2) and the
+empirical validatability of others (G-3, G-5, G-6); see
+Section~\ref{sec:resolution-method}.  Grid
+parameters: $n=12$ lines, 2\% margin, zoom upscale to $1024$\,px, zoom
+threshold $= w/3$.  The $1024$\,px zoom size was calibrated against the
+Claude Sonnet image pre-processing pipeline: empirical probing (and
+independent confirmation from a second VLM family) showed that inputs
+above $\sim$$1092$\,px at a $1{:}1$ aspect ratio are silently
+downsampled, so the original $1200$ / $1600$\,px crops in the
+pre-guardrail baseline lost $\sim$$17\%$ of their effective
+resolution before reaching the model.  Pinpoint parameters:
+$k=7$ dots, $v=3$ votes, initial search radius $s_0 = 100$\,px
+in the guardrail-applied and later campaigns (the pre-guardrail
+baseline used $s_0 = 22$\,px tied to the grid pitch~$G$),
+$\mathrm{max\_rounds}=8$ HIT rounds with up to $3$ MISS retries
+per HIT round.  First-iteration exact hits are
+forced to zoom (converted to between-lines) to mitigate VLM
+overconfidence.  Phase~1.5's anchor declaration prompt was extended
+with an explicit \textsc{visible} / \textsc{absent} binary check
+(Section~\ref{sec:taxonomy-classes}, guardrail G-1) so that the VLM
+can report target absence instead of being coerced into a fabricated
+description; on \textsc{absent} the Phase~1 crop is retried at
+increasing scales before continuing.
+
+The benchmark comprises 50 test cases across 5 categories:
+\texttt{ui\_button} (10), \texttt{ui\_dense} (10), \texttt{natural} (10),
+\texttt{ambiguous} (10), and \texttt{precision} (10).  We report two
+campaigns executed under the same protocol: the
+\emph{guardrail-applied campaign} (5~h~11~min window, zero
+CLI-level errors) and the \emph{Stage-B-augmented campaign}
+(5~h~48~min window, zero CLI-level errors) which adds the
+OCR-snap text-label helper described in
+Section~\ref{sec:results} and Section~\ref{sec:discussion-stage-b}.
+Each campaign covers 50 cases $\times$ 2 methods
+(Grid, Pinpoint) $\times$ 1 repeat = 100 runs (see
+Section~\ref{sec:operational-failures} for the reliability
+protocol that enabled both runs).
+
+
+\subsection{Results}
+\label{sec:results}
+
+\begin{table}[t]
+\caption{Mean localization error in pixels ($\downarrow$ is better)
+  for the v6 and v7 Pinpoint campaigns; Grid columns show the shared v6
+  baseline. ``$n$'' gives the number of valid (non-FAIL) runs. Grid uses
+  12-line binary search with 2560\,px upscale, $1024$\,px zoom, and
+  forced zoom-on-hit.  Pinpoint adds Phase~1.5 (anchor with
+  \textsc{visible}/\textsc{absent} check) and Phase~2 (Monte Carlo dot
+  voting); v7 adds the Stage~B refinement layer.
+}
+\label{tab:results-error}
+\resizebox{\columnwidth}{!}{%
+\small
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{Category} & \textbf{Grid}\,$n$ & \textbf{Grid mean}
+  & \textbf{Pin}\,$n$ & \textbf{Guardrail-applied Pin} & \textbf{Stage-B-augmented Pin} \\
+\midrule
+\texttt{ui\_button}  & 5/10  & 146.5 & 10/10 & 69.6 & \textbf{25.9} \\
+\texttt{ui\_dense}   & 2/10  & 156.2 & 9/10  & 58.4 & \textbf{24.9} \\
+\texttt{natural}     & 10/10 & 118.7 & 10/10 & 33.4 & \textbf{15.5} \\
+\texttt{ambiguous}   & 9/10  & 82.2  & 10/10 & 56.3 & \textbf{64.6} \\
+\texttt{precision}   & 10/10 & 77.4  & 10/10 & 54.1 & \textbf{18.6} \\
+\midrule
+\textbf{Overall mean}   & 36/50 & 104.0 & 50/50 & 54.3 & \textbf{29.9} \\
+\textbf{Overall median} & \multicolumn{2}{c}{76.8} &
+  & 25.5 & \textbf{19.2} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[t]
+\caption{Success rate (\%, $\uparrow$ is better) at various pixel
+  thresholds. v6 rates use 36 Grid and 49 Pinpoint non-FAIL runs; v7
+  has 50 Pinpoint non-FAIL runs (Grid unchanged from v6).  The
+  $\leq$\,200\,px row and Catastrophic row highlight the suppression
+  of catastrophic failures ($>$\,200\,px).  The percentage rows above
+  the midrule are \emph{conditional} on non-FAIL completion;
+  end-to-end success rate counting FAILs as failures equals the
+  conditional rate multiplied by the ``Any (non-FAIL)'' row.  The
+  final row reports the canonical $\leq$\,20\,px end-to-end figure
+  counting FAIL runs as $0$ (numerators: $2/50$ Grid, $15/50$ v6
+  Pinpoint, $27/50$ v7 Pinpoint).
+}
+\label{tab:results-success}
+\resizebox{\columnwidth}{!}{%
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Threshold} & \textbf{Grid} ($n$=36) & \textbf{Guardrail-applied Pinpoint} & \textbf{Stage-B-augmented Pinpoint} \\
+\midrule
+$\leq$\,5\,px    & 2.8\%  & 8.2\%  & \textbf{22.0\%} \\
+$\leq$\,10\,px   & 5.6\%  & 14.3\% & \textbf{34.0\%} \\
+$\leq$\,20\,px   & 5.6\%  & 30.6\% & \textbf{54.0\%} \\
+$\leq$\,50\,px   & 27.8\% & 63.3\% & \textbf{82.0\%} \\
+$\leq$\,100\,px  & 61.1\% & 75.5\% & \textbf{98.0\%} \\
+$\leq$\,200\,px  & 86.1\% & 95.9\% & \textbf{98.0\%} \\
+\midrule
+Any (non-FAIL)   & 72.0\% & 98.0\% & \textbf{100.0\%} \\
+\textbf{Catastrophic ($>$\,200\,px)} &
+  13.9\% & 4.1\%  & \textbf{2.0\%} \\
+\midrule
+\textbf{End-to-end $\leq$\,20\,px} &
+  4.0\% & 30.0\% & \textbf{54.0\%} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[t]
+\caption{Mean VLM queries and wall-clock time per localization for
+  Grid (v6 baseline) and Pinpoint (v6 and v7).  Times include
+  \texttt{claude -p} subprocess startup on each call and therefore
+  overstate pure inference latency.  The v7 Pinpoint row includes the
+  Stage~B OCR probe (0.19\,s mean) which is negligible but recorded
+  separately for completeness.
+}
+\label{tab:results-cost}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrr}
+\toprule
+& \textbf{Grid} & \textbf{Guardrail-applied Pinpoint} & \textbf{Stage-B-augmented Pinpoint} \\
+\midrule
+Queries (mean)  & 3.9   & 28.8  & 29.2  \\
+Time (mean, s)  & 46.2  & 315.4 & 365.1 \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[t]
+\caption{Improvement from the pre-guardrail baseline (n=50) to the
+  guardrail-applied campaign (n=50, P1 silent-downsample fix + P2
+  \textsc{visible}/\textsc{absent} anchor check) on overall Pinpoint
+  metrics, both drawn from the 50-case canonical run.  The
+  reported median follows the standard arithmetic-mean-of-middle
+  convention (\texttt{statistics.median}, matching NumPy and pandas
+  defaults), which returns $57.2$\,px; the \emph{upper middle}
+  alternative (\texttt{statistics.median\_high}) would report
+  $65.5$\,px on the same data.  The headline change is
+  a catastrophic-failure collapse and a median cut of more than a
+  factor of two, with essentially no regression on the left tail.}
+\label{tab:results-baseline-guardrail}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Metric} & \textbf{Pre-guardrail} & \textbf{Guardrail-applied} & \textbf{$\Delta$} \\
+\midrule
+Median (px)                           & 57.2 & \textbf{25.5} & $-55.4\%$ \\
+Mean (px)                             & 86.8 & \textbf{54.3} & $-37.4\%$ \\
+$\leq$\,5\,px                         & 6.0\%  & \textbf{8.2\%}  & $+2.2$\,pt \\
+$\leq$\,10\,px                        & 12.0\% & \textbf{14.3\%} & $+2.3$\,pt \\
+$\leq$\,20\,px                        & 20.0\% & \textbf{30.6\%} & $+10.6$\,pt \\
+$\leq$\,50\,px                        & 50.0\% & \textbf{63.3\%} & $+13.3$\,pt \\
+Catastrophic ($>$\,200\,px)           & 12.0\% & \textbf{4.1\%}  & $-7.9$\,pt \\
+Valid (non-FAIL)                      & 100\%  & \textbf{98\%}   & $-2$\,pt\footnotemark \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\footnotetext{The single v6 FAIL (\texttt{ui\_dense\_01}) was a
+  \texttt{claude -p} subprocess error, not an algorithmic failure;
+  it falls under the operational taxonomy O-* described in
+  Section~\ref{sec:operational-failures}, not the cognitive taxonomy H-*.}
+
+\begin{table}[t]
+\caption{Improvement from v6 to v7 on overall Pinpoint metrics. v7
+  adds the Stage~B refinement layer described in
+  Section~\ref{sec:discussion-stage-b}; the miss path is
+  byte-identical to v6 Pinpoint, so improvements on the left and
+  middle of the distribution reflect a combination of (i) additional
+  VLM sampling variance and (ii) improved per-category Phase~1
+  grid search stability over a second independent run. The
+  \emph{v6} column reproduces the v6 numbers from
+  Table~\ref{tab:results-baseline-guardrail}; \emph{v7} is computed over the full
+  50-case v7 run.}
+\label{tab:results-guardrail-mv}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Metric} & \textbf{Guardrail-applied} & \textbf{Stage-B-augmented} & \textbf{$\Delta$} \\
+\midrule
+Median (px)                           & 25.5  & \textbf{19.2}  & $-24.7\%$ \\
+Mean (px)                             & 54.3  & \textbf{29.9}  & $-44.9\%$ \\
+$\leq$\,5\,px                         & 8.2\% & \textbf{22.0\%}  & $+13.8$\,pt \\
+$\leq$\,10\,px                        & 14.3\%& \textbf{34.0\%}  & $+19.7$\,pt \\
+$\leq$\,20\,px                        & 30.6\%& \textbf{54.0\%}  & $+23.4$\,pt \\
+$\leq$\,50\,px                        & 63.3\%& \textbf{82.0\%}  & $+18.7$\,pt \\
+Catastrophic ($>$\,200\,px)           & 4.1\% & \textbf{2.0\%}   & $-2.1$\,pt \\
+Valid (non-FAIL)                      & 98\%  & \textbf{100\%}   & $+2$\,pt \\
+Stage~B hit rate                      & n/a   & 0/50 (0\%)       & scope-limited \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[t]
+\caption{OCR-snap text-label helper (Post-Phase~1) activation
+  outcomes on the Stage-B-augmented campaign.  The helper is
+  effective only when (a) the target description contains a quoted
+  text label and (b) Phase~1 lands inside the OCR-detected text
+  bbox.  No case in this campaign satisfied both conditions; we
+  document this as evidence of the method's narrow scope, which
+  motivates the semantic-geometric successor sketched in
+  Section~\ref{sec:discussion-stage-b}.}
+\label{tab:stage-b-scope}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lcl@{}}
+\toprule
+\textbf{Category} & \textbf{Hits / n} & \textbf{Miss rationale} \\
+\midrule
+\texttt{ui\_button}  & 0/10 & Phase~1 outside OCR text bbox (button center $\ne$ label center) \\
+\texttt{ui\_dense}   & 0/10 & no text label in target $\to$ extractor short-circuits \\
+\texttt{natural}     & 0/10 & no quoted label in target $\to$ extractor short-circuits \\
+\texttt{precision}   & 0/10 & no quoted label in target $\to$ extractor short-circuits \\
+\texttt{ambiguous}   & 0/10 & label extracted, but bbox containment unmet \\
+\midrule
+\textbf{Overall}      & \textbf{0/50} & see Section~\ref{sec:discussion-stage-b} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[t]
+\caption{Mean wall-clock split across Pinpoint phases in the
+  Stage-B-augmented campaign (per case, 50 cases).  Phase~2
+  dominates; the OCR-snap text-label helper is negligible.
+  Phase~1.5 is the aggregate of anchor
+  declaration plus up-to-two re-declarations at wider scales when the
+  initial anchor is \textsc{absent}.  The numbers are used in
+  Section~\ref{sec:discussion-stage-b} to evaluate where future
+  refinement effort has the most leverage.}
+\label{tab:phase-split}
+\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Phase} & \textbf{Mean (s)} & \textbf{Share} \\
+\midrule
+Phase 1 (grid search)           & 52.8  & 15\% \\
+Phase 1.5 (anchor declaration)  & 15.4  & 4\%  \\
+Phase 2 (Monte Carlo voting)    & \textbf{296.6} & \textbf{81\%} \\
+OCR-snap helper                 & 0.19  & 0.1\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\caption{Overall Pinpoint success-rate comparison across three
+  campaigns: v7 (Stage~B, 50-case), v8 (Stage~C Phase~A alone, 50-case),
+  and v9 (Stage~C Phase~A + Phase~B W1 + W2 combined, 50-case).  Phase~B
+  W1 adds Phase~1 \textbf{N=3 majority voting} (per-axis median
+  aggregation) to reduce upstream VLM sampling variance; Phase~B W2
+  adds an \textbf{icon-pipeline adaptive tuning}
+  (search-radius / AR / ambiguity-abstention refinement) so the icon
+  variant is more conservative on dense toolbars.  The full
+  Phase-A+B Workstream 1+2 variant achieves a primary metric
+  improvement of $+6.0$\,pt on $\leq$\,20\,px over the
+  deterministic-routing-only variant and $+8.0$\,pt on
+  $\leq$\,5\,px, with a simultaneous $-7.1$\,px improvement in
+  mean error.  Per-category results are in
+  Table~\ref{tab:results-by-category}.}
+\label{tab:results-stage-progression}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Metric} & \textbf{Stage-B-augmented} & \textbf{Phase-A-only} & \textbf{Full Phase-B}
+  & \textbf{v9$-$v8} \\
+\midrule
+Median (px)                  & 19.2   & 30.5   & \textbf{22.2}   & $-27.2\%$ \\
+Mean (px)                    & 29.9   & 40.3   & \textbf{33.2}   & $-17.6\%$ \\
+$\leq$\,5\,px                & 22.0\% & 14.0\% & \textbf{22.0\%} & $+8.0$\,pt \\
+$\leq$\,10\,px               & 34.0\% & 24.0\% & 26.0\%          & $+2.0$\,pt \\
+$\leq$\,20\,px               & 54.0\% & 38.0\% & \textbf{44.0\%} & $+6.0$\,pt \\
+$\leq$\,50\,px               & 82.0\% & 76.0\% & \textbf{80.0\%} & $+4.0$\,pt \\
+$\leq$\,100\,px              & 98.0\% & 96.0\% & 94.0\%          & $-2.0$\,pt \\
+Catastrophic ($>$\,200\,px)  & 2.0\%  & 2.0\%  & 2.0\%           & $0$\,pt \\
+Valid (non-FAIL)             & 100\%  & 100\%  & 100\%           & $0$\,pt \\
+Stage~C hit rate             & n/a    & 7/50 (14\%) & 4/50 (8\%) & --- \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[t]
+\caption{Per-category $\leq$\,20\,px Pinpoint success rate across v7,
+  v8, and v9, annotated with the Stage~C pipeline outcome per category
+  in v9.  The v8 row's left-tail regression on \texttt{precision}
+  ($-60$\,pt) that we attributed to Phase~1 VLM sampling variance in
+  Section~\ref{sec:discussion-stage-c} is reversed in v9
+  ($+70$\,pt recovery), consistent with W1 majority voting suppressing
+  the single-sample Mode-B tail.  \texttt{ui\_dense} gains $+20$\,pt
+  from W1+W2 combined (W1 reduces input variance, W2 abstains on
+  ambiguous dense-toolbar contours); \texttt{ui\_button} gives back the
+  Phase~A $+10$\,pt as the hit-rate shifts from 4/10 to 3/10 under
+  W2's tighter thresholds.  \texttt{natural} and \texttt{ambiguous}
+  route entirely through \texttt{generic\_miss}, so their $\Delta$ is
+  a per-sample VLM-variance artefact rather than a Stage~C effect.
+  The overall $+6.0$\,pt improvement in the rightmost column is the
+  primary metric on which v9 clears decision~056 Strong~GO.}
+\label{tab:results-by-category}
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lrrrrl@{}}
+\toprule
+\textbf{Category} & \textbf{Stage-B-augmented} & \textbf{Phase-A-only} & \textbf{Full Phase-B}
+  & \textbf{v9$-$v8} & \textbf{v9 Stage~C method} \\
+\midrule
+\texttt{ui\_button}  & 40\% & 50\% & 30\% & $-20$\,pt
+  & \texttt{button} hit 3/10 \\
+\texttt{ui\_dense}   & 60\% & 30\% & \textbf{50\%} & $+20$\,pt
+  & \texttt{icon} hit 1/10 + W2 abstention \\
+\texttt{natural}     & 70\% & 60\% & 30\% & $-30$\,pt
+  & \texttt{generic\_miss} 10/10 \\
+\texttt{ambiguous}   & 30\% & 40\% & 30\% & $-10$\,pt
+  & \texttt{generic\_miss} 10/10 \\
+\texttt{precision}   & 70\% & 10\% & \textbf{80\%} & $\mathbf{+70}$\,pt
+  & \texttt{generic\_miss} 10/10 \\
+\midrule
+\textbf{Overall}     & \textbf{54\%} & \textbf{38\%} & \textbf{44\%}
+  & $+6$\,pt & 4/50 Stage~C hits \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\begin{table}[t]
+\caption{Hex-stencil empirical validation on the full $N{=}50$
+  benchmark (CLI subscription variant), replacing the earlier
+  $N{=}10$ pilot.\protect\footnotemark{}  On a full 50-case
+  benchmark the hex stencil reaches median ground-truth distance
+  $10.2$\,px and a $96\%$ $\leq$\,50\,px success rate; the mean
+  $20.67$\,px is inflated by two \texttt{ambiguous}-query
+  catastrophic cases that are documented as a recovered failure
+  mode in §\ref{sec:limitations}-(4).  Mean query count converges
+  to $\bar{Q}=27.32$ at $n=50$ ($5.8\%$ deviation from the
+  theoretical $Q\!\approx\!29.10$ derived in
+  §\ref{sec:numerical}; $32/50$ cases match $Q=29$ exactly), so
+  the §\ref{sec:numerical} prediction holds at $5\times$ the
+  original sample size with no recalibration.  HIT rate is
+  $50/50$ with the max-3 MISS-retry budget triggered on
+  $13/50$ cases ($\bar{Q}>29$ tail).  The middle column reports the
+  Phase-A+B variant's results restricted to the ten pilot
+  identifiers from the earlier 10-case benchmark; baseline-vs-hex
+  on that matched subset cut mean ground-truth distance from
+  $13.88$\,px to $7.01$\,px ($50\%$ improvement, attributable to
+  the deterministic $s/2$-cover).}
+\label{tab:hex-stencil-50case}
+\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Metric}
+  & \textbf{Phase-A+B (10-case)} & \textbf{Hex-stencil (50-case)} \\
+\midrule
+Mean queries                         & ---   & \textbf{27.32}        \\
+Median gt-distance (px)              & ---   & \textbf{10.2}         \\
+Mean gt-distance (px)                & 13.88 & 20.67                 \\
+$\leq$\,5\,px success                & ---   & 36\%                  \\
+$\leq$\,10\,px success               & ---   & 50\%                  \\
+$\leq$\,20\,px success               & ---   & 78\%                  \\
+$\leq$\,50\,px success               & ---   & \textbf{96\%}         \\
+HIT rate                             & ---   & 50/50                 \\
+MISS-retry triggered                 & ---   & 13/50 cases           \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\footnotetext{The 50-case empirical results on the CLI subscription
+  variant are sourced from the reproducible run (three batches,
+  $0$ API spend via \texttt{claude} CLI subscription transport).
+  Source artifacts:
+  \texttt{benchmark/results.arm\_b\_bundle\_2\_21\_batch1\_uibtn\_uidense\_20260513.json},
+  \texttt{benchmark/results.arm\_b\_bundle\_2\_21\_batch2\_precision\_natural\_20260513.json},
+  \texttt{benchmark/results.arm\_b\_bundle\_2\_21\_batch3\_ambiguous\_20260513.json}.
+  The 10-case pilot reported in earlier drafts is
+  superseded by this full-scale rerun.}
+
+A per-category breakdown of the 50-case sample shows mean
+ground-truth distance of $16.83$\,px (\texttt{ui\_button},
+$n{=}10$), $12.86$\,px (\texttt{ui\_dense}, $n{=}10$),
+$6.65$\,px (\texttt{precision}, $n{=}10$), $9.74$\,px
+(\texttt{natural}, $n{=}10$), and $57.26$\,px
+(\texttt{ambiguous}, $n{=}10$).  The \texttt{ambiguous} mean is
+dominated by the two under-specified-query catastrophic cases
+discussed in §\ref{sec:limitations}-(4); the corresponding
+\texttt{ambiguous} median is $12.35$\,px, comparable to the
+non-\texttt{ambiguous} categories.  The $5\times$ scale-up of
+the original 10-case pilot resolves the
+\texttt{ui\_button} and \texttt{ui\_dense} statistical-thinness
+concerns flagged in earlier drafts.
+
+Stage~C \texttt{declare\_target} short-circuit is
+content-conditional: $5/50$ cases ($10\%$) skip Phase~2 entirely
+on toolbar-button and distinct-icon targets ($4$ \texttt{ui\_button}
+hits + $1$ \texttt{precision} hit on a high-contrast
+purple-diamond icon).  The accelerator does not activate on
+natural images, dense icons, under-specified queries, or
+non-icon \texttt{precision} targets, contributing $\sim$$0.6$\,h
+wall savings on the 50-case run while preserving the $96\%$
+aggregate success rate.
+
+% Precision category: 10 cases (sub-60px targets). Both methods score
+% all 10; Pinpoint median is 18.5px, grid 50.9px. Highest-precision
+% category for Pinpoint (20% <=5px), but ui_button/ui_dense remain
+% gated by the VLM patch quantization limit discussed in Section~6.5.
+
+\begin{figure}[t]
+  \centering
+  \input{figures/accuracy_comparison}
+  \caption{Mean localization error by category in the v6 campaign.
+    Pinpoint beats Grid on every category in both mean and validity
+    rate; Grid's mean error is inflated by its $28\%$ FAIL rate on
+    dense UI categories.  See Table~\ref{tab:results-error}.
+  }
+  \label{fig:accuracy}
+  \Description{Grouped bar chart comparing mean localization error in
+    pixels for the Grid baseline and the Pinpoint method across the
+    five benchmark categories (ui\_button, ui\_dense, natural,
+    ambiguous, and precision); Pinpoint's bar is shorter than Grid's
+    in every category, with the largest gap on the dense UI
+    categories where Grid suffers a high failure rate.}
+\end{figure}
+
+\begin{figure}[t]
+  \centering
+  \input{figures/query_cost}
+  \caption{Theoretical vs.\ measured VLM query counts. Grid uses
+    $\approx$4 queries (2~per axis). Pinpoint adds 1~anchor + 24~voting
+    queries ($8 \times 3$~votes). Measured values closely match theory,
+    confirming deterministic query budgets.
+  }
+  \label{fig:query-cost}
+  \Description{Bar chart comparing the theoretical and measured VLM
+    query counts for Grid and Pinpoint; the measured bars sit close
+    to their theoretical predictions of approximately four queries
+    for Grid and twenty-five queries for Pinpoint, illustrating that
+    both methods adhere to deterministic per-case query budgets.}
+\end{figure}
+
+\subsection{Analysis}
+
+Tables~\ref{tab:results-error}--\ref{tab:results-baseline-guardrail} and
+Figure~\ref{fig:accuracy} together tell a simple story: once the two
+guardrails (P1 zoom-size correction and P2 \textsc{visible} /
+\textsc{absent} anchor check) are in place, Pinpoint outperforms
+Grid on every category, every success threshold, and the catastrophic
+tail in this evaluated set.  The pre-guardrail
+``reliability versus mean accuracy'' tension---Pinpoint
+winning on FAIL rate but losing on mean error---has disappeared.
+
+\paragraph{Headline: robustness win, not precision win.}
+The single largest effect is the collapse of catastrophic failures
+($>$\,200\,px) from $12\%$ in v5 to $4.1\%$ in v6
+(Table~\ref{tab:results-baseline-guardrail}), a $-7.9$\,pt shift driven entirely
+by the P2 anchor check closing the cascading-hallucination loop
+documented in Section~\ref{sec:taxonomy-cascade}; this corresponds
+to a Mode~B rescue rate of approximately $66\%$.  The median
+simultaneously drops from $57.2$ to $25.5$\,px ($-55\%$).  The
+left-tail metrics ($\leq$\,5\,px, $\leq$\,10\,px) improve only
+marginally ($+2.2$, $+2.3$\,pt)---P1/P2 were designed to rescue the
+right tail (Mode~B in Section~\ref{sec:taxonomy-bimodal}) and were
+never expected to push sub-pixel accuracy.  We frame v6 as a
+\emph{robustness} milestone, not a precision one.
+
+\paragraph{Category-wise dominance.}
+In v6, Pinpoint has a lower mean error than Grid in \emph{every}
+category, and a median error at least halved in every category except
+\texttt{ambiguous}.  The effect is strongest on
+\texttt{natural} (Grid $118.7$ vs.\ Pinpoint $33.4$\,px, a $3.5\times$
+improvement) and \texttt{ui\_button} ($146.5$ vs.\ $69.6$\,px), where
+v5 had shown Grid and Pinpoint as roughly equal.  Pinpoint also
+retains nearly-full validity ($49/50 = 98\%$) while Grid's FAIL rate
+climbs to $28\%$ ($14/50$), concentrated on
+\texttt{ui\_button} ($5/10$ FAIL) and \texttt{ui\_dense} ($8/10$
+FAIL)---dense UI categories where a deterministic binary search
+struggles to return any answer at all.  The gap is not a Pinpoint
+advantage so much as a Grid collapse under challenging UIs.
+
+\paragraph{Per-threshold sub-20\,px structure.}
+At the $\leq$\,20\,px threshold, Pinpoint reaches $30.6\%$ versus
+Grid's $5.6\%$---a factor of $5.5$---and at $\leq$\,50\,px,
+$63.3\%$ versus $27.8\%$ ($2.3\times$).  The \texttt{precision}
+category, which contains the smallest targets, yields the highest
+Pinpoint $\leq$\,5\,px rate ($20\%$) and the lowest median
+($18.5$\,px), confirming that when the Phase~1 anchor is sound,
+Phase~2's Monte Carlo voting can reach genuinely pixel-scale
+precision.  In contrast, \texttt{ui\_button} and \texttt{ui\_dense}
+both show $0\%$ at $\leq$\,5\,px despite good medians ($32.1$ and
+$23.0$\,px).  The fine-grained precision of Pinpoint is bounded, in
+these categories, by the patch-quantization limit of the underlying
+VLM vision tower (the same $\sim$one-patch effect discussed in
+class H-6 in Section~\ref{sec:taxonomy-classes}): sub-$8$\,px
+distinctions inside a single $14 \times 14$ or $16 \times 16$ patch
+are not recoverable by prompting alone, and are what we expect a
+text-label (OCR) or CV-snapping layer to unlock in future work.
+
+\paragraph{Cost and throughput.}
+Grid requires $\sim$4 VLM queries; Pinpoint requires $\sim$29
+(Table~\ref{tab:results-cost}), matching theoretical predictions
+(Figure~\ref{fig:query-cost}) and unchanged from v5.  Wall-clock
+times ($46.2$\,s Grid, $315.4$\,s Pinpoint) are dominated by
+\texttt{claude -p} subprocess startup rather than pure model
+inference, and are not directly comparable to v5's API-mode numbers;
+the $\sim$$7\times$ ratio between Grid and Pinpoint tracks the query
+budget and is the quantity that actually matters for cost models.
+
+\paragraph{Revised practical recommendation.}
+v6 collapses the v5 recommendation to a single rule: \emph{use
+Pinpoint}.  The earlier hybrid strategy (``Grid first, Pinpoint on
+FAIL'') no longer has a tier~1 branch on which to rest---Grid's FAIL
+rate is too high on the very UI categories where the hybrid used to
+be useful, and Pinpoint's right-tail failures, which originally
+motivated the hybrid, have been largely eliminated.  A useful
+residual hybrid is instead \emph{Grid first on \texttt{natural} or
+\texttt{precision} categories, Pinpoint everywhere else}, as a
+latency optimization when the target type is known a priori.  The
+remaining Pinpoint failures are concentrated in
+\texttt{ui\_button} / \texttt{ui\_dense} and are no longer
+cognitive hallucinations (the H-* taxonomy in
+Section~\ref{sec:taxonomy}) but operational errors
+(Section~\ref{sec:operational-failures}) and patch-quantization limits
+pointing to the next layer of work.
+
+\paragraph{v7 extension: left-tail gains without a precision layer.}
+The v7 campaign adds the Stage~B text-label snap described in
+Section~\ref{sec:discussion-stage-b} and repeats the full 50-case
+benchmark.  Stage~B produces $0$ hits in $50$ cases, so any v7
+improvement relative to v6 must come from Phase~1/Phase~2 on a
+second independent run (we retain the full per-case results in
+\texttt{benchmark/results.v7\_full\_20260416.json}).  The observed
+gains are nonetheless substantial on precisely the metrics v6 could
+not move: $\leq$\,5\,px goes from $8.2\%$ to $\mathbf{22.0\%}$
+($+13.8$\,pt), $\leq$\,20\,px from $30.6\%$ to $\mathbf{54.0\%}$
+($+23.4$\,pt), and catastrophic failures drop a further $2$\,pt to
+$\mathbf{2.0\%}$.  The most plausible mechanism is that
+category-level Phase~1 seed errors (the Mode~B tail in
+Section~\ref{sec:taxonomy-bimodal}) vary across runs, and v7
+happened to draw a favorable sample; a second v6 replay would be
+required to separate ``v7 improvement'' from ``VLM sampling
+variance''.  The honest summary is that v7 confirms v6's right-tail
+stability and leaves a precision-focused refinement layer still
+unbuilt---Stage~B was the attempt, Stage~C
+(Section~\ref{sec:discussion-stage-c}) is the built successor.
+Phase-level timings (Table~\ref{tab:phase-split}) confirm that
+Phase~2 dominates wall-clock ($81\%$) in both campaigns, so any
+future refinement layer that can replace Monte Carlo voting with a
+deterministic CV step has the strongest latency leverage.
+
+\paragraph{v8 extension: Stage~C exposes the upstream variance
+  bottleneck.}
+The v8 campaign (50 cases, \texttt{--repeat 1}) enables Stage~C
+(Section~\ref{sec:discussion-stage-c}): Phase~1 output is dispatched
+through a rule-based \texttt{declare\_target} step to a
+\texttt{target\_type}-specific CV pipeline (\texttt{button},
+\texttt{icon}, \texttt{menu\_item}, or \texttt{generic} miss-only).
+Stage~C hits fire on $7/50$ targets (14\%), all in \texttt{ui\_button}
+(4) and \texttt{ui\_dense} (3); the remaining $30/50$ route through
+\texttt{generic\_miss} and are byte-identical to v7 Pinpoint.  The
+overall $\leq$\,20\,px rate drops from v7's $54\%$ to v8's
+$\mathbf{38\%}$ (Table~\ref{tab:results-stage-progression}, v8 column).
+Turning to per-category behavior, the breakdown
+(Table~\ref{tab:results-by-category}, v8 column) explains the
+apparent regression cleanly: \texttt{ui\_button} improves by $+10$\,pt where
+Stage~C is active, \texttt{ambiguous} improves by $+10$\,pt on pure
+VLM variance, and the $-16$\,pt overall loss is dominated by a
+$-60$\,pt collapse on \texttt{precision} where Stage~C does not even
+run (10/10 \texttt{generic\_miss}) and the loss is entirely a
+single-run draw of the Phase~1 Mode~B tail.  A secondary 20-case
+smoke with \texttt{--repeat 3} (Stage~1 of the A/B protocol)
+exhibits a complementary \emph{bimodal} precision effect---$\leq$\,5\,px
+improves by $+10$\,pt and $\leq$\,10\,px by $+13$\,pt, but
+$\leq$\,50\,px degrades by $-13$\,pt---which disappears at the 50-case
+full scale, confirming that Stage~C's precision boost is emergent
+under multi-sample averaging and that a single-sample evaluation is
+still dominated by upstream VLM variance.  The cleanest
+interpretation is that Stage~C functions as a deterministic routing
+amplifier: when Phase~1 lands correctly, Stage~C sharpens the
+coordinate to the geometric centroid of the button (v8
+\texttt{ui\_button} has three $\leq$\,1\,px hits); when Phase~1 lands
+on the wrong UI element, Stage~C snaps to that wrong element's
+centroid instead, amplifying the error rather than absorbing it.
+Examining the variance source directly, the Stage~1
+cross-run reproducibility data support this reading: four
+wrong-detection hits (e.g.\ \texttt{ui\_button\_01} at
+$95$\,px) are bit-identical across Stage~1 ($3/3$ repeats) and
+Stage~2, confirming that Stage~C itself is deterministic and that
+the residual variance lives entirely in Phase~1.  This reading
+becomes the central claim of Section~\ref{sec:discussion-stage-c}
+and points unambiguously at upstream-variance reduction (majority
+voting, bootstrap aggregation, or seeded sampling) as the next
+leverage point.
+
+\paragraph{v9 extension: W1+W2 combined delivers decision~056
+  Strong~GO.}
+The v9 campaign (50 cases, \texttt{--repeat 1}) combines Phase~B
+Workstream 1 (\textbf{Phase~1 N=3 majority voting} with per-axis
+median aggregation, reducing upstream VLM sampling variance by
+$\sim$$1/\sqrt{3}$) with Workstream 2 (\textbf{icon-pipeline adaptive
+tuning}---tighter search radius, stricter aspect-ratio bounds, and
+ambiguity abstention when two candidate contours are close in
+distance to \texttt{approx\_xy}) on top of the same Stage~C
+dispatcher.  The v9 result is a \emph{decision-056 Strong-GO}
+(Table~\ref{tab:results-stage-progression}): $\leq$\,20\,px rises
+$38.0\% \to \mathbf{44.0\%}$ ($+6.0$\,pt over the Primary-GO
+threshold of $+3$\,pt), $\leq$\,5\,px rises $14.0\% \to
+\mathbf{22.0\%}$ ($+8.0$\,pt, recovering to the v7 left-tail
+level), mean error drops $40.3 \to 33.2$\,px ($-7.1$\,px), and
+median drops $30.5 \to 22.2$\,px ($-27.2\%$).  The per-category
+breakdown (Table~\ref{tab:results-by-category}) shows the
+mechanism: \texttt{precision} recovers from v8's catastrophic
+$10\%$ to $\mathbf{80\%}$ ($+70$\,pt), consistent with W1's
+majority voting suppressing the single-sample Mode-B tail we
+identified as the root cause in the v8 analysis above;
+\texttt{ui\_dense} gains $+20$\,pt on the combined W1~+~W2 effect
+(majority-voted \texttt{approx\_xy} lands in the correct icon more
+often, and W2 abstention prevents the residual wrong-icon snaps
+Stage~C previously committed to).  \texttt{ui\_button} gives back
+the Phase~A $+10$\,pt as hits shift from $4/10$ to $3/10$ under
+W2's tighter thresholds---an expected cost of trading path-A
+precision for path-B robustness, documented in
+Section~\ref{sec:discussion-stage-c} as the $9$-recovery / $6$-
+regression balance at the per-case level (net $-285$\,px summed
+error, dominated by \texttt{precision\_00} $172.4 \to 4.0$\,px).
+The Stage~C hit rate falls $14\% \to 8\%$ (the Phase~2 fallback
+picks up more cases as W2 abstains on ambiguous contours), so the
+improvement is attributable to the combination of cleaner Phase~1
+inputs feeding Phase~2 and W2 refusing unsafe Stage~C snaps---not
+to more frequent Stage~C short-circuits.  v9 is thus the empirical
+test of the Section~\ref{sec:discussion-stage-c} Phase~B roadmap
+and confirms the ``upstream-variance reduction as the next leverage
+point'' prediction with a measured $+6$\,pt gain on the primary
+metric.
+
+%TODO: Add qualitative examples (screenshots with dot overlays).
+
+
+%% ================================================================
+%%  6. FAILURE MODE ANALYSIS AND HALLUCINATION TAXONOMY
+%% ================================================================
+\input{sections/hallucination_taxonomy}
+
+
+%% ================================================================
+%%  7. DESIGN INSIGHTS
+%% ================================================================
+\section{Design Insights}
+\label{sec:insights}
+
+\subsection{Regression-to-Ranking Transformation}
+
+VLMs are poor at \emph{estimating coordinates} (regression) but adept
+at judging \emph{which of several dots is closest to a target}
+(relative ranking).  Pinpoint exploits this asymmetry.
+
+The existence of Computer Use APIs is itself evidence that VLM
+coordinate regression hallucinates.  Pinpoint's solution: never ask
+the VLM for coordinates---ask only ``which dot is closest?''
+This transforms an unbounded regression problem into a bounded
+$k$-way ranking problem where the VLM's visual reasoning capabilities
+are well suited.
+
+\subsection{Visual Chain-of-Thought}
+
+The anchor declaration functions as a \emph{visual} Chain-of-Thought:
+
+\begin{enumerate}
+  \item \textbf{Verbalize the aim:} describe the target pixel in
+    precise language (externalized thinking).
+  \item \textbf{Fix the criterion:} use the description as a stable
+    judgment anchor (enforced self-consistency).
+  \item \textbf{Detect drift:} re-request anchor on ABSENT retry
+    (periodic / semantic-comparison variants reserved as future
+    guardrails).
+\end{enumerate}
+
+\subsection{Stochastic vs.\ Deterministic Search}
+
+Grid Find (Phase~1) is deterministic and fast but precision-limited:
+the VLM cannot reliably select grid cells finer than $\sim$20\,px.
+Phase~2's closest-dot convergence breaks through this barrier by
+transforming ``where is the target?'' (regression) into ``which dot is
+nearest?'' (ranking).  The combination is optimal: grid for coarse
+narrowing ($O(\log N)$ queries), Monte Carlo for fine precision
+($O(\log s_0)$ rounds).
+
+\subsection{Guardrail Design}
+
+Pinpoint incorporates six guardrails:
+
+\begin{enumerate}
+  \item \textbf{Force zoom on first exact}: mitigates VLM
+    overconfidence at coarse scale.
+  \item \textbf{Direct fallback}: recovers from grid FAIL via VLM
+    coordinate estimation.
+  \item \textbf{Anchor declaration}: verbalizing the aim for
+    consistency.
+  \item \textbf{Anchor retry with wider crop}: recovers when the
+    target is outside the initial context crop.
+  \item \textbf{Majority vote}: filtering out sporadic hallucinations.
+  \item \textbf{Anchor drift detection}: re-request on ABSENT
+    wider-crop retry (periodic re-declaration and semantic drift
+    comparison are reserved as future / interactive-server
+    guardrails).
+\end{enumerate}
+
+
+%% ================================================================
+%%  8. DISCUSSION: COORDINATE LOCALIZATION INSIGHTS
+%% ================================================================
+\input{sections/discussion}
+
+
+%% ================================================================
+%%  9. LIMITATIONS AND FUTURE WORK
+%% ================================================================
+\section{Limitations and Future Work}
+\label{sec:limitations}
+
+\textbf{Limitations.}
+(1)~VLM API call cost: each localization requires tens of queries.
+(2)~Network latency makes real-time operation infeasible.
+(3)~VLM visual resolution limits: even with magnification, some
+fine-grained structures remain indistinguishable.
+(4)~\emph{Under-specified natural-language queries.}
+Targets that are difficult to describe in text (e.g., ``the third
+dot from the right'') may degrade anchor quality.  The
+50-case benchmark on the CLI subscription variant confirms this
+empirically: $2/10$ \texttt{ambiguous}-category cases
+(\texttt{ambiguous\_04} ``the single blue pixel among the noise'';
+\texttt{ambiguous\_05} ``the button on the right side'') exhibit
+wrong-target lock-in with final distance $>\!150$\,px.  Phase~1
+grid descent converges on a plausible-but-incorrect candidate, and
+the Phase~2 hex stencil cannot recover once the wrong region is
+selected.  These two cases account for the entire gap between the
+observed $96\%$ $\leq$\,50\,px success rate and the ideal $100\%$.
+
+\textbf{Future directions.}
+(1)~\emph{Adaptive dot count}: dynamically adjusting $k$ based on
+region complexity.
+(2)~\emph{Bayesian optimization integration}: using HIT/MISS history
+to guide dot placement.
+(3)~\emph{Local VLMs}: eliminating API dependency for real-time use.
+(4)~\emph{Alternative stochastic methods}: comparison with simulated
+annealing and Thompson sampling.
+(5)~\emph{Broader empirical scope}: extending evaluation beyond the
+50-case synthetic benchmark with multiple VLM backbones, real-desktop
+tasks, and repeat trials, to characterize cross-backbone
+generalization and per-condition variance.
+(6)~\emph{Query disambiguation and multi-candidate Phase~1}: the
+failure mode catalogued in Limitation~(4) suggests two
+complementary mitigations: (a)~a Phase~1.5 disambiguation prompt
+that asks the VLM to enumerate candidate referents before
+commitment, or (b)~a multi-candidate Phase~1 that retains the
+top-$k$ grid hypotheses for downstream voting at the hex-stencil
+stage.
+
+
+%% ================================================================
+%%  8. CONCLUSION
+%% ================================================================
+\section{Conclusion}
+
+Monte Carlo Pinpoint exploits the VLM's asymmetry---strong at
+recognition, weak at coordinate estimation---by converting coordinate
+regression into a 7-way closest-dot ranking over a hex-stencil
+probe.  By combining deterministic grid bisection with deterministic
+hex-stencil probing under HIT-only radius halving, it achieves
+localization in $O(v \cdot \log(s_0/\varepsilon))$ queries with
+deterministic cost bounds.
+
+On the 50-case benchmark spanning UI elements, natural images,
+and ambiguous targets, the hex-stencil with HIT-only halving and
+max-3 MISS retry reaches a median ground-truth distance of
+$10.2$\,px, a $96\%$ success rate at $\leq$\,50\,px, and an
+empirical mean query count of $\bar{Q}=27.32$---a $5.8\%$
+deviation from the theoretical $Q\!\approx\!29.10$ predicted by
+Theorem~\ref{thm:convergence}.  The earlier guardrail-applied
+ablation (median $25.5$\,px, a $55\%$ reduction from the
+pre-guardrail baseline; catastrophic-failure rate $>$\,200\,px at
+$4.1\%$, down from $12\%$; $98\%$ validity versus $72\%$ for
+Grid-only) remains the relevant point of comparison for
+catastrophic-failure analysis and grid-bisection robustness.  Pinpoint beats Grid on mean error in every category
+and on every success threshold from $\leq$\,5\,px to
+$\leq$\,200\,px, with the robustness gain largest on dense UI
+categories where deterministic grid bisection fails to return any
+answer at all.  The query overhead relative to a single-shot
+baseline is the cost of convergence under
+Theorem~\ref{thm:convergence} and of the anchor-validity check that
+eliminates the cascading-hallucination failure mode
+(Section~\ref{sec:taxonomy-cascade}).
+
+Where SoM is limited to UI elements detectable by contour analysis,
+Pinpoint extends to a broader class of semantic positions,
+demonstrated in this work on synthetic ambiguous targets, artistic
+elements, and sub-pixel features within the 50-case benchmark.  This
+suggests applications beyond GUI operation---image annotation, medical
+image analysis, quality inspection, and any task requiring precise
+localization within images---subject to broader evaluation
+(\S\ref{sec:limitations}).
+
+
+%% ================================================================
+%%  REFERENCES
+%% ================================================================
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+
+%% ================================================================
+%%  APPENDIX
+%% ================================================================
+\appendix
+
+\section{Algorithm Pseudocode}
+
+\begin{algorithm}[t]
+\caption{Monte Carlo Pinpoint}
+\label{alg:pinpoint}
+\begin{algorithmic}[1]
+\Require Image $I$, target description $T$, dots $k{=}7$,
+  votes $v{=}3$, grid precision $G{=}20$
+\Ensure Coordinates $(x^*, y^*)$
+
+\State $(x, y) \gets \textsc{GridSearch}(I, T, G)$
+  \Comment{Phase 1}
+\If{either axis failed}
+  \State $(x, y) \gets \textsc{DirectVLM}(I, T)$
+    \Comment{Fallback}
+\EndIf
+\State $C \gets \textsc{Crop}(I, x, y, 3 s_0)$
+\State $\mathit{anchor} \gets \textsc{DeclareAnchor}(C, T)$
+  \Comment{Phase 1.5}
+\If{$\mathit{anchor}$ starts with ``I cannot\ldots''}
+  \State $C_w \gets \textsc{WideCrop}(I, x, y)$
+  \State $\mathit{anchor} \gets \textsc{DeclareAnchor}(C_w, T)$
+\EndIf
+\State $s \gets s_0$ \Comment{Initial Phase~2 search radius (e.g.\ $100$\,px)}
+\State $\mathit{hit} \gets 0$;~ $\mathit{retry} \gets 0$
+\While{$\mathit{hit} < \mathit{max\_rounds}$}
+  \Comment{Phase 2 (HIT-only halving, max-$3$ MISS retries)}
+  \State $D \gets \textsc{HexStencilDots}(x, y, s)$
+    \Comment{$1$ center $+\,6$ outer at $\frac{\sqrt{3}}{2} s$}
+  \State $C_r \gets \textsc{Crop}(I, x, y, 3s)$
+  \State $I' \gets \textsc{DrawDots}(C_r, D)$
+  \State $q \gets \textsc{AskClosest}(I', \mathit{anchor})$
+  \State $c \gets \textsc{MajorityVote}(q, v)$
+  \If{$c \neq \text{null}$} \Comment{HIT}
+    \State $(x, y) \gets D[c]$;~
+      $s \gets \max(2, \lfloor s / 2 \rfloor)$
+    \State $\mathit{hit} \gets \mathit{hit} + 1$;~ $\mathit{retry} \gets 0$
+  \Else{} \Comment{MISS}
+    \State $\mathit{retry} \gets \mathit{retry} + 1$
+    \If{$\mathit{retry} > 3$}
+      \State \textbf{break} \Comment{Phase~1 fallback}
+    \EndIf
+  \EndIf
+\EndWhile
+\State \Return $(x, y)$
+\end{algorithmic}
+\end{algorithm}
+
+\section{Implementation Details}
+
+The implementation uses Python with PIL, OpenCV, and \texttt{mss} for
+screen capture.  The VLM backend is Claude Sonnet~4 via the
+\texttt{claude -p} subscription CLI; the Anthropic API is
+supported as an alternative transport, but the 50-case rerun used
+the CLI route at \$0 API spend.  The tool is publicly available as
+the \texttt{pinpoint} command
+in the \texttt{video2ai-desktop} MCP server, exposed by the
+repository-root \texttt{mcp\_server.py}.  The Phase~2 dot-placement
+primitive (hex stencil) is factored into \texttt{pinpoint\_core.py}
+and shared with the benchmark harness in
+\texttt{benchmark/run\_benchmark.py} so the two paths cannot diverge
+on dot geometry.  The shared primitive ensures both
+\texttt{mcp\_server.py} and \texttt{benchmark/run\_benchmark.py}
+reproduce identical hex-stencil dot placement.  Reported Phase~2
+numerical results use the hex stencil + max-3 MISS retry algorithm
+on the 50-case rerun (CLI subscription variant) reported in
+Table~\ref{tab:hex-stencil-50case}.
+
+\section{Benchmark Generation}
+
+{\sloppy
+Test images are generated by
+\texttt{benchmark/generate\_test\_images.py},
+which produces synthetic screenshots with known ground-truth coordinates
+for all five categories.\par}
+
+\section{Code and Data Availability}
+
+{\sloppy
+The full implementation, benchmark harness, and raw evaluation
+artifacts are released under the project repository at
+\url{https://github.com/dataclock-jp/video2ai}.  The state
+reported in this paper is fixed by the annotated tag
+\texttt{v1.8} (commit \texttt{5d73e21}).\par}
+
+The CLI-subscription-variant 50-case rerun whose results anchor
+Section~\ref{sec:results} is reproducible via the
+\texttt{run\_benchmark.py} harness using the
+\texttt{claude -p} subscription CLI route, with model
+\texttt{claude-sonnet-4-20250514}.  A single 50-case invocation
+takes the form
+\begin{quote}\small\ttfamily
+python benchmark/run\_benchmark.py\\
+\hspace*{2em}-{}-methods pinpoint -{}-arm B -{}-use-cli\\
+\hspace*{2em}-{}-repeat 1\\
+\hspace*{2em}-{}-model claude-sonnet-4-20250514
+\end{quote}
+optionally restricted to a subset via
+\texttt{-{}-categories} (default: all five).  The reported run
+was executed as three category-restricted batches matching the
+released raw artifacts.  The CLI route was used at \$0 API spend
+for the 50-case rerun; the Anthropic HTTP API is supported as an
+alternative transport but was not used in the reported results.
+
+{\sloppy
+Raw per-case JSON artifacts are committed under
+\texttt{benchmark/} as three batch files sharing the prefix
+\texttt{results.arm\_b\_bundle\_2\_21\_} and dated
+\texttt{\_20260513.json}, with the category-specific stems
+\texttt{batch1\_uibtn\_uidense},
+\texttt{batch2\_precision\_natural}, and
+\texttt{batch3\_ambiguous}.\par}
+The paper PDF is reproducible from \texttt{docs/paper/main.tex}
+with the build chain
+\texttt{pdflatex $\times$ 2 + bibtex + pdflatex $\times$ 2}, or
+equivalently by uploading the LaTeX source bundle to arXiv for
+server-side compilation.
+
+\end{document}

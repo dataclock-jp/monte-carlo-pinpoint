@@ -1,0 +1,45 @@
+%% algorithm_overview.tex — Phase 1 → 1.5 → 2 → 3 flow diagram
+%% Include via \input{figures/algorithm_overview} in main.tex
+
+\begin{tikzpicture}[
+    node distance=1.8cm,
+    phase/.style={
+      rectangle, rounded corners=4pt, draw=black, thick,
+      fill=blue!10, minimum width=3.2cm, minimum height=1cm,
+      align=center, font=\small\bfseries
+    },
+    detail/.style={
+      font=\scriptsize, align=center, text width=3.2cm
+    },
+    arrow/.style={->, thick, >=stealth},
+  ]
+
+  %% Nodes
+  \node[phase] (p1) {Phase 1\\Grid Search};
+  \node[phase, right=2.0cm of p1] (p15) {Phase 1.5\\Anchor};
+  \node[phase, right=2.0cm of p15] (p2) {Phase 2\\Monte Carlo};
+  \node[phase, right=2.0cm of p2] (p3) {Phase 3\\Super-Zoom};
+
+  %% Detail labels below
+  \node[detail, below=0.3cm of p1]
+    {Deterministic\\bisection\\$\pm G$ px};
+  \node[detail, below=0.3cm of p15]
+    {VLM self-declares\\target pixel};
+  \node[detail, below=0.3cm of p2]
+    {Random dots\\+ majority vote};
+  \node[detail, below=0.3cm of p3]
+    {$\varepsilon < 5$\,px\\1600\,px zoom};
+
+  %% Arrows
+  \draw[arrow] (p1) -- (p15);
+  \draw[arrow] (p15) -- (p2);
+  \draw[arrow] (p2) -- node[above, font=\scriptsize] {if $\varepsilon<5$} (p3);
+
+  %% Input / Output
+  \node[left=0.8cm of p1, font=\small, align=center] (input)
+    {Image $I$\\+ Target $T$};
+  \node[right=0.8cm of p3, font=\small] (output) {$(x^*, y^*)$};
+  \draw[arrow] (input) -- (p1);
+  \draw[arrow] (p3) -- (output);
+
+\end{tikzpicture}

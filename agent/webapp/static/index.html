@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video2AI Desktop Agent</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #242736;
+  --border: #2e3247;
+  --text: #e4e4e7;
+  --text2: #9ca3af;
+  --accent: #6366f1;
+  --accent-hover: #818cf8;
+  --green: #22c55e;
+  --red: #ef4444;
+  --yellow: #eab308;
+  --blue: #3b82f6;
+  --orange: #f97316;
+  --radius: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+/* Header */
+.header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.header h1 { font-size: 16px; font-weight: 600; }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+.badge { font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 500; }
+.badge-running { background: var(--green); color: #000; }
+.badge-paused { background: var(--yellow); color: #000; }
+.badge-stopped { background: var(--surface2); color: var(--text2); }
+
+/* Layout */
+.main { flex: 1; display: flex; overflow: hidden; }
+.left-panel { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.right-panel { width: 340px; border-left: 1px solid var(--border); display: flex; flex-direction: column; background: var(--surface); }
+
+/* Screen Preview */
+.preview-container { flex: 1; display: flex; align-items: center; justify-content: center; background: #000; position: relative; overflow: hidden; }
+#screen-canvas { max-width: 100%; max-height: 100%; cursor: crosshair; object-fit: contain; }
+.preview-overlay { position: absolute; top: 8px; left: 8px; display: flex; gap: 6px; }
+.preview-stat { font-size: 11px; background: rgba(0,0,0,.7); padding: 2px 8px; border-radius: 4px; color: var(--text2); }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* Action Log */
+.log-panel { height: 180px; border-top: 1px solid var(--border); display: flex; flex-direction: column; background: var(--surface); }
+.log-header { padding: 8px 12px; font-size: 12px; font-weight: 600; border-bottom: 1px solid var(--border); color: var(--text2); }
+.log-scroll { flex: 1; overflow-y: auto; padding: 4px 8px; font-size: 12px; font-family: 'Consolas', monospace; }
+.log-entry { padding: 2px 0; line-height: 1.5; }
+.log-entry .time { color: var(--text2); margin-right: 6px; }
+.log-entry.action { color: var(--blue); }
+.log-entry.change { color: var(--green); }
+.log-entry.error { color: var(--red); }
+.log-entry.blocked { color: var(--orange); }
+
+/* Right Panel Sections */
+.section { padding: 12px; border-bottom: 1px solid var(--border); }
+.section-title { font-size: 12px; font-weight: 600; color: var(--text2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+label { font-size: 12px; color: var(--text2); display: block; margin-bottom: 4px; }
+input[type="text"], input[type="password"], input[type="number"], select {
+  width: 100%; padding: 6px 8px; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--text); font-size: 13px; outline: none;
+}
+input:focus, select:focus { border-color: var(--accent); }
+.input-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.input-row > div { flex: 1; }
+textarea { width: 100%; padding: 6px 8px; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: var(--radius); color: var(--text); font-size: 13px; outline: none; resize: vertical; min-height: 60px; }
+
+/* Buttons */
+btn, .btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 6px 14px;
+  border-radius: var(--radius); font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--border);
+  background: var(--surface2); color: var(--text); transition: all 0.15s; }
+.btn:hover { background: var(--border); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-danger { background: var(--red); border-color: var(--red); color: #fff; }
+.btn-danger:hover { opacity: 0.85; }
+.btn-success { background: var(--green); border-color: var(--green); color: #000; }
+.btn-warning { background: var(--yellow); border-color: var(--yellow); color: #000; }
+.btn-sm { padding: 4px 10px; font-size: 12px; }
+.btn-group { display: flex; gap: 6px; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Toggle */
+.toggle { display: flex; align-items: center; gap: 8px; }
+.toggle-switch { width: 36px; height: 20px; background: var(--border); border-radius: 10px; position: relative; cursor: pointer; transition: background 0.2s; }
+.toggle-switch.active { background: var(--accent); }
+.toggle-switch::after { content: ''; width: 16px; height: 16px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: left 0.2s; }
+.toggle-switch.active::after { left: 18px; }
+.toggle label { margin: 0; cursor: pointer; }
+
+/* Stats */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.stat-item { background: var(--surface2); border-radius: var(--radius); padding: 8px; text-align: center; }
+.stat-value { font-size: 18px; font-weight: 700; color: var(--text); }
+.stat-label { font-size: 10px; color: var(--text2); margin-top: 2px; }
+
+/* Settings Collapse */
+.settings-toggle { cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+.settings-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.settings-body.open { max-height: 600px; }
+
+/* Manual Action Bar */
+.manual-bar { padding: 8px 12px; background: var(--surface2); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.manual-bar input { width: 120px; flex-shrink: 0; }
+
+/* Confirm Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; width: 400px; max-width: 90vw; }
+.modal h3 { margin-bottom: 12px; }
+.modal p { color: var(--text2); margin-bottom: 16px; font-size: 14px; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.right-scroll { flex: 1; overflow-y: auto; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>Video2AI Desktop Agent</h1>
+  <div class="header-actions">
+    <a href="/manual.html" target="_blank" class="btn btn-sm" style="text-decoration:none;font-size:12px;">Manual</a>
+    <div class="toggle">
+      <div id="dry-run-toggle" class="toggle-switch active" onclick="toggleDryRun()"></div>
+      <label onclick="toggleDryRun()">Dry Run</label>
+    </div>
+    <span id="status-badge" class="badge badge-stopped">Stopped</span>
+  </div>
+</div>
+
+<!-- Main Layout -->
+<div class="main">
+  <!-- Left: Screen Preview + Log -->
+  <div class="left-panel">
+    <div class="preview-container">
+      <canvas id="screen-canvas" width="960" height="540"></canvas>
+      <div class="preview-overlay">
+        <span class="preview-stat" id="step-display">Step: 0</span>
+        <span class="preview-stat" id="s2-status" style="display:none; color:#60a5fa;"></span>
+        <span class="preview-stat" id="fps-display">--</span>
+      </div>
+      <div id="agent-banner" style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(239,68,68,.9); color:#fff; padding:12px 24px; border-radius:8px; font-size:14px; font-weight:600; text-align:center; pointer-events:none; z-index:10;">
+        Agent が操作中です<br><small style="font-weight:400">マウス・キーボードに触れないでください｜Escape で停止</small>
+      </div>
+    </div>
+
+    <!-- Manual Action Bar -->
+    <div class="manual-bar">
+      <input type="text" id="manual-text" placeholder="Text or Key..." style="flex:1">
+      <button class="btn btn-sm" onclick="manualType()">Type</button>
+      <button class="btn btn-sm" onclick="manualKeypress()">Key</button>
+      <button class="btn btn-sm" onclick="manualScroll('up')">Scroll Up</button>
+      <button class="btn btn-sm" onclick="manualScroll('down')">Scroll Down</button>
+    </div>
+
+    <!-- Log -->
+    <div class="log-panel">
+      <div class="log-header">Action Log</div>
+      <div class="log-scroll" id="log-scroll"></div>
+    </div>
+  </div>
+
+  <!-- Right: Controls + Settings -->
+  <div class="right-panel">
+    <div class="right-scroll">
+      <!-- Goal + Controls -->
+      <div class="section">
+        <div class="section-title">Goal</div>
+        <textarea id="goal-input" placeholder="e.g. Excelでセルに入力して保存する"></textarea>
+        <div class="btn-group" style="margin-top:8px">
+          <button class="btn btn-primary" id="btn-start" onclick="startSession()">Start</button>
+          <button class="btn btn-warning" id="btn-pause" onclick="pauseSession()" disabled>Pause</button>
+          <button class="btn btn-danger" id="btn-stop" onclick="stopSession()" disabled>Stop</button>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="section">
+        <div class="section-title">Status</div>
+        <div class="stats-grid">
+          <div class="stat-item"><div class="stat-value" id="stat-step">0</div><div class="stat-label">Step</div></div>
+          <div class="stat-item"><div class="stat-value" id="stat-changes">0</div><div class="stat-label">Changes</div></div>
+          <div class="stat-item"><div class="stat-value" id="stat-actions">0</div><div class="stat-label">Actions</div></div>
+          <div class="stat-item"><div class="stat-value" id="stat-elapsed">0s</div><div class="stat-label">Elapsed</div></div>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="section">
+        <div class="section-title settings-toggle" onclick="toggleSettings()">
+          Settings <span id="settings-arrow">+</span>
+        </div>
+        <div class="settings-body" id="settings-body">
+          <div style="margin-top:8px">
+            <label>LLM Model</label>
+            <select id="setting-model">
+              <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+              <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+              <option value="gpt-4o">GPT-4o</option>
+              <option value="gpt-4o-mini">GPT-4o Mini</option>
+              <option value="claude-opus-4-6">Claude Opus 4.6</option>
+              <option value="claude-sonnet-4-6">Claude Sonnet 4.6</option>
+              <option value="claude-3-5-sonnet-20241022">Claude Sonnet 3.5 v2</option>
+              <option value="claude-haiku-4-5-20251001">Claude Haiku 4.5</option>
+              <option value="grok-3-mini">Grok 3 Mini</option>
+            </select>
+          </div>
+          <div style="margin-top:8px">
+            <label>API Key <span id="apikey-hint" style="color:var(--text2);font-size:11px"></span></label>
+            <input type="password" id="setting-apikey" placeholder="sk-...">
+          </div>
+          <div style="margin-top:8px" id="apiurl-row">
+            <label>API URL (optional)</label>
+            <input type="text" id="setting-apiurl" placeholder="https://api.openai.com">
+          </div>
+          <div class="input-row" style="margin-top:8px">
+            <div>
+              <label>Method</label>
+              <select id="setting-method">
+                <option value="diff">diff (fast)</option>
+                <option value="ssim">ssim (accurate)</option>
+                <option value="optical-flow">optical-flow</option>
+              </select>
+            </div>
+            <div>
+              <label>Threshold</label>
+              <input type="number" id="setting-threshold" value="0.02" step="0.01" min="0" max="1">
+            </div>
+          </div>
+          <div class="input-row">
+            <div>
+              <label>Interval (sec)</label>
+              <input type="number" id="setting-interval" value="1.0" step="0.1" min="0.1">
+            </div>
+            <div>
+              <label>Max Steps (0=unlimited)</label>
+              <input type="number" id="setting-maxsteps" value="0" min="0">
+            </div>
+          </div>
+          <div class="input-row">
+            <div>
+              <label>Language</label>
+              <select id="setting-language">
+                <option value="ja">Japanese</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+            <div>
+              <label>Monitor</label>
+              <select id="setting-monitor">
+                <option value="0">Auto (Primary)</option>
+                <option value="1">Monitor 1</option>
+                <option value="2">Monitor 2</option>
+                <option value="3">Monitor 3</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal-overlay" id="confirm-modal" style="display:none">
+  <div class="modal">
+    <h3>Safety Confirmation</h3>
+    <p id="confirm-message"></p>
+    <div class="btn-group" style="justify-content:flex-end">
+      <button class="btn" onclick="resolveConfirm(false)">Deny</button>
+      <button class="btn btn-primary" onclick="resolveConfirm(true)">Approve</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// --- State ---
+let ws = null;
+let dryRun = true;
+let isRunning = false;
+let screenWidth = 1920, screenHeight = 1080;
+let changeCount = 0, actionCount = 0;
+let startTime = null;
+let elapsedTimer = null;
+let pendingConfirmId = null;
+let frameCount = 0;
+let lastFpsTime = Date.now();
+let fpsFrameCount = 0;
+
+const canvas = document.getElementById('screen-canvas');
+const ctx = canvas.getContext('2d');
+
+// --- Init ---
+window.addEventListener('load', () => {
+  loadSettings();
+  connectWS();
+  updateModelHints();
+  document.getElementById('setting-model').addEventListener('change', updateModelHints);
+});
+
+function updateModelHints() {
+  const model = document.getElementById('setting-model').value;
+  const hint = document.getElementById('apikey-hint');
+  const urlRow = document.getElementById('apiurl-row');
+  if (model.startsWith('claude')) {
+    hint.textContent = '(Anthropic API Key: sk-ant-...)';
+    urlRow.style.display = 'none';
+  } else if (model.startsWith('gemini')) {
+    hint.textContent = '(Google AI: AIza...)';
+    urlRow.style.display = '';
+  } else if (model.startsWith('grok')) {
+    hint.textContent = '(xAI API Key)';
+    urlRow.style.display = '';
+  } else {
+    hint.textContent = '';
+    urlRow.style.display = '';
+  }
+}
+
+// --- Settings Persistence ---
+function loadSettings() {
+  const keys = ['setting-model','setting-apikey','setting-apiurl','setting-method',
+                'setting-threshold','setting-interval','setting-maxsteps','setting-language','setting-monitor','goal-input'];
+  keys.forEach(k => {
+    const v = localStorage.getItem('v2ai_' + k);
+    if (v !== null) document.getElementById(k).value = v;
+  });
+  dryRun = localStorage.getItem('v2ai_dryrun') !== 'false';
+  document.getElementById('dry-run-toggle').classList.toggle('active', dryRun);
+}
+
+function saveSettings() {
+  const keys = ['setting-model','setting-apikey','setting-apiurl','setting-method',
+                'setting-threshold','setting-interval','setting-maxsteps','setting-language','setting-monitor','goal-input'];
+  keys.forEach(k => localStorage.setItem('v2ai_' + k, document.getElementById(k).value));
+  localStorage.setItem('v2ai_dryrun', dryRun);
+}
+
+function toggleSettings() {
+  const body = document.getElementById('settings-body');
+  const arrow = document.getElementById('settings-arrow');
+  body.classList.toggle('open');
+  arrow.textContent = body.classList.contains('open') ? '-' : '+';
+}
+
+function toggleDryRun() {
+  dryRun = !dryRun;
+  document.getElementById('dry-run-toggle').classList.toggle('active', dryRun);
+  localStorage.setItem('v2ai_dryrun', dryRun);
+}
+
+// --- WebSocket ---
+function connectWS() {
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  ws = new WebSocket(`${proto}//${location.host}/ws`);
+
+  ws.onopen = () => {
+    addLog('system', 'Connected to server');
+  };
+
+  ws.onclose = () => {
+    addLog('system', 'Disconnected. Reconnecting in 2s...');
+    setTimeout(connectWS, 2000);
+  };
+
+  ws.onmessage = (e) => {
+    const msg = JSON.parse(e.data);
+    handleMessage(msg);
+  };
+}
+
+function handleMessage(msg) {
+  switch (msg.type) {
+    case 'frame':
+      renderFrame(msg);
+      break;
+    case 'change':
+      changeCount++;
+      document.getElementById('stat-changes').textContent = changeCount;
+      document.getElementById('stat-step').textContent = msg.step || 0;
+      document.getElementById('step-display').textContent = `Step: ${msg.step || 0}`;
+      addLog('change', `[${msg.step}] score=${msg.diff_score?.toFixed(4)} | ${msg.description?.slice(0,80) || ''}`);
+      if (msg.action_type && msg.action_type !== 'none') {
+        addLog('action', `  -> ${msg.action_type}: ${msg.target || ''} ${msg.value || ''} (${(msg.confidence*100).toFixed(0)}%)`);
+      }
+      break;
+    case 'action':
+      actionCount++;
+      document.getElementById('stat-actions').textContent = actionCount;
+      const prefix = msg.dry_run ? '[DRY-RUN] ' : msg.manual ? '[MANUAL] ' : '';
+      const icon = msg.success ? 'OK' : 'FAIL';
+      addLog('action', `${prefix}${msg.action_type}: ${msg.description} [${icon}]`);
+      break;
+    case 'blocked':
+      addLog('blocked', `BLOCKED: ${msg.message}`);
+      break;
+    case 'confirm_req':
+      showConfirmModal(msg);
+      break;
+    case 'status':
+      updateStatus(msg.state);
+      if (msg.screen_size) {
+        screenWidth = msg.screen_size[0];
+        screenHeight = msg.screen_size[1];
+      }
+      break;
+    case 'system2_start': {
+      const s2el = document.getElementById('s2-status');
+      s2el.textContent = 'S2 thinking...';
+      s2el.style.display = 'inline';
+      s2el.style.animation = 'pulse 1.5s infinite';
+      addLog('system', msg.message);
+      break;
+    }
+    case 'system2_complete': {
+      const s2el = document.getElementById('s2-status');
+      s2el.textContent = 'S2 done';
+      s2el.style.animation = 'none';
+      addLog('system', msg.message);
+      setTimeout(() => { s2el.style.display = 'none'; }, 3000);
+      break;
+    }
+    case 'log':
+      addLog('system', msg.message);
+      break;
+    case 'error':
+      addLog('error', msg.message);
+      break;
+  }
+}
+
+// --- Frame Rendering ---
+const frameImg = new Image();
+let framePending = false;
+
+function renderFrame(msg) {
+  if (framePending) return; // throttle
+  framePending = true;
+  if (msg.width) screenWidth = msg.width;
+  if (msg.height) screenHeight = msg.height;
+
+  frameImg.onload = () => {
+    const aspect = frameImg.naturalHeight / frameImg.naturalWidth;
+    canvas.width = Math.min(frameImg.naturalWidth, 960);
+    canvas.height = Math.round(canvas.width * aspect);
+    ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
+    framePending = false;
+    // FPS counter
+    fpsFrameCount++;
+    const now = Date.now();
+    if (now - lastFpsTime >= 1000) {
+      document.getElementById('fps-display').textContent = `${fpsFrameCount} fps`;
+      fpsFrameCount = 0;
+      lastFpsTime = now;
+    }
+  };
+  frameImg.onerror = () => { framePending = false; };
+  frameImg.src = msg.data;
+}
+
+// --- Canvas Click ---
+canvas.addEventListener('click', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = screenWidth / canvas.width;
+  const scaleY = screenHeight / canvas.height;
+  const x = Math.round((e.clientX - rect.left) * (canvas.width / rect.width) * scaleX);
+  const y = Math.round((e.clientY - rect.top) * (canvas.height / rect.height) * scaleY);
+  addLog('action', `[MANUAL] click (${x}, ${y})`);
+  fetch('/api/action/click', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({x, y})
+  });
+});
+
+// --- Session Control ---
+async function startSession() {
+  saveSettings();
+  // エージェント開始後にブラウザのフォーカスを外す（フォーカス奪取防止）
+  setTimeout(() => { window.blur(); }, 800);
+  const body = {
+    goal: document.getElementById('goal-input').value,
+    model: document.getElementById('setting-model').value,
+    api_key: document.getElementById('setting-apikey').value,
+    api_url: document.getElementById('setting-apiurl').value,
+    method: document.getElementById('setting-method').value,
+    threshold: parseFloat(document.getElementById('setting-threshold').value) || null,
+    interval: parseFloat(document.getElementById('setting-interval').value) || 1.0,
+    dry_run: dryRun,
+    max_steps: parseInt(document.getElementById('setting-maxsteps').value) || 0,
+    language: document.getElementById('setting-language').value,
+    monitor: parseInt(document.getElementById('setting-monitor').value) || 0,
+  };
+  try {
+    const res = await fetch('/api/session/start', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!data.ok) addLog('error', data.error);
+  } catch (e) {
+    addLog('error', 'Failed to start: ' + e.message);
+  }
+}
+
+async function pauseSession() {
+  await fetch('/api/session/pause', {method: 'POST'});
+}
+
+async function stopSession() {
+  await fetch('/api/session/stop', {method: 'POST'});
+}
+
+function updateStatus(state) {
+  isRunning = state === 'running';
+  const badge = document.getElementById('status-badge');
+  badge.textContent = state.charAt(0).toUpperCase() + state.slice(1);
+  badge.className = 'badge badge-' + state;
+
+  // エージェント操作中バナー
+  const banner = document.getElementById('agent-banner');
+  banner.style.display = (state === 'running') ? 'block' : 'none';
+
+  document.getElementById('btn-start').disabled = state === 'running';
+  document.getElementById('btn-pause').disabled = state === 'stopped';
+  document.getElementById('btn-stop').disabled = state === 'stopped';
+  document.getElementById('btn-pause').textContent = state === 'paused' ? 'Resume' : 'Pause';
+
+  if (state === 'running' && !startTime) {
+    startTime = Date.now();
+    changeCount = 0; actionCount = 0;
+    document.getElementById('stat-changes').textContent = '0';
+    document.getElementById('stat-actions').textContent = '0';
+    elapsedTimer = setInterval(updateElapsed, 1000);
+  }
+  if (state === 'stopped') {
+    startTime = null;
+    if (elapsedTimer) { clearInterval(elapsedTimer); elapsedTimer = null; }
+    // preview restarts automatically on server side
+  }
+}
+
+function updateElapsed() {
+  if (!startTime) return;
+  const sec = Math.floor((Date.now() - startTime) / 1000);
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  document.getElementById('stat-elapsed').textContent = m > 0 ? `${m}m${s}s` : `${s}s`;
+}
+
+// --- Manual Actions ---
+function manualType() {
+  const text = document.getElementById('manual-text').value;
+  if (!text) return;
+  fetch('/api/action/type', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({text})
+  });
+  document.getElementById('manual-text').value = '';
+}
+
+function manualKeypress() {
+  const key = document.getElementById('manual-text').value;
+  if (!key) return;
+  fetch('/api/action/keypress', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({key})
+  });
+  document.getElementById('manual-text').value = '';
+}
+
+function manualScroll(dir) {
+  fetch('/api/action/scroll', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({x: screenWidth/2, y: screenHeight/2, direction: dir, amount: 3})
+  });
+}
+
+// --- Action Log ---
+function addLog(type, message) {
+  const scroll = document.getElementById('log-scroll');
+  const entry = document.createElement('div');
+  entry.className = 'log-entry ' + type;
+  const time = new Date().toLocaleTimeString('ja-JP', {hour12: false});
+  entry.innerHTML = `<span class="time">${time}</span>${escapeHtml(message)}`;
+  scroll.appendChild(entry);
+  // Keep last 200 entries
+  while (scroll.children.length > 200) scroll.removeChild(scroll.firstChild);
+  // エージェント実行中はスクロールでフォーカスを奪わないようにする
+  if (!isRunning) {
+    scroll.scrollTop = scroll.scrollHeight;
+  } else {
+    // requestIdleCallback で非同期にスクロール（フォーカスに影響しにくい）
+    requestAnimationFrame(() => { scroll.scrollTop = scroll.scrollHeight; });
+  }
+}
+
+function escapeHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+// --- Confirm Modal ---
+function showConfirmModal(msg) {
+  pendingConfirmId = msg.request_id;
+  document.getElementById('confirm-message').textContent =
+    `${msg.message}\n\nAction: ${msg.action_type} - ${msg.target || ''}`;
+  document.getElementById('confirm-modal').style.display = 'flex';
+}
+
+function resolveConfirm(approved) {
+  if (!pendingConfirmId) return;
+  fetch('/api/safety/confirm', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({request_id: pendingConfirmId, approved})
+  });
+  document.getElementById('confirm-modal').style.display = 'none';
+  pendingConfirmId = null;
+}
+
+// --- Keyboard Shortcuts ---
+document.addEventListener('keydown', (e) => {
+  // Escape to close modal
+  if (e.key === 'Escape' && pendingConfirmId) resolveConfirm(false);
+  // Enter in manual text input
+  if (e.key === 'Enter' && document.activeElement === document.getElementById('manual-text')) {
+    manualType();
+  }
+});
+</script>
+</body>
+</html>

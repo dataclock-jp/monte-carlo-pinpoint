@@ -1,0 +1,67 @@
+Using claude CLI (subscription) for VLM calls
+Benchmark: 10 cases x 2 methods x 1 repeats = 20 runs (20 to do)
+Model: claude-sonnet-4-20250514
+======================================================================
+
+[ui_button_00] target='the center of the 'Import' button in the toolbar' gt=(70,25)
+  grid       rep0: (8,21) dist=62.1px Q=4 t=54.71s
+  pinpoint   rep0: (74,16) dist=9.8px Q=29 t=363.22s
+
+[ui_button_01] target='the center of the 'Cut' button in the toolbar' gt=(174,22)
+  grid       rep0: (62,21) dist=112.0px Q=4 t=49.4s
+  pinpoint   rep0: (157,22) dist=17.0px Q=29 t=353.68s
+
+[ui_button_02] target='the center of the 'Save' button in the toolbar' gt=(286,84)
+  grid       rep0: (236,75) dist=50.8px Q=4 t=46.6s
+  pinpoint   rep0: (263,83) dist=23.0px Q=29 t=340.54s
+
+[ui_button_03] target='the center of the 'Open' button in the toolbar' gt=(514,39)
+  grid       rep0: (478,4) dist=50.2px Q=5 t=60.21s
+  pinpoint   rep0: (607,23) dist=94.4px Q=30 t=356.62s
+
+[ui_button_04] target='the center of the 'Save' button in the toolbar' gt=(538,27)
+  grid       rep0: (507,1) dist=40.5px Q=4 t=48.05s
+  pinpoint   rep0: (572,10) dist=38.0px Q=29 t=346.89s
+
+[ui_button_05] target='the center of the 'Help' button in the toolbar' gt=(634,62)
+  grid       rep0: (645,4) dist=59.0px Q=4 t=44.45s
+  pinpoint   rep0: (651,54) dist=18.8px Q=29 t=362.69s
+
+[ui_button_06] target='the center of the 'File' button in the toolbar' gt=(769,24)
+  grid       rep0: (707,21) dist=62.1px Q=4 t=47.29s
+  pinpoint   rep0: (729,24) dist=40.0px Q=29 t=337.39s
+
+[ui_button_07] target='the center of the 'Redo' button in the toolbar' gt=(1080,30)
+  grid       rep0: (1044,0) dist=46.9px Q=4 t=43.46s
+  pinpoint   rep0: (1059,23) dist=22.1px Q=29 t=341.72s
+
+[ui_button_08] target='the center of the 'Search' button in the toolbar' gt=(349,74)
+  grid       rep0: (373,63) dist=26.4px Q=4 t=49.35s
+  pinpoint   rep0: (299,60) dist=51.9px Q=29 t=339.22s
+
+[ui_button_09] target='the center of the 'Print' button in the toolbar' gt=(393,34)
+  grid       rep0: (370,1) dist=40.2px Q=4 t=48.92s
+  pinpoint   rep0: (424,18) dist=34.9px Q=29 t=357.35s
+
+Results: D:\ClaudeProject\Video2AI. Translating Motion into Machine Understanding\video2ai\benchmark\results.json
+
+================================================================================
+BENCHMARK SUMMARY
+================================================================================
+
+Category        |       grid dist    grid Q |   pinpoint dist  pinpoint Q
+-------------------------------------------------------------------------
+ui_button       |     55.0px     4.1 |     35.0px    29.1
+
+SUCCESS RATE
+--------------------------------------------------
+  <=  5px:  grid=  0.0%  pinpoint=  0.0%
+  <= 10px:  grid=  0.0%  pinpoint= 10.0%
+  <= 20px:  grid=  0.0%  pinpoint= 30.0%
+  <= 50px:  grid= 40.0%  pinpoint= 80.0%
+
+STAGE B
+--------------------------------------------------
+  hit rate: 0/10 = 0.0%
+
+Summary: D:\ClaudeProject\Video2AI. Translating Motion into Machine Understanding\video2ai\benchmark\summary.txt

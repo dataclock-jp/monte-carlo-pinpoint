@@ -1,0 +1,231 @@
+Using claude CLI (subscription) for VLM calls
+Benchmark: 50 cases x 2 methods x 1 repeats = 100 runs (100 to do)
+Model: claude-sonnet-4-20250514
+======================================================================
+
+[ui_button_00] target='the center of the 'Import' button in the toolbar' gt=(70,25)
+  grid       rep0: (1,21) dist=69.1px Q=4 t=51.25s
+  pinpoint   rep0: (61,26) dist=9.1px Q=29 t=341.61s
+
+[ui_button_01] target='the center of the 'Cut' button in the toolbar' gt=(174,22)
+  grid       rep0: (76,21) dist=98.0px Q=4 t=45.6s
+  pinpoint   rep0: (79,22) dist=95.0px Q=4 t=45.75s
+
+[ui_button_02] target='the center of the 'Save' button in the toolbar' gt=(286,84)
+  grid       rep0: (266,20) dist=67.1px Q=4 t=51.2s
+  pinpoint   rep0: (286,84) dist=0.0px Q=4 t=51.18s
+
+[ui_button_03] target='the center of the 'Open' button in the toolbar' gt=(514,39)
+  grid       rep0: (495,7) dist=37.2px Q=4 t=54.11s
+  pinpoint   rep0: (480,25) dist=36.8px Q=29 t=340.34s
+
+[ui_button_04] target='the center of the 'Save' button in the toolbar' gt=(538,27)
+  grid       rep0: (522,0) dist=31.4px Q=4 t=48.47s
+  pinpoint   rep0: (585,15) dist=48.5px Q=29 t=350.96s
+
+[ui_button_05] target='the center of the 'Help' button in the toolbar' gt=(634,62)
+  grid       rep0: (645,12) dist=51.2px Q=4 t=46.77s
+  pinpoint   rep0: (691,47) dist=58.9px Q=29 t=342.15s
+
+[ui_button_06] target='the center of the 'File' button in the toolbar' gt=(769,24)
+  grid       rep0: (707,21) dist=62.1px Q=4 t=48.9s
+  pinpoint   rep0: (768,24) dist=1.0px Q=4 t=47.39s
+
+[ui_button_07] target='the center of the 'Redo' button in the toolbar' gt=(1080,30)
+  grid       rep0: (1044,0) dist=46.9px Q=4 t=51.83s
+  pinpoint   rep0: (1037,32) dist=43.0px Q=29 t=347.5s
+
+[ui_button_08] target='the center of the 'Search' button in the toolbar' gt=(349,74)
+  grid       rep0: (373,63) dist=26.4px Q=4 t=47.11s
+  pinpoint   rep0: (348,74) dist=1.0px Q=4 t=54.36s
+
+[ui_button_09] target='the center of the 'Print' button in the toolbar' gt=(393,34)
+  grid       rep0: (370,21) dist=26.4px Q=4 t=52.26s
+  pinpoint   rep0: (381,32) dist=12.2px Q=29 t=339.0s
+
+[ui_dense_00] target='the center of the 'Image' icon in the ribbon' gt=(45,52)
+  grid       rep0: (3,10) dist=59.4px Q=4 t=49.29s
+  pinpoint   rep0: (41,54) dist=4.5px Q=29 t=362.88s
+
+[ui_dense_01] target='the center of the 'Bell' icon in the dark toolbar' gt=(85,30)
+  grid       rep0: (47,3) dist=46.6px Q=4 t=68.38s
+  pinpoint   rep0: (34,30) dist=51.0px Q=4 t=51.31s
+
+[ui_dense_02] target='the center of the 'Undo' icon in the palette' gt=(280,85)
+  grid       rep0: (280,58) dist=27.0px Q=4 t=48.68s
+  pinpoint   rep0: (253,78) dist=27.9px Q=29 t=361.87s
+
+[ui_dense_03] target='the center of the 'Image' icon in the compact bar' gt=(202,20)
+  grid       rep0: (None,0) dist=FAIL Q=4 t=62.33s
+  pinpoint   rep0: (202,6) dist=14.0px Q=29 t=354.47s
+
+[ui_dense_04] target='the center of the 'Link' icon in the dark grid' gt=(322,72)
+  grid       rep0: (411,42) dist=93.9px Q=4 t=52.11s
+  pinpoint   rep0: (392,72) dist=70.0px Q=4 t=51.55s
+
+[ui_dense_05] target='the center of the 'Stop' icon in the wide buttons' gt=(775,50)
+  grid       rep0: (708,7) dist=79.6px Q=4 t=51.73s
+  pinpoint   rep0: (746,43) dist=29.8px Q=30 t=370.68s
+
+[ui_dense_06] target='the center of the 'Save' icon in the IDE toolbar' gt=(430,37)
+  grid       rep0: (370,30) dist=60.4px Q=4 t=47.32s
+  pinpoint   rep0: (364,37) dist=66.0px Q=4 t=48.9s
+
+[ui_dense_07] target='the center of the 'Save' icon in the card grid' gt=(680,72)
+  grid       rep0: (675,20) dist=52.2px Q=4 t=54.7s
+  pinpoint   rep0: (681,59) dist=13.0px Q=29 t=342.44s
+
+[ui_dense_08] target='the center of the 'Ruler' icon in the status bar' gt=(519,31)
+  grid       rep0: (522,0) dist=31.1px Q=4 t=50.35s
+  pinpoint   rep0: (545,47) dist=30.5px Q=31 t=384.73s
+
+[ui_dense_09] target='the center of the 'Chart' icon in the menu strip' gt=(812,59)
+  grid       rep0: (828,38) dist=26.4px Q=4 t=48.79s
+  pinpoint   rep0: (850,0) dist=70.2px Q=28 t=336.97s
+
+[natural_00] target='the tip of the red triangle' gt=(960,450)
+  grid       rep0: (966,491) dist=41.4px Q=4 t=51.2s
+  pinpoint   rep0: (957,448) dist=3.6px Q=29 t=357.19s
+
+[natural_01] target='the center of the yellow circle' gt=(700,400)
+  grid       rep0: (630,388) dist=71.0px Q=4 t=48.31s
+  pinpoint   rep0: (690,422) dist=24.2px Q=29 t=359.81s
+
+[natural_02] target='the intersection of the two diagonal lines' gt=(950,500)
+  grid       rep0: (1027,534) dist=84.2px Q=4 t=48.8s
+  pinpoint   rep0: (943,505) dist=8.6px Q=29 t=353.73s
+
+[natural_03] target='the top of the green mountain peak' gt=(800,300)
+  grid       rep0: (791,303) dist=9.5px Q=4 t=56.68s
+  pinpoint   rep0: (839,245) dist=67.4px Q=29 t=370.89s
+
+[natural_04] target='the center of the small white star' gt=(1400,350)
+  grid       rep0: (1362,345) dist=38.3px Q=4 t=52.02s
+  pinpoint   rep0: (1401,359) dist=9.1px Q=29 t=355.08s
+
+[natural_05] target='the eye of the spiral pattern' gt=(500,700)
+  grid       rep0: (462,688) dist=39.8px Q=4 t=50.69s
+  pinpoint   rep0: (492,710) dist=12.8px Q=29 t=346.8s
+
+[natural_06] target='the tip of the arrow pointing right' gt=(1240,550)
+  grid       rep0: (1257,543) dist=18.4px Q=4 t=47.95s
+  pinpoint   rep0: (1257,595) dist=48.1px Q=29 t=370.56s
+
+[natural_07] target='the center of the bullseye' gt=(1000,500)
+  grid       rep0: (1027,499) dist=27.0px Q=4 t=55.77s
+  pinpoint   rep0: (1012,535) dist=37.0px Q=29 t=394.77s
+
+[natural_08] target='the brightest point of the gradient' gt=(600,300)
+  grid       rep0: (615,310) dist=18.0px Q=4 t=61.53s
+  pinpoint   rep0: (604,293) dist=8.1px Q=29 t=377.44s
+
+[natural_09] target='the corner where three shapes meet' gt=(1100,700)
+  grid       rep0: (1048,744) dist=68.1px Q=4 t=57.56s
+  pinpoint   rep0: (1101,715) dist=15.0px Q=29 t=379.69s
+
+[ambiguous_00] target='the slightly darker square' gt=(500,400)
+  grid       rep0: (470,397) dist=30.1px Q=4 t=54.76s
+  pinpoint   rep0: (524,421) dist=31.9px Q=29 t=371.67s
+
+[ambiguous_01] target='the faint circle in the center' gt=(960,540)
+  grid       rep0: (958,543) dist=3.6px Q=4 t=56.11s
+  pinpoint   rep0: (938,570) dist=37.2px Q=29 t=356.09s
+
+[ambiguous_02] target='the tiny red dot' gt=(1200,300)
+  grid       rep0: (1135,302) dist=65.0px Q=5 t=60.96s
+  pinpoint   rep0: (1203,301) dist=3.2px Q=30 t=374.64s
+
+[ambiguous_03] target='the small cross mark' gt=(800,700)
+  grid       rep0: (783,690) dist=19.7px Q=4 t=49.1s
+  pinpoint   rep0: (795,732) dist=32.4px Q=29 t=356.72s
+
+[ambiguous_04] target='the single blue pixel among the noise' gt=(650,500)
+  grid       rep0: (None,None) dist=FAIL Q=3 t=36.36s
+  pinpoint   rep0: (868,242) dist=337.8px Q=31 t=395.59s
+
+[ambiguous_05] target='the button on the right side' gt=(1600,60)
+  grid       rep0: (1687,20) dist=95.8px Q=4 t=47.63s
+  pinpoint   rep0: (1588,46) dist=18.4px Q=31 t=407.13s
+
+[ambiguous_06] target='the icon near the bottom' gt=(960,950)
+  grid       rep0: (943,1019) dist=71.1px Q=4 t=53.46s
+  pinpoint   rep0: (958,942) dist=8.2px Q=31 t=379.43s
+
+[ambiguous_07] target='the second circle from the left' gt=(400,540)
+  grid       rep0: (370,543) dist=30.1px Q=4 t=50.72s
+  pinpoint   rep0: (413,539) dist=13.0px Q=29 t=351.72s
+
+[ambiguous_08] target='the green button, not the blue one' gt=(300,200)
+  grid       rep0: (203,209) dist=97.4px Q=4 t=50.63s
+  pinpoint   rep0: (287,247) dist=48.8px Q=29 t=350.42s
+
+[ambiguous_09] target='the outlined rectangle on the gray background' gt=(960,540)
+  grid       rep0: (914,538) dist=46.0px Q=4 t=49.4s
+  pinpoint   rep0: (985,550) dist=26.9px Q=29 t=367.13s
+
+[precision_00] target='the single red pixel' gt=(1100,400)
+  grid       rep0: (None,483) dist=FAIL Q=4 t=52.2s
+  pinpoint   rep0: (1044,563) dist=172.4px Q=29 t=359.25s
+
+[precision_01] target='the tip of the thin blue needle pointing up' gt=(750,280)
+  grid       rep0: (751,209) dist=71.0px Q=4 t=49.41s
+  pinpoint   rep0: (783,326) dist=56.6px Q=29 t=355.72s
+
+[precision_02] target='the center of the tiny green dot' gt=(902,602)
+  grid       rep0: (875,586) dist=31.4px Q=4 t=53.65s
+  pinpoint   rep0: (881,524) dist=80.8px Q=29 t=354.43s
+
+[precision_03] target='the exact center of the small orange circle' gt=(490,350)
+  grid       rep0: (478,345) dist=13.0px Q=4 t=53.48s
+  pinpoint   rep0: (534,362) dist=45.6px Q=29 t=355.79s
+
+[precision_04] target='the crosshair intersection' gt=(1320,680)
+  grid       rep0: (1379,688) dist=59.5px Q=4 t=50.4s
+  pinpoint   rep0: (1321,681) dist=1.4px Q=29 t=374.45s
+
+[precision_05] target='the center of the purple diamond shape' gt=(625,730)
+  grid       rep0: (645,723) dist=21.2px Q=4 t=48.76s
+  pinpoint   rep0: (598,760) dist=40.4px Q=29 t=347.4s
+
+[precision_06] target='the top-left corner of the white square' gt=(350,500)
+  grid       rep0: (354,513) dist=13.6px Q=4 t=45.12s
+  pinpoint   rep0: (374,499) dist=24.0px Q=29 t=369.37s
+
+[precision_07] target='the right endpoint of the horizontal yellow line' gt=(920,200)
+  grid       rep0: (876,191) dist=44.9px Q=4 t=64.71s
+  pinpoint   rep0: (979,192) dist=59.5px Q=29 t=339.13s
+
+[precision_08] target='the center of the innermost ring of the target' gt=(1400,850)
+  grid       rep0: (1383,861) dist=20.2px Q=4 t=49.83s
+  pinpoint   rep0: (1417,861) dist=20.2px Q=29 t=335.89s
+
+[precision_09] target='the nose of the small arrow pointing right' gt=(320,150)
+  grid       rep0: (294,144) dist=26.7px Q=4 t=46.58s
+  pinpoint   rep0: (358,133) dist=41.6px Q=29 t=353.58s
+
+Results: D:\ClaudeProject\Video2AI. Translating Motion into Machine Understanding\video2ai\benchmark\results.json
+
+================================================================================
+BENCHMARK SUMMARY
+================================================================================
+
+Category        |       grid dist    grid Q |   pinpoint dist  pinpoint Q
+-------------------------------------------------------------------------
+ambiguous       |     51.0px     4.1 |     55.8px    29.7
+natural         |     41.6px     4.0 |     23.4px    29.0
+precision       |     33.5px     4.0 |     54.2px    29.0
+ui_button       |     51.6px     4.0 |     30.6px    19.0
+ui_dense        |     53.0px     4.0 |     37.7px    21.7
+
+SUCCESS RATE
+--------------------------------------------------
+  <=  5px:  grid=  2.1%  pinpoint= 14.0%
+  <= 10px:  grid=  4.3%  pinpoint= 24.0%
+  <= 20px:  grid= 14.9%  pinpoint= 38.0%
+  <= 50px:  grid= 59.6%  pinpoint= 76.0%
+
+STAGE B
+--------------------------------------------------
+  hit rate: 0/50 = 0.0%
+
+Summary: D:\ClaudeProject\Video2AI. Translating Motion into Machine Understanding\video2ai\benchmark\summary.txt

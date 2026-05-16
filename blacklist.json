@@ -1,0 +1,29 @@
+{
+  "_comment": "Video2AI 操作ブラックリスト。パターンは glob 形式 (*/?/**)。組み込みデフォルト（禁止キー・システムディレクトリ）は常に有効で、ここに記載不要。",
+  "forbidden_keys": [
+    "alt+s",
+    "ctrl+return",
+    "win+l",
+    "win+r"
+  ],
+  "forbidden_paths": [
+    "c:/users/*/appdata/**",
+    "**/.env",
+    "**/.ssh/**",
+    "**/credentials*"
+  ],
+  "forbidden_windows": [
+    "*パスワード*",
+    "*password*",
+    "*credential*",
+    "*新しいメール*",
+    "*メッセージの作成*",
+    "*新規メッセージ*"
+  ],
+  "forbidden_text_patterns": [
+    "format c:",
+    "del /s /q",
+    "rm -rf /",
+    "mailto:"
+  ]
+}

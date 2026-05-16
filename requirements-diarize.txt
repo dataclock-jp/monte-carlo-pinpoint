@@ -1,0 +1,10 @@
+# Video2AI - Speaker Diarization Add-on Requirements
+# Install with: pip install -r requirements-diarize.txt
+# Also requires: pip install -r requirements.txt (core engine)
+#
+# Note: HuggingFace account required.
+# Accept terms at:
+#   https://huggingface.co/pyannote/speaker-diarization-community-1
+#   https://huggingface.co/pyannote/segmentation-3.0
+
+pyannote.audio>=3.3.0

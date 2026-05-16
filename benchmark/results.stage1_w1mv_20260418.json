@@ -1,0 +1,4622 @@
+[
+  {
+    "method": "grid",
+    "x": 1,
+    "y": 21,
+    "queries": 4,
+    "time_s": 61.35,
+    "test_id": "ui_button_00",
+    "category": "ui_button",
+    "gt_x": 70,
+    "gt_y": 25,
+    "distance_px": 69.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1,
+    "y": 21,
+    "queries": 4,
+    "time_s": 57.47,
+    "test_id": "ui_button_00",
+    "category": "ui_button",
+    "gt_x": 70,
+    "gt_y": 25,
+    "distance_px": 69.1,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 1,
+    "y": 21,
+    "queries": 4,
+    "time_s": 55.11,
+    "test_id": "ui_button_00",
+    "category": "ui_button",
+    "gt_x": 70,
+    "gt_y": 25,
+    "distance_px": 69.1,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 55,
+    "y": 17,
+    "queries": 37,
+    "time_s": 511.06,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Import' button is at approximately (327, 110), th",
+    "phase1_time": 169.498,
+    "phase_1_5_time": 13.896,
+    "phase2_time": 327.643,
+    "stage_b_hit": false,
+    "stage_b_time": 0.023,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.023,
+    "stage_c_input_xy": [
+      8,
+      21
+    ],
+    "stage_c_output_xy": [
+      8,
+      21
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Import",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        8,
+        21
+      ],
+      [
+        1,
+        21
+      ],
+      [
+        8,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      3.897,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_00",
+    "category": "ui_button",
+    "gt_x": 70,
+    "gt_y": 25,
+    "distance_px": 17.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 36,
+    "y": 25,
+    "queries": 37,
+    "time_s": 496.41,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Import' button is at approximately (330, 110) — t",
+    "phase1_time": 166.605,
+    "phase_1_5_time": 14.029,
+    "phase2_time": 315.771,
+    "stage_b_hit": false,
+    "stage_b_time": 0.002,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.002,
+    "stage_c_input_xy": [
+      1,
+      21
+    ],
+    "stage_c_output_xy": [
+      1,
+      21
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Import",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1,
+        21
+      ],
+      [
+        1,
+        21
+      ],
+      [
+        1,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_00",
+    "category": "ui_button",
+    "gt_x": 70,
+    "gt_y": 25,
+    "distance_px": 34.0,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 44,
+    "y": 0,
+    "queries": 34,
+    "time_s": 462.89,
+    "phase1_queries": 12,
+    "phase2_rounds": 7,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Import' button is at approximately (328, 108) in ",
+    "phase1_time": 162.262,
+    "phase_1_5_time": 16.353,
+    "phase2_time": 284.272,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      1,
+      21
+    ],
+    "stage_c_output_xy": [
+      1,
+      21
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Import",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1,
+        21
+      ],
+      [
+        1,
+        21
+      ],
+      [
+        8,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      3.897,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_00",
+    "category": "ui_button",
+    "gt_x": 70,
+    "gt_y": 25,
+    "distance_px": 36.1,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 47,
+    "y": 21,
+    "queries": 4,
+    "time_s": 54.8,
+    "test_id": "ui_button_01",
+    "category": "ui_button",
+    "gt_x": 174,
+    "gt_y": 22,
+    "distance_px": 127.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 194,
+    "y": 21,
+    "queries": 4,
+    "time_s": 54.63,
+    "test_id": "ui_button_01",
+    "category": "ui_button",
+    "gt_x": 174,
+    "gt_y": 22,
+    "distance_px": 20.0,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 62,
+    "y": 21,
+    "queries": 4,
+    "time_s": 53.5,
+    "test_id": "ui_button_01",
+    "category": "ui_button",
+    "gt_x": 174,
+    "gt_y": 22,
+    "distance_px": 112.0,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 174,
+    "y": 22,
+    "queries": 12,
+    "time_s": 168.9,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 168.9,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.8,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      150,
+      21
+    ],
+    "stage_c_output_xy": [
+      174,
+      22
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Cut",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        150,
+        21
+      ],
+      [
+        135,
+        21
+      ],
+      [
+        194,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      30.805,
+      12.557
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_01",
+    "category": "ui_button",
+    "gt_x": 174,
+    "gt_y": 22,
+    "distance_px": 0.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 79,
+    "y": 22,
+    "queries": 12,
+    "time_s": 170.35,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 170.354,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.715,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      62,
+      0
+    ],
+    "stage_c_output_xy": [
+      79,
+      22
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Cut",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        62,
+        0
+      ],
+      [
+        62,
+        0
+      ],
+      [
+        47,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.66,
+      12.124
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_01",
+    "category": "ui_button",
+    "gt_x": 174,
+    "gt_y": 22,
+    "distance_px": 95.0,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 79,
+    "y": 22,
+    "queries": 12,
+    "time_s": 168.23,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 168.233,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 1.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      76,
+      21
+    ],
+    "stage_c_output_xy": [
+      79,
+      22
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Cut",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        165,
+        21
+      ],
+      [
+        76,
+        30
+      ],
+      [
+        47,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      61.309,
+      4.763
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_01",
+    "category": "ui_button",
+    "gt_x": 174,
+    "gt_y": 22,
+    "distance_px": 95.0,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 250,
+    "y": 20,
+    "queries": 4,
+    "time_s": 54.26,
+    "test_id": "ui_button_02",
+    "category": "ui_button",
+    "gt_x": 286,
+    "gt_y": 84,
+    "distance_px": 73.4,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 250,
+    "y": 20,
+    "queries": 4,
+    "time_s": 54.83,
+    "test_id": "ui_button_02",
+    "category": "ui_button",
+    "gt_x": 286,
+    "gt_y": 84,
+    "distance_px": 73.4,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 250,
+    "y": 79,
+    "queries": 4,
+    "time_s": 51.9,
+    "test_id": "ui_button_02",
+    "category": "ui_button",
+    "gt_x": 286,
+    "gt_y": 84,
+    "distance_px": 36.3,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 271,
+    "y": 75,
+    "queries": 37,
+    "time_s": 499.09,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Save' button is at approximately (601, 222), at t",
+    "phase1_time": 160.701,
+    "phase_1_5_time": 13.492,
+    "phase2_time": 324.89,
+    "stage_b_hit": false,
+    "stage_b_time": 0.002,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.002,
+    "stage_c_input_xy": [
+      250,
+      20
+    ],
+    "stage_c_output_xy": [
+      250,
+      20
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        250,
+        20
+      ],
+      [
+        250,
+        20
+      ],
+      [
+        250,
+        79
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      34.208
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_02",
+    "category": "ui_button",
+    "gt_x": 286,
+    "gt_y": 84,
+    "distance_px": 17.5,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 286,
+    "y": 82,
+    "queries": 37,
+    "time_s": 497.44,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Save' button is at approximately (604, 222), the ",
+    "phase1_time": 161.636,
+    "phase_1_5_time": 12.98,
+    "phase2_time": 322.826,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      250,
+      20
+    ],
+    "stage_c_output_xy": [
+      250,
+      20
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        250,
+        79
+      ],
+      [
+        250,
+        20
+      ],
+      [
+        250,
+        20
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      34.208
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_02",
+    "category": "ui_button",
+    "gt_x": 286,
+    "gt_y": 84,
+    "distance_px": 2.0,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 239,
+    "y": 93,
+    "queries": 37,
+    "time_s": 490.88,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Save' button is at approximately pixel (601, 222), the midpoi",
+    "phase1_time": 163.387,
+    "phase_1_5_time": 13.466,
+    "phase2_time": 314.031,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      250,
+      20
+    ],
+    "stage_c_output_xy": [
+      250,
+      20
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        250,
+        20
+      ],
+      [
+        250,
+        75
+      ],
+      [
+        250,
+        17
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      32.511
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_02",
+    "category": "ui_button",
+    "gt_x": 286,
+    "gt_y": 84,
+    "distance_px": 47.9,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 478,
+    "y": 4,
+    "queries": 4,
+    "time_s": 54.12,
+    "test_id": "ui_button_03",
+    "category": "ui_button",
+    "gt_x": 514,
+    "gt_y": 39,
+    "distance_px": 50.2,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 478,
+    "y": 0,
+    "queries": 4,
+    "time_s": 55.47,
+    "test_id": "ui_button_03",
+    "category": "ui_button",
+    "gt_x": 514,
+    "gt_y": 39,
+    "distance_px": 53.1,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 452,
+    "y": 0,
+    "queries": 5,
+    "time_s": 68.33,
+    "test_id": "ui_button_03",
+    "category": "ui_button",
+    "gt_x": 514,
+    "gt_y": 39,
+    "distance_px": 73.2,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 535,
+    "y": 24,
+    "queries": 37,
+    "time_s": 502.5,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Open' button is at approximately (608, 108), at t",
+    "phase1_time": 173.017,
+    "phase_1_5_time": 12.796,
+    "phase2_time": 316.691,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.161,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      478,
+      0
+    ],
+    "stage_c_output_xy": [
+      478,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Open",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        478,
+        0
+      ],
+      [
+        495,
+        0
+      ],
+      [
+        478,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      9.526,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_03",
+    "category": "ui_button",
+    "gt_x": 514,
+    "gt_y": 39,
+    "distance_px": 25.8,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 516,
+    "y": 23,
+    "queries": 37,
+    "time_s": 504.5,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Open' button is at approximately (608, 108), at t",
+    "phase1_time": 169.628,
+    "phase_1_5_time": 13.682,
+    "phase2_time": 321.192,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.161,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      478,
+      0
+    ],
+    "stage_c_output_xy": [
+      478,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Open",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        478,
+        4
+      ],
+      [
+        703,
+        0
+      ],
+      [
+        478,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      129.904,
+      2.165
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_03",
+    "category": "ui_button",
+    "gt_x": 514,
+    "gt_y": 39,
+    "distance_px": 16.1,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 554,
+    "y": 30,
+    "queries": 37,
+    "time_s": 514.84,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Open' button is at approximately (608, 108), at t",
+    "phase1_time": 184.859,
+    "phase_1_5_time": 12.737,
+    "phase2_time": 317.246,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.161,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      478,
+      0
+    ],
+    "stage_c_output_xy": [
+      478,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Open",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        478,
+        4
+      ],
+      [
+        478,
+        0
+      ],
+      [
+        703,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      129.904,
+      2.165
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_03",
+    "category": "ui_button",
+    "gt_x": 514,
+    "gt_y": 39,
+    "distance_px": 41.0,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 538,
+    "y": 0,
+    "queries": 4,
+    "time_s": 54.68,
+    "test_id": "ui_button_04",
+    "category": "ui_button",
+    "gt_x": 538,
+    "gt_y": 27,
+    "distance_px": 27.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 507,
+    "y": 0,
+    "queries": 4,
+    "time_s": 61.51,
+    "test_id": "ui_button_04",
+    "category": "ui_button",
+    "gt_x": 538,
+    "gt_y": 27,
+    "distance_px": 41.1,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 522,
+    "y": 0,
+    "queries": 4,
+    "time_s": 54.52,
+    "test_id": "ui_button_04",
+    "category": "ui_button",
+    "gt_x": 538,
+    "gt_y": 27,
+    "distance_px": 31.4,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 538,
+    "y": 26,
+    "queries": 12,
+    "time_s": 165.1,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 165.097,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.645,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      522,
+      0
+    ],
+    "stage_c_output_xy": [
+      538,
+      26
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        538,
+        1
+      ],
+      [
+        522,
+        0
+      ],
+      [
+        522,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      9.526,
+      0.75
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_04",
+    "category": "ui_button",
+    "gt_x": 538,
+    "gt_y": 27,
+    "distance_px": 1.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 538,
+    "y": 26,
+    "queries": 12,
+    "time_s": 162.05,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 162.045,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.744,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      537,
+      0
+    ],
+    "stage_c_output_xy": [
+      538,
+      26
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        537,
+        1
+      ],
+      [
+        538,
+        0
+      ],
+      [
+        522,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      9.124,
+      0.433
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_04",
+    "category": "ui_button",
+    "gt_x": 538,
+    "gt_y": 27,
+    "distance_px": 1.0,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 538,
+    "y": 26,
+    "queries": 12,
+    "time_s": 168.95,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 168.948,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.744,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      538,
+      0
+    ],
+    "stage_c_output_xy": [
+      538,
+      26
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        538,
+        0
+      ],
+      [
+        538,
+        0
+      ],
+      [
+        537,
+        1
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.866,
+      0.433
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_04",
+    "category": "ui_button",
+    "gt_x": 538,
+    "gt_y": 27,
+    "distance_px": 1.0,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 707,
+    "y": 12,
+    "queries": 4,
+    "time_s": 55.23,
+    "test_id": "ui_button_05",
+    "category": "ui_button",
+    "gt_x": 634,
+    "gt_y": 62,
+    "distance_px": 88.5,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 630,
+    "y": 20,
+    "queries": 4,
+    "time_s": 56.47,
+    "test_id": "ui_button_05",
+    "category": "ui_button",
+    "gt_x": 634,
+    "gt_y": 62,
+    "distance_px": 42.2,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 645,
+    "y": 13,
+    "queries": 4,
+    "time_s": 53.32,
+    "test_id": "ui_button_05",
+    "category": "ui_button",
+    "gt_x": 634,
+    "gt_y": 62,
+    "distance_px": 50.2,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 631,
+    "y": 60,
+    "queries": 37,
+    "time_s": 503.36,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Help' button is at approximately (487, 163), the ",
+    "phase1_time": 164.42,
+    "phase_1_5_time": 12.821,
+    "phase2_time": 326.12,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.379,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      645,
+      20
+    ],
+    "stage_c_output_xy": [
+      645,
+      20
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Help",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        707,
+        20
+      ],
+      [
+        645,
+        20
+      ],
+      [
+        645,
+        20
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      35.507,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_05",
+    "category": "ui_button",
+    "gt_x": 634,
+    "gt_y": 62,
+    "distance_px": 3.6,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 690,
+    "y": 41,
+    "queries": 37,
+    "time_s": 490.56,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Help' button is at approximately (490, 163) in th",
+    "phase1_time": 159.089,
+    "phase_1_5_time": 16.83,
+    "phase2_time": 314.642,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.379,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      645,
+      20
+    ],
+    "stage_c_output_xy": [
+      645,
+      20
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Help",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        645,
+        20
+      ],
+      [
+        645,
+        15
+      ],
+      [
+        645,
+        20
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      3.031
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_05",
+    "category": "ui_button",
+    "gt_x": 634,
+    "gt_y": 62,
+    "distance_px": 59.8,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 656,
+    "y": 63,
+    "queries": 37,
+    "time_s": 504.17,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Help' button is at approximately (490, 163), at t",
+    "phase1_time": 163.565,
+    "phase_1_5_time": 12.763,
+    "phase2_time": 327.846,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.379,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      645,
+      20
+    ],
+    "stage_c_output_xy": [
+      645,
+      20
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Help",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        630,
+        20
+      ],
+      [
+        645,
+        12
+      ],
+      [
+        645,
+        20
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.66,
+      4.33
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_05",
+    "category": "ui_button",
+    "gt_x": 634,
+    "gt_y": 62,
+    "distance_px": 22.0,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 707,
+    "y": 21,
+    "queries": 4,
+    "time_s": 55.36,
+    "test_id": "ui_button_06",
+    "category": "ui_button",
+    "gt_x": 769,
+    "gt_y": 24,
+    "distance_px": 62.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 707,
+    "y": 21,
+    "queries": 4,
+    "time_s": 54.15,
+    "test_id": "ui_button_06",
+    "category": "ui_button",
+    "gt_x": 769,
+    "gt_y": 24,
+    "distance_px": 62.1,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 707,
+    "y": 21,
+    "queries": 4,
+    "time_s": 56.1,
+    "test_id": "ui_button_06",
+    "category": "ui_button",
+    "gt_x": 769,
+    "gt_y": 24,
+    "distance_px": 62.1,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 724,
+    "y": 21,
+    "queries": 37,
+    "time_s": 514.69,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center pixel of the green 'File' button is at approximately (687, 47) in the",
+    "phase1_time": 174.223,
+    "phase_1_5_time": 14.386,
+    "phase2_time": 326.085,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.253,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      707,
+      21
+    ],
+    "stage_c_output_xy": [
+      707,
+      21
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "File",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        707,
+        21
+      ],
+      [
+        707,
+        21
+      ],
+      [
+        707,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_06",
+    "category": "ui_button",
+    "gt_x": 769,
+    "gt_y": 24,
+    "distance_px": 45.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 736,
+    "y": 28,
+    "queries": 37,
+    "time_s": 510.61,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'File' button is at approximately (683, 50), the m",
+    "phase1_time": 166.045,
+    "phase_1_5_time": 15.31,
+    "phase2_time": 329.256,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.253,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      707,
+      21
+    ],
+    "stage_c_output_xy": [
+      707,
+      21
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "File",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        707,
+        21
+      ],
+      [
+        707,
+        21
+      ],
+      [
+        707,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_06",
+    "category": "ui_button",
+    "gt_x": 769,
+    "gt_y": 24,
+    "distance_px": 33.2,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 742,
+    "y": 29,
+    "queries": 37,
+    "time_s": 498.01,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'File' button is at approximately pixel (683, 55), the midpoin",
+    "phase1_time": 167.204,
+    "phase_1_5_time": 13.887,
+    "phase2_time": 316.914,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.253,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      707,
+      21
+    ],
+    "stage_c_output_xy": [
+      707,
+      21
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "File",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        707,
+        21
+      ],
+      [
+        707,
+        21
+      ],
+      [
+        707,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_06",
+    "category": "ui_button",
+    "gt_x": 769,
+    "gt_y": 24,
+    "distance_px": 27.5,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": null,
+    "y": 4,
+    "queries": 4,
+    "time_s": 55.58,
+    "test_id": "ui_button_07",
+    "category": "ui_button",
+    "gt_x": 1080,
+    "gt_y": 30,
+    "distance_px": null,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 1044,
+    "y": 20,
+    "queries": 4,
+    "time_s": 57.29,
+    "test_id": "ui_button_07",
+    "category": "ui_button",
+    "gt_x": 1080,
+    "gt_y": 30,
+    "distance_px": 37.4,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 1044,
+    "y": 0,
+    "queries": 4,
+    "time_s": 59.56,
+    "test_id": "ui_button_07",
+    "category": "ui_button",
+    "gt_x": 1080,
+    "gt_y": 30,
+    "distance_px": 46.9,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 1120,
+    "y": 18,
+    "queries": 37,
+    "time_s": 520.69,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center pixel of the 'Redo' button is at approximately (601, 75), the midpoin",
+    "phase1_time": 169.159,
+    "phase_1_5_time": 13.611,
+    "phase2_time": 337.92,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.299,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      1044,
+      0
+    ],
+    "stage_c_output_xy": [
+      1044,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Redo",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1044,
+        0
+      ],
+      [
+        1044,
+        0
+      ],
+      [
+        1044,
+        4
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      2.598
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_07",
+    "category": "ui_button",
+    "gt_x": 1080,
+    "gt_y": 30,
+    "distance_px": 41.8,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 1138,
+    "y": 39,
+    "queries": 37,
+    "time_s": 504.49,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Redo' button is at approximately (601, 75), the m",
+    "phase1_time": 168.969,
+    "phase_1_5_time": 14.393,
+    "phase2_time": 321.125,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.353,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      1044,
+      4
+    ],
+    "stage_c_output_xy": [
+      1044,
+      4
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Redo",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1044,
+        20
+      ],
+      [
+        1044,
+        4
+      ],
+      [
+        1044,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      10.633
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_07",
+    "category": "ui_button",
+    "gt_x": 1080,
+    "gt_y": 30,
+    "distance_px": 58.7,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 1108,
+    "y": 17,
+    "queries": 37,
+    "time_s": 508.85,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center pixel of the 'Redo' button is at approximately (601, 75), the midpoin",
+    "phase1_time": 165.101,
+    "phase_1_5_time": 13.97,
+    "phase2_time": 329.776,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.299,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      1044,
+      0
+    ],
+    "stage_c_output_xy": [
+      1044,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Redo",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1044,
+        20
+      ],
+      [
+        1044,
+        0
+      ],
+      [
+        1044,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      11.258
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_07",
+    "category": "ui_button",
+    "gt_x": 1080,
+    "gt_y": 30,
+    "distance_px": 30.9,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 373,
+    "y": 63,
+    "queries": 4,
+    "time_s": 60.92,
+    "test_id": "ui_button_08",
+    "category": "ui_button",
+    "gt_x": 349,
+    "gt_y": 74,
+    "distance_px": 26.4,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 373,
+    "y": 58,
+    "queries": 4,
+    "time_s": 55.63,
+    "test_id": "ui_button_08",
+    "category": "ui_button",
+    "gt_x": 349,
+    "gt_y": 74,
+    "distance_px": 28.8,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 373,
+    "y": 63,
+    "queries": 4,
+    "time_s": 57.18,
+    "test_id": "ui_button_08",
+    "category": "ui_button",
+    "gt_x": 349,
+    "gt_y": 74,
+    "distance_px": 26.4,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 348,
+    "y": 74,
+    "queries": 12,
+    "time_s": 166.84,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 166.836,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.737,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      373,
+      63
+    ],
+    "stage_c_output_xy": [
+      348,
+      74
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Search",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        373,
+        63
+      ],
+      [
+        373,
+        63
+      ],
+      [
+        373,
+        63
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_08",
+    "category": "ui_button",
+    "gt_x": 349,
+    "gt_y": 74,
+    "distance_px": 1.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 348,
+    "y": 74,
+    "queries": 12,
+    "time_s": 168.16,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 168.16,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.737,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      373,
+      63
+    ],
+    "stage_c_output_xy": [
+      348,
+      74
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Search",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        373,
+        63
+      ],
+      [
+        373,
+        63
+      ],
+      [
+        373,
+        72
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      5.196
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_08",
+    "category": "ui_button",
+    "gt_x": 349,
+    "gt_y": 74,
+    "distance_px": 1.0,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 348,
+    "y": 74,
+    "queries": 12,
+    "time_s": 163.21,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 163.213,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.737,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      373,
+      63
+    ],
+    "stage_c_output_xy": [
+      348,
+      74
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Search",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        373,
+        63
+      ],
+      [
+        373,
+        63
+      ],
+      [
+        373,
+        63
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_08",
+    "category": "ui_button",
+    "gt_x": 349,
+    "gt_y": 74,
+    "distance_px": 1.0,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 370,
+    "y": 0,
+    "queries": 4,
+    "time_s": 51.42,
+    "test_id": "ui_button_09",
+    "category": "ui_button",
+    "gt_x": 393,
+    "gt_y": 34,
+    "distance_px": 41.0,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 370,
+    "y": 0,
+    "queries": 4,
+    "time_s": 53.61,
+    "test_id": "ui_button_09",
+    "category": "ui_button",
+    "gt_x": 393,
+    "gt_y": 34,
+    "distance_px": 41.0,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 369,
+    "y": 0,
+    "queries": 4,
+    "time_s": 53.67,
+    "test_id": "ui_button_09",
+    "category": "ui_button",
+    "gt_x": 393,
+    "gt_y": 34,
+    "distance_px": 41.6,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 392,
+    "y": 34,
+    "queries": 12,
+    "time_s": 170.75,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 170.749,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.756,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      370,
+      21
+    ],
+    "stage_c_output_xy": [
+      392,
+      34
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Print",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        370,
+        21
+      ],
+      [
+        370,
+        21
+      ],
+      [
+        370,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      11.914
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_09",
+    "category": "ui_button",
+    "gt_x": 393,
+    "gt_y": 34,
+    "distance_px": 1.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 392,
+    "y": 34,
+    "queries": 12,
+    "time_s": 170.7,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 170.701,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "button",
+    "stage_c_confidence": 0.756,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      370,
+      21
+    ],
+    "stage_c_output_xy": [
+      392,
+      34
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Print",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        370,
+        30
+      ],
+      [
+        370,
+        1
+      ],
+      [
+        370,
+        21
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      14.665
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_09",
+    "category": "ui_button",
+    "gt_x": 393,
+    "gt_y": 34,
+    "distance_px": 1.0,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 442,
+    "y": 0,
+    "queries": 31,
+    "time_s": 421.01,
+    "phase1_queries": 12,
+    "phase2_rounds": 6,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Print' button is at approximately (573, 68), the ",
+    "phase1_time": 167.852,
+    "phase_1_5_time": 13.596,
+    "phase2_time": 239.566,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "button_miss",
+    "stage_c_confidence": 0.427,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      370,
+      0
+    ],
+    "stage_c_output_xy": [
+      370,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "button",
+      "intent": "center",
+      "label_hint": "Print",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        370,
+        0
+      ],
+      [
+        370,
+        21
+      ],
+      [
+        370,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      12.124
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_button_09",
+    "category": "ui_button",
+    "gt_x": 393,
+    "gt_y": 34,
+    "distance_px": 59.6,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 3,
+    "y": 46,
+    "queries": 4,
+    "time_s": 60.3,
+    "test_id": "ui_dense_00",
+    "category": "ui_dense",
+    "gt_x": 45,
+    "gt_y": 52,
+    "distance_px": 42.4,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 5,
+    "y": 38,
+    "queries": 4,
+    "time_s": 59.89,
+    "test_id": "ui_dense_00",
+    "category": "ui_dense",
+    "gt_x": 45,
+    "gt_y": 52,
+    "distance_px": 42.4,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 1,
+    "y": 4,
+    "queries": 4,
+    "time_s": 52.86,
+    "test_id": "ui_dense_00",
+    "category": "ui_dense",
+    "gt_x": 45,
+    "gt_y": 52,
+    "distance_px": 65.1,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 48,
+    "y": 54,
+    "queries": 37,
+    "time_s": 512.56,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Imag' (Image) icon — the red rounded-rectangle button in the ",
+    "phase1_time": 167.68,
+    "phase_1_5_time": 15.545,
+    "phase2_time": 329.335,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      1,
+      4
+    ],
+    "stage_c_output_xy": [
+      1,
+      4
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Image",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        1,
+        4
+      ],
+      [
+        1,
+        9
+      ],
+      [
+        3,
+        4
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      1.299,
+      2.598
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_00",
+    "category": "ui_dense",
+    "gt_x": 45,
+    "gt_y": 52,
+    "distance_px": 3.6,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 42,
+    "y": 45,
+    "queries": 37,
+    "time_s": 528.4,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Imag' (Image) icon is at approximately pixel (224, 263), the ",
+    "phase1_time": 177.085,
+    "phase_1_5_time": 13.226,
+    "phase2_time": 338.088,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      3,
+      7
+    ],
+    "stage_c_output_xy": [
+      3,
+      7
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Image",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        42
+      ],
+      [
+        0,
+        7
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      2.165,
+      20.839
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_00",
+    "category": "ui_dense",
+    "gt_x": 45,
+    "gt_y": 52,
+    "distance_px": 7.6,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 28,
+    "y": 49,
+    "queries": 37,
+    "time_s": 506.32,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Image' (truncated as 'Imag') icon is at approximately pixel (",
+    "phase1_time": 163.748,
+    "phase_1_5_time": 14.567,
+    "phase2_time": 328.002,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      3,
+      12
+    ],
+    "stage_c_output_xy": [
+      3,
+      12
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Image",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        3,
+        12
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        1,
+        42
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      1.299,
+      19.706
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_00",
+    "category": "ui_dense",
+    "gt_x": 45,
+    "gt_y": 52,
+    "distance_px": 17.3,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 21,
+    "y": 4,
+    "queries": 4,
+    "time_s": 60.3,
+    "test_id": "ui_dense_01",
+    "category": "ui_dense",
+    "gt_x": 85,
+    "gt_y": 30,
+    "distance_px": 69.1,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 21,
+    "y": 0,
+    "queries": 4,
+    "time_s": 58.86,
+    "test_id": "ui_dense_01",
+    "category": "ui_dense",
+    "gt_x": 85,
+    "gt_y": 30,
+    "distance_px": 70.7,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 8,
+    "y": 3,
+    "queries": 4,
+    "time_s": 56.14,
+    "test_id": "ui_dense_01",
+    "category": "ui_dense",
+    "gt_x": 85,
+    "gt_y": 30,
+    "distance_px": 81.6,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 92,
+    "y": 29,
+    "queries": 37,
+    "time_s": 516.83,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Bell' labeled blue button is at approximately pixel (338, 105",
+    "phase1_time": 166.571,
+    "phase_1_5_time": 14.276,
+    "phase2_time": 335.988,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      47,
+      0
+    ],
+    "stage_c_output_xy": [
+      47,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Bell",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        47,
+        0
+      ],
+      [
+        54,
+        0
+      ],
+      [
+        27,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      14.355,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_01",
+    "category": "ui_dense",
+    "gt_x": 85,
+    "gt_y": 30,
+    "distance_px": 7.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 86,
+    "y": 12,
+    "queries": 37,
+    "time_s": 503.41,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Bell' icon is at approximately pixel (328, 100), the center o",
+    "phase1_time": 163.969,
+    "phase_1_5_time": 14.316,
+    "phase2_time": 325.127,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      54,
+      0
+    ],
+    "stage_c_output_xy": [
+      54,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Bell",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        54,
+        0
+      ],
+      [
+        21,
+        0
+      ],
+      [
+        54,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      19.053,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_01",
+    "category": "ui_dense",
+    "gt_x": 85,
+    "gt_y": 30,
+    "distance_px": 18.0,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 82,
+    "y": 16,
+    "queries": 37,
+    "time_s": 517.93,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Bell' labeled blue button is at approximately pixel (390, 140",
+    "phase1_time": 170.386,
+    "phase_1_5_time": 16.707,
+    "phase2_time": 330.838,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      18,
+      0
+    ],
+    "stage_c_output_xy": [
+      18,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Bell",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        21,
+        0
+      ],
+      [
+        18,
+        0
+      ],
+      [
+        8,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      7.089,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_01",
+    "category": "ui_dense",
+    "gt_x": 85,
+    "gt_y": 30,
+    "distance_px": 14.3,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 250,
+    "y": 58,
+    "queries": 4,
+    "time_s": 55.69,
+    "test_id": "ui_dense_02",
+    "category": "ui_dense",
+    "gt_x": 280,
+    "gt_y": 85,
+    "distance_px": 40.4,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 266,
+    "y": 58,
+    "queries": 4,
+    "time_s": 53.71,
+    "test_id": "ui_dense_02",
+    "category": "ui_dense",
+    "gt_x": 280,
+    "gt_y": 85,
+    "distance_px": 30.4,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 258,
+    "y": 54,
+    "queries": 4,
+    "time_s": 56.94,
+    "test_id": "ui_dense_02",
+    "category": "ui_dense",
+    "gt_x": 280,
+    "gt_y": 85,
+    "distance_px": 38.0,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 258,
+    "y": 78,
+    "queries": 37,
+    "time_s": 501.58,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Undo' icon is at approximately pixel (549, 205), at the cente",
+    "phase1_time": 170.164,
+    "phase_1_5_time": 14.863,
+    "phase2_time": 316.553,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      266,
+      58
+    ],
+    "stage_c_output_xy": [
+      266,
+      58
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Undo",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        266,
+        54
+      ],
+      [
+        236,
+        58
+      ],
+      [
+        266,
+        58
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      17.321,
+      2.165
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_02",
+    "category": "ui_dense",
+    "gt_x": 280,
+    "gt_y": 85,
+    "distance_px": 23.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 260,
+    "y": 76,
+    "queries": 37,
+    "time_s": 496.83,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Undo' icon (green button) is at approximately pixel (511, 205",
+    "phase1_time": 163.015,
+    "phase_1_5_time": 13.252,
+    "phase2_time": 320.561,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      280,
+      58
+    ],
+    "stage_c_output_xy": [
+      280,
+      58
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Undo",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        280,
+        58
+      ],
+      [
+        280,
+        58
+      ],
+      [
+        280,
+        54
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      2.165
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_02",
+    "category": "ui_dense",
+    "gt_x": 280,
+    "gt_y": 85,
+    "distance_px": 21.9,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 278,
+    "y": 71,
+    "queries": 37,
+    "time_s": 512.27,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Undo' icon (green button) is at approximately pixel (601, 205",
+    "phase1_time": 171.884,
+    "phase_1_5_time": 14.467,
+    "phase2_time": 325.922,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      243,
+      54
+    ],
+    "stage_c_output_xy": [
+      243,
+      54
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Undo",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        243,
+        54
+      ],
+      [
+        273,
+        58
+      ],
+      [
+        203,
+        42
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      34.988,
+      8.649
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_02",
+    "category": "ui_dense",
+    "gt_x": 280,
+    "gt_y": 85,
+    "distance_px": 14.1,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": null,
+    "y": 0,
+    "queries": 4,
+    "time_s": 94.06,
+    "test_id": "ui_dense_03",
+    "category": "ui_dense",
+    "gt_x": 202,
+    "gt_y": 20,
+    "distance_px": null,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": null,
+    "y": 0,
+    "queries": 3,
+    "time_s": 40.53,
+    "test_id": "ui_dense_03",
+    "category": "ui_dense",
+    "gt_x": 202,
+    "gt_y": 20,
+    "distance_px": null,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 203,
+    "y": 0,
+    "queries": 4,
+    "time_s": 54.11,
+    "test_id": "ui_dense_03",
+    "category": "ui_dense",
+    "gt_x": 202,
+    "gt_y": 20,
+    "distance_px": 20.0,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 196,
+    "y": 9,
+    "queries": 37,
+    "time_s": 547.7,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Imag' (Image) icon is at approximately pixel (499, 47), the c",
+    "phase1_time": 191.414,
+    "phase_1_5_time": 19.32,
+    "phase2_time": 336.962,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      203,
+      0
+    ],
+    "stage_c_output_xy": [
+      203,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Image",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        null,
+        0
+      ],
+      [
+        203,
+        0
+      ],
+      [
+        null,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_03",
+    "category": "ui_dense",
+    "gt_x": 202,
+    "gt_y": 20,
+    "distance_px": 12.5,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 205,
+    "y": 17,
+    "queries": 36,
+    "time_s": 505.95,
+    "phase1_queries": 11,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Imag' (Image) icon is at approximately pixel (503, 52) in the",
+    "phase1_time": 162.837,
+    "phase_1_5_time": 17.506,
+    "phase2_time": 325.611,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      207,
+      0
+    ],
+    "stage_c_output_xy": [
+      207,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Image",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        null,
+        0
+      ],
+      [
+        null,
+        0
+      ],
+      [
+        207,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_03",
+    "category": "ui_dense",
+    "gt_x": 202,
+    "gt_y": 20,
+    "distance_px": 4.2,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 226,
+    "y": 0,
+    "queries": 31,
+    "time_s": 438.53,
+    "phase1_queries": 12,
+    "phase2_rounds": 6,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Imag' (Image) icon button is at approximately pixel (499, 48)",
+    "phase1_time": 188.512,
+    "phase_1_5_time": 13.952,
+    "phase2_time": 236.069,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      203,
+      0
+    ],
+    "stage_c_output_xy": [
+      203,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Image",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        203,
+        0
+      ],
+      [
+        203,
+        0
+      ],
+      [
+        203,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_03",
+    "category": "ui_dense",
+    "gt_x": 202,
+    "gt_y": 20,
+    "distance_px": 31.2,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 287,
+    "y": 58,
+    "queries": 4,
+    "time_s": 53.11,
+    "test_id": "ui_dense_04",
+    "category": "ui_dense",
+    "gt_x": 322,
+    "gt_y": 72,
+    "distance_px": 37.7,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 411,
+    "y": 58,
+    "queries": 4,
+    "time_s": 56.85,
+    "test_id": "ui_dense_04",
+    "category": "ui_dense",
+    "gt_x": 322,
+    "gt_y": 72,
+    "distance_px": 90.1,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 280,
+    "y": 58,
+    "queries": 4,
+    "time_s": 62.45,
+    "test_id": "ui_dense_04",
+    "category": "ui_dense",
+    "gt_x": 322,
+    "gt_y": 72,
+    "distance_px": 44.3,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 348,
+    "y": 96,
+    "queries": 37,
+    "time_s": 509.31,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Link' icon (purple tile, top row, second from left) is at app",
+    "phase1_time": 169.955,
+    "phase_1_5_time": 24.903,
+    "phase2_time": 314.451,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.35,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      411,
+      58
+    ],
+    "stage_c_output_xy": [
+      411,
+      58
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Link",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        411,
+        63
+      ],
+      [
+        411,
+        42
+      ],
+      [
+        287,
+        58
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      71.447,
+      11.057
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_04",
+    "category": "ui_dense",
+    "gt_x": 322,
+    "gt_y": 72,
+    "distance_px": 35.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 324,
+    "y": 66,
+    "queries": 37,
+    "time_s": 512.72,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Link' icon (purple tile, top row, second column) is at approx",
+    "phase1_time": 171.076,
+    "phase_1_5_time": 14.396,
+    "phase2_time": 327.253,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.35,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      411,
+      58
+    ],
+    "stage_c_output_xy": [
+      411,
+      58
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Link",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        411,
+        58
+      ],
+      [
+        294,
+        58
+      ],
+      [
+        411,
+        63
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      67.117,
+      2.598
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_04",
+    "category": "ui_dense",
+    "gt_x": 322,
+    "gt_y": 72,
+    "distance_px": 6.3,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 323,
+    "y": 60,
+    "queries": 37,
+    "time_s": 494.26,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Link' icon is at approximately pixel (571, 192), at the cente",
+    "phase1_time": 164.694,
+    "phase_1_5_time": 14.114,
+    "phase2_time": 315.45,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      294,
+      42
+    ],
+    "stage_c_output_xy": [
+      294,
+      42
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Link",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        294,
+        58
+      ],
+      [
+        287,
+        42
+      ],
+      [
+        411,
+        42
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      69.383,
+      9.526
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_04",
+    "category": "ui_dense",
+    "gt_x": 322,
+    "gt_y": 72,
+    "distance_px": 12.0,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 708,
+    "y": 7,
+    "queries": 4,
+    "time_s": 53.99,
+    "test_id": "ui_dense_05",
+    "category": "ui_dense",
+    "gt_x": 775,
+    "gt_y": 50,
+    "distance_px": 79.6,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 708,
+    "y": 10,
+    "queries": 4,
+    "time_s": 57.13,
+    "test_id": "ui_dense_05",
+    "category": "ui_dense",
+    "gt_x": 775,
+    "gt_y": 50,
+    "distance_px": 78.0,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 708,
+    "y": 25,
+    "queries": 4,
+    "time_s": 53.45,
+    "test_id": "ui_dense_05",
+    "category": "ui_dense",
+    "gt_x": 775,
+    "gt_y": 50,
+    "distance_px": 71.5,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 805,
+    "y": 36,
+    "queries": 37,
+    "time_s": 498.74,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Stop' button (teal/green wide button, top-right area) is at a",
+    "phase1_time": 159.793,
+    "phase_1_5_time": 15.252,
+    "phase2_time": 323.691,
+    "stage_b_hit": false,
+    "stage_b_time": 0.0,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.0,
+    "stage_c_input_xy": [
+      708,
+      4
+    ],
+    "stage_c_output_xy": [
+      708,
+      4
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Stop",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        708,
+        30
+      ],
+      [
+        708,
+        4
+      ],
+      [
+        707,
+        4
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.866,
+      14.722
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_05",
+    "category": "ui_dense",
+    "gt_x": 775,
+    "gt_y": 50,
+    "distance_px": 33.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 681,
+    "y": 20,
+    "queries": 37,
+    "time_s": 505.16,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The exact center pixel of the 'Stop' button (teal/cyan colored wide button) is a",
+    "phase1_time": 164.75,
+    "phase_1_5_time": 12.649,
+    "phase2_time": 327.764,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      707,
+      4
+    ],
+    "stage_c_output_xy": [
+      707,
+      4
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Stop",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        707,
+        4
+      ],
+      [
+        707,
+        25
+      ],
+      [
+        707,
+        4
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      12.124
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_05",
+    "category": "ui_dense",
+    "gt_x": 775,
+    "gt_y": 50,
+    "distance_px": 98.7,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 745,
+    "y": 47,
+    "queries": 37,
+    "time_s": 513.57,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Stop' button (teal/cyan wide button, top-right area) is at ap",
+    "phase1_time": 172.181,
+    "phase_1_5_time": 13.878,
+    "phase2_time": 327.51,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      707,
+      30
+    ],
+    "stage_c_output_xy": [
+      707,
+      30
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Stop",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        707,
+        25
+      ],
+      [
+        708,
+        42
+      ],
+      [
+        707,
+        30
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.866,
+      8.529
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_05",
+    "category": "ui_dense",
+    "gt_x": 775,
+    "gt_y": 50,
+    "distance_px": 30.1,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 317,
+    "y": 4,
+    "queries": 4,
+    "time_s": 56.4,
+    "test_id": "ui_dense_06",
+    "category": "ui_dense",
+    "gt_x": 430,
+    "gt_y": 37,
+    "distance_px": 117.7,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 433,
+    "y": 5,
+    "queries": 4,
+    "time_s": 58.48,
+    "test_id": "ui_dense_06",
+    "category": "ui_dense",
+    "gt_x": 430,
+    "gt_y": 37,
+    "distance_px": 32.1,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 370,
+    "y": 0,
+    "queries": 4,
+    "time_s": 53.39,
+    "test_id": "ui_dense_06",
+    "category": "ui_dense",
+    "gt_x": 430,
+    "gt_y": 37,
+    "distance_px": 70.5,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 431,
+    "y": 29,
+    "queries": 37,
+    "time_s": 516.75,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the orange-brown 'Save' button is at approximately pixel (651, 88)",
+    "phase1_time": 172.524,
+    "phase_1_5_time": 13.745,
+    "phase2_time": 330.485,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      370,
+      4
+    ],
+    "stage_c_output_xy": [
+      370,
+      4
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        370,
+        3
+      ],
+      [
+        370,
+        4
+      ],
+      [
+        370,
+        7
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      1.984
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_06",
+    "category": "ui_dense",
+    "gt_x": 430,
+    "gt_y": 37,
+    "distance_px": 8.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 364,
+    "y": 37,
+    "queries": 12,
+    "time_s": 170.5,
+    "phase1_queries": 12,
+    "phase2_rounds": 0,
+    "phase2_hit": false,
+    "absent_fired": 0,
+    "anchor": "",
+    "phase1_time": 170.498,
+    "phase_1_5_time": 0.0,
+    "phase2_time": 0.0,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": true,
+    "stage_c_method": "icon",
+    "stage_c_confidence": 0.628,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      370,
+      21
+    ],
+    "stage_c_output_xy": [
+      364,
+      37
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        370,
+        5
+      ],
+      [
+        448,
+        21
+      ],
+      [
+        370,
+        25
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      45.033,
+      10.773
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_06",
+    "category": "ui_dense",
+    "gt_x": 430,
+    "gt_y": 37,
+    "distance_px": 66.0,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 437,
+    "y": 28,
+    "queries": 37,
+    "time_s": 502.74,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the orange-brown 'Save' button is at approximately pixel (651, 78)",
+    "phase1_time": 162.942,
+    "phase_1_5_time": 13.567,
+    "phase2_time": 326.229,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.062,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      370,
+      7
+    ],
+    "stage_c_output_xy": [
+      370,
+      7
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        370,
+        7
+      ],
+      [
+        370,
+        4
+      ],
+      [
+        370,
+        30
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      13.937
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_06",
+    "category": "ui_dense",
+    "gt_x": 430,
+    "gt_y": 37,
+    "distance_px": 11.4,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 675,
+    "y": 54,
+    "queries": 4,
+    "time_s": 53.92,
+    "test_id": "ui_dense_07",
+    "category": "ui_dense",
+    "gt_x": 680,
+    "gt_y": 72,
+    "distance_px": 18.7,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 660,
+    "y": 20,
+    "queries": 4,
+    "time_s": 52.64,
+    "test_id": "ui_dense_07",
+    "category": "ui_dense",
+    "gt_x": 680,
+    "gt_y": 72,
+    "distance_px": 55.7,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 707,
+    "y": 63,
+    "queries": 4,
+    "time_s": 53.74,
+    "test_id": "ui_dense_07",
+    "category": "ui_dense",
+    "gt_x": 680,
+    "gt_y": 72,
+    "distance_px": 28.5,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 676,
+    "y": 65,
+    "queries": 37,
+    "time_s": 499.33,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Save' card (blue-purple button labeled \"Save\") is at approxim",
+    "phase1_time": 161.157,
+    "phase_1_5_time": 13.708,
+    "phase2_time": 324.464,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      675,
+      54
+    ],
+    "stage_c_output_xy": [
+      675,
+      54
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        675,
+        54
+      ],
+      [
+        675,
+        54
+      ],
+      [
+        675,
+        63
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      4.763
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_07",
+    "category": "ui_dense",
+    "gt_x": 680,
+    "gt_y": 72,
+    "distance_px": 8.1,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 677,
+    "y": 65,
+    "queries": 37,
+    "time_s": 507.45,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Save' icon card is at approximately pixel (499, 178), the hor",
+    "phase1_time": 172.38,
+    "phase_1_5_time": 13.696,
+    "phase2_time": 321.372,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      675,
+      54
+    ],
+    "stage_c_output_xy": [
+      675,
+      54
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        707,
+        54
+      ],
+      [
+        675,
+        54
+      ],
+      [
+        675,
+        54
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      18.187,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_07",
+    "category": "ui_dense",
+    "gt_x": 680,
+    "gt_y": 72,
+    "distance_px": 7.6,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 673,
+    "y": 66,
+    "queries": 38,
+    "time_s": 558.56,
+    "phase1_queries": 13,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 0,
+    "anchor": "The center of the 'Save' icon (purple/blue button labeled \"Save\") is at approxim",
+    "phase1_time": 180.404,
+    "phase_1_5_time": 13.758,
+    "phase2_time": 364.398,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      675,
+      54
+    ],
+    "stage_c_output_xy": [
+      675,
+      54
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Save",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        675,
+        50
+      ],
+      [
+        650,
+        54
+      ],
+      [
+        707,
+        54
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      28.553,
+      2.598
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_07",
+    "category": "ui_dense",
+    "gt_x": 680,
+    "gt_y": 72,
+    "distance_px": 9.2,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 507,
+    "y": 4,
+    "queries": 4,
+    "time_s": 70.36,
+    "test_id": "ui_dense_08",
+    "category": "ui_dense",
+    "gt_x": 519,
+    "gt_y": 31,
+    "distance_px": 29.5,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 522,
+    "y": 0,
+    "queries": 4,
+    "time_s": 59.51,
+    "test_id": "ui_dense_08",
+    "category": "ui_dense",
+    "gt_x": 519,
+    "gt_y": 31,
+    "distance_px": 31.1,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 507,
+    "y": 0,
+    "queries": 4,
+    "time_s": 52.68,
+    "test_id": "ui_dense_08",
+    "category": "ui_dense",
+    "gt_x": 519,
+    "gt_y": 31,
+    "distance_px": 33.2,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 500,
+    "y": 0,
+    "queries": 38,
+    "time_s": 531.82,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 1,
+    "anchor": "The center pixel of the 'Rule' (Ruler) button is at approximately (496, 41).",
+    "phase1_time": 176.059,
+    "phase_1_5_time": 27.796,
+    "phase2_time": 327.969,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      522,
+      0
+    ],
+    "stage_c_output_xy": [
+      522,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Ruler",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        522,
+        0
+      ],
+      [
+        522,
+        0
+      ],
+      [
+        507,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.227,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_08",
+    "category": "ui_dense",
+    "gt_x": 519,
+    "gt_y": 31,
+    "distance_px": 36.4,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 573,
+    "y": 49,
+    "queries": 39,
+    "time_s": 560.17,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 3,
+    "anchor": "The image shows a grid of labeled buttons (including one labeled \"Rule\") but no ",
+    "phase1_time": 176.563,
+    "phase_1_5_time": 45.921,
+    "phase2_time": 337.682,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      507,
+      0
+    ],
+    "stage_c_output_xy": [
+      507,
+      0
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Ruler",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        507,
+        0
+      ],
+      [
+        507,
+        33
+      ],
+      [
+        522,
+        0
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.227,
+      19.486
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_08",
+    "category": "ui_dense",
+    "gt_x": 519,
+    "gt_y": 31,
+    "distance_px": 56.9,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 523,
+    "y": 52,
+    "queries": 39,
+    "time_s": 581.16,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 3,
+    "anchor": "The image shows a grid of labeled colored buttons (including one labeled \"Rule\")",
+    "phase1_time": 207.417,
+    "phase_1_5_time": 48.01,
+    "phase2_time": 325.728,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      507,
+      4
+    ],
+    "stage_c_output_xy": [
+      507,
+      4
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Ruler",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        522,
+        5
+      ],
+      [
+        507,
+        0
+      ],
+      [
+        507,
+        4
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      8.227,
+      2.839
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_08",
+    "category": "ui_dense",
+    "gt_x": 519,
+    "gt_y": 31,
+    "distance_px": 21.4,
+    "repeat": 2
+  },
+  {
+    "method": "grid",
+    "x": 828,
+    "y": 54,
+    "queries": 4,
+    "time_s": 53.69,
+    "test_id": "ui_dense_09",
+    "category": "ui_dense",
+    "gt_x": 812,
+    "gt_y": 59,
+    "distance_px": 16.8,
+    "repeat": 0
+  },
+  {
+    "method": "grid",
+    "x": 875,
+    "y": 7,
+    "queries": 4,
+    "time_s": 54.03,
+    "test_id": "ui_dense_09",
+    "category": "ui_dense",
+    "gt_x": 812,
+    "gt_y": 59,
+    "distance_px": 81.7,
+    "repeat": 1
+  },
+  {
+    "method": "grid",
+    "x": 828,
+    "y": 7,
+    "queries": 4,
+    "time_s": 55.37,
+    "test_id": "ui_dense_09",
+    "category": "ui_dense",
+    "gt_x": 812,
+    "gt_y": 59,
+    "distance_px": 54.4,
+    "repeat": 2
+  },
+  {
+    "method": "pinpoint",
+    "x": 799,
+    "y": 40,
+    "queries": 39,
+    "time_s": 552.3,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 2,
+    "anchor": "The center of the 'Char' icon (truncated 'Chart') is at approximately pixel (432",
+    "phase1_time": 165.57,
+    "phase_1_5_time": 47.045,
+    "phase2_time": 339.684,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      828,
+      4
+    ],
+    "stage_c_output_xy": [
+      828,
+      4
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Chart",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        828,
+        4
+      ],
+      [
+        828,
+        4
+      ],
+      [
+        828,
+        4
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      0.0,
+      0.0
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_09",
+    "category": "ui_dense",
+    "gt_x": 812,
+    "gt_y": 59,
+    "distance_px": 23.0,
+    "repeat": 0
+  },
+  {
+    "method": "pinpoint",
+    "x": 826,
+    "y": 40,
+    "queries": 39,
+    "time_s": 547.85,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 2,
+    "anchor": "The center of the 'Char' icon (truncated \"Chart\") in the menu strip is at approx",
+    "phase1_time": 169.627,
+    "phase_1_5_time": 44.027,
+    "phase2_time": 334.193,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      875,
+      46
+    ],
+    "stage_c_output_xy": [
+      875,
+      46
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Chart",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        875,
+        4
+      ],
+      [
+        828,
+        46
+      ],
+      [
+        875,
+        54
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      26.847,
+      26.948
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_09",
+    "category": "ui_dense",
+    "gt_x": 812,
+    "gt_y": 59,
+    "distance_px": 23.6,
+    "repeat": 1
+  },
+  {
+    "method": "pinpoint",
+    "x": 817,
+    "y": 7,
+    "queries": 39,
+    "time_s": 566.27,
+    "phase1_queries": 12,
+    "phase2_rounds": 8,
+    "phase2_hit": true,
+    "absent_fired": 2,
+    "anchor": "The 'Char' icon (truncated 'Chart') is centered at approximately pixel (432, 30)",
+    "phase1_time": 173.608,
+    "phase_1_5_time": 47.652,
+    "phase2_time": 345.014,
+    "stage_b_hit": false,
+    "stage_b_time": 0.001,
+    "stage_b_match": "",
+    "stage_b_dist": 0.0,
+    "stage_c_hit": false,
+    "stage_c_method": "icon_miss",
+    "stage_c_confidence": 0.0,
+    "stage_c_time": 0.001,
+    "stage_c_input_xy": [
+      828,
+      7
+    ],
+    "stage_c_output_xy": [
+      828,
+      7
+    ],
+    "phase_1_5_structured": {
+      "target_type": "icon",
+      "intent": "center",
+      "label_hint": "Chart",
+      "source": "heuristic",
+      "confidence": 1.0,
+      "visible": true
+    },
+    "phase_1_samples": [
+      [
+        828,
+        54
+      ],
+      [
+        875,
+        7
+      ],
+      [
+        828,
+        4
+      ]
+    ],
+    "phase_1_sample_stdev_xy": [
+      26.847,
+      28.186
+    ],
+    "phase_1_aggregation": "median",
+    "test_id": "ui_dense_09",
+    "category": "ui_dense",
+    "gt_x": 812,
+    "gt_y": 59,
+    "distance_px": 52.2,
+    "repeat": 2
+  }
+]

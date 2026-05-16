@@ -1,0 +1,402 @@
+[
+  {
+    "id": "ui_button_00",
+    "category": "ui_button",
+    "image": "images/ui_button_00.png",
+    "target": "the center of the 'Import' button in the toolbar",
+    "x": 70,
+    "y": 25
+  },
+  {
+    "id": "ui_button_01",
+    "category": "ui_button",
+    "image": "images/ui_button_01.png",
+    "target": "the center of the 'Cut' button in the toolbar",
+    "x": 174,
+    "y": 22
+  },
+  {
+    "id": "ui_button_02",
+    "category": "ui_button",
+    "image": "images/ui_button_02.png",
+    "target": "the center of the 'Save' button in the toolbar",
+    "x": 286,
+    "y": 84
+  },
+  {
+    "id": "ui_button_03",
+    "category": "ui_button",
+    "image": "images/ui_button_03.png",
+    "target": "the center of the 'Open' button in the toolbar",
+    "x": 514,
+    "y": 39
+  },
+  {
+    "id": "ui_button_04",
+    "category": "ui_button",
+    "image": "images/ui_button_04.png",
+    "target": "the center of the 'Save' button in the toolbar",
+    "x": 538,
+    "y": 27
+  },
+  {
+    "id": "ui_button_05",
+    "category": "ui_button",
+    "image": "images/ui_button_05.png",
+    "target": "the center of the 'Help' button in the toolbar",
+    "x": 634,
+    "y": 62
+  },
+  {
+    "id": "ui_button_06",
+    "category": "ui_button",
+    "image": "images/ui_button_06.png",
+    "target": "the center of the 'File' button in the toolbar",
+    "x": 769,
+    "y": 24
+  },
+  {
+    "id": "ui_button_07",
+    "category": "ui_button",
+    "image": "images/ui_button_07.png",
+    "target": "the center of the 'Redo' button in the toolbar",
+    "x": 1080,
+    "y": 30
+  },
+  {
+    "id": "ui_button_08",
+    "category": "ui_button",
+    "image": "images/ui_button_08.png",
+    "target": "the center of the 'Search' button in the toolbar",
+    "x": 349,
+    "y": 74
+  },
+  {
+    "id": "ui_button_09",
+    "category": "ui_button",
+    "image": "images/ui_button_09.png",
+    "target": "the center of the 'Print' button in the toolbar",
+    "x": 393,
+    "y": 34
+  },
+  {
+    "id": "ui_dense_00",
+    "category": "ui_dense",
+    "image": "images/ui_dense_00.png",
+    "target": "the center of the 'Image' icon in the ribbon",
+    "x": 45,
+    "y": 52
+  },
+  {
+    "id": "ui_dense_01",
+    "category": "ui_dense",
+    "image": "images/ui_dense_01.png",
+    "target": "the center of the 'Bell' icon in the dark toolbar",
+    "x": 85,
+    "y": 30
+  },
+  {
+    "id": "ui_dense_02",
+    "category": "ui_dense",
+    "image": "images/ui_dense_02.png",
+    "target": "the center of the 'Undo' icon in the palette",
+    "x": 280,
+    "y": 85
+  },
+  {
+    "id": "ui_dense_03",
+    "category": "ui_dense",
+    "image": "images/ui_dense_03.png",
+    "target": "the center of the 'Image' icon in the compact bar",
+    "x": 202,
+    "y": 20
+  },
+  {
+    "id": "ui_dense_04",
+    "category": "ui_dense",
+    "image": "images/ui_dense_04.png",
+    "target": "the center of the 'Link' icon in the dark grid",
+    "x": 322,
+    "y": 72
+  },
+  {
+    "id": "ui_dense_05",
+    "category": "ui_dense",
+    "image": "images/ui_dense_05.png",
+    "target": "the center of the 'Stop' icon in the wide buttons",
+    "x": 775,
+    "y": 50
+  },
+  {
+    "id": "ui_dense_06",
+    "category": "ui_dense",
+    "image": "images/ui_dense_06.png",
+    "target": "the center of the 'Save' icon in the IDE toolbar",
+    "x": 430,
+    "y": 37
+  },
+  {
+    "id": "ui_dense_07",
+    "category": "ui_dense",
+    "image": "images/ui_dense_07.png",
+    "target": "the center of the 'Save' icon in the card grid",
+    "x": 680,
+    "y": 72
+  },
+  {
+    "id": "ui_dense_08",
+    "category": "ui_dense",
+    "image": "images/ui_dense_08.png",
+    "target": "the center of the 'Ruler' icon in the status bar",
+    "x": 519,
+    "y": 31
+  },
+  {
+    "id": "ui_dense_09",
+    "category": "ui_dense",
+    "image": "images/ui_dense_09.png",
+    "target": "the center of the 'Chart' icon in the menu strip",
+    "x": 812,
+    "y": 59
+  },
+  {
+    "id": "natural_00",
+    "category": "natural",
+    "image": "images/natural_00.png",
+    "target": "the tip of the red triangle",
+    "x": 960,
+    "y": 450
+  },
+  {
+    "id": "natural_01",
+    "category": "natural",
+    "image": "images/natural_01.png",
+    "target": "the center of the yellow circle",
+    "x": 700,
+    "y": 400
+  },
+  {
+    "id": "natural_02",
+    "category": "natural",
+    "image": "images/natural_02.png",
+    "target": "the intersection of the two diagonal lines",
+    "x": 950,
+    "y": 500
+  },
+  {
+    "id": "natural_03",
+    "category": "natural",
+    "image": "images/natural_03.png",
+    "target": "the top of the green mountain peak",
+    "x": 800,
+    "y": 300
+  },
+  {
+    "id": "natural_04",
+    "category": "natural",
+    "image": "images/natural_04.png",
+    "target": "the center of the small white star",
+    "x": 1400,
+    "y": 350
+  },
+  {
+    "id": "natural_05",
+    "category": "natural",
+    "image": "images/natural_05.png",
+    "target": "the eye of the spiral pattern",
+    "x": 500,
+    "y": 700
+  },
+  {
+    "id": "natural_06",
+    "category": "natural",
+    "image": "images/natural_06.png",
+    "target": "the tip of the arrow pointing right",
+    "x": 1240,
+    "y": 550
+  },
+  {
+    "id": "natural_07",
+    "category": "natural",
+    "image": "images/natural_07.png",
+    "target": "the center of the bullseye",
+    "x": 1000,
+    "y": 500
+  },
+  {
+    "id": "natural_08",
+    "category": "natural",
+    "image": "images/natural_08.png",
+    "target": "the brightest point of the gradient",
+    "x": 600,
+    "y": 300
+  },
+  {
+    "id": "natural_09",
+    "category": "natural",
+    "image": "images/natural_09.png",
+    "target": "the corner where three shapes meet",
+    "x": 1100,
+    "y": 700
+  },
+  {
+    "id": "ambiguous_00",
+    "category": "ambiguous",
+    "image": "images/ambiguous_00.png",
+    "target": "the slightly darker square",
+    "x": 500,
+    "y": 400
+  },
+  {
+    "id": "ambiguous_01",
+    "category": "ambiguous",
+    "image": "images/ambiguous_01.png",
+    "target": "the faint circle in the center",
+    "x": 960,
+    "y": 540
+  },
+  {
+    "id": "ambiguous_02",
+    "category": "ambiguous",
+    "image": "images/ambiguous_02.png",
+    "target": "the tiny red dot",
+    "x": 1200,
+    "y": 300
+  },
+  {
+    "id": "ambiguous_03",
+    "category": "ambiguous",
+    "image": "images/ambiguous_03.png",
+    "target": "the small cross mark",
+    "x": 800,
+    "y": 700
+  },
+  {
+    "id": "ambiguous_04",
+    "category": "ambiguous",
+    "image": "images/ambiguous_04.png",
+    "target": "the single blue pixel among the noise",
+    "x": 650,
+    "y": 500
+  },
+  {
+    "id": "ambiguous_05",
+    "category": "ambiguous",
+    "image": "images/ambiguous_05.png",
+    "target": "the button on the right side",
+    "x": 1600,
+    "y": 60
+  },
+  {
+    "id": "ambiguous_06",
+    "category": "ambiguous",
+    "image": "images/ambiguous_06.png",
+    "target": "the icon near the bottom",
+    "x": 960,
+    "y": 950
+  },
+  {
+    "id": "ambiguous_07",
+    "category": "ambiguous",
+    "image": "images/ambiguous_07.png",
+    "target": "the second circle from the left",
+    "x": 400,
+    "y": 540
+  },
+  {
+    "id": "ambiguous_08",
+    "category": "ambiguous",
+    "image": "images/ambiguous_08.png",
+    "target": "the green button, not the blue one",
+    "x": 300,
+    "y": 200
+  },
+  {
+    "id": "ambiguous_09",
+    "category": "ambiguous",
+    "image": "images/ambiguous_09.png",
+    "target": "the outlined rectangle on the gray background",
+    "x": 960,
+    "y": 540
+  },
+  {
+    "id": "precision_00",
+    "category": "precision",
+    "image": "images/precision_00.png",
+    "target": "the single red pixel",
+    "x": 1100,
+    "y": 400
+  },
+  {
+    "id": "precision_01",
+    "category": "precision",
+    "image": "images/precision_01.png",
+    "target": "the tip of the thin blue needle pointing up",
+    "x": 750,
+    "y": 280
+  },
+  {
+    "id": "precision_02",
+    "category": "precision",
+    "image": "images/precision_02.png",
+    "target": "the center of the tiny green dot",
+    "x": 902,
+    "y": 602
+  },
+  {
+    "id": "precision_03",
+    "category": "precision",
+    "image": "images/precision_03.png",
+    "target": "the exact center of the small orange circle",
+    "x": 490,
+    "y": 350
+  },
+  {
+    "id": "precision_04",
+    "category": "precision",
+    "image": "images/precision_04.png",
+    "target": "the crosshair intersection",
+    "x": 1320,
+    "y": 680
+  },
+  {
+    "id": "precision_05",
+    "category": "precision",
+    "image": "images/precision_05.png",
+    "target": "the center of the purple diamond shape",
+    "x": 625,
+    "y": 730
+  },
+  {
+    "id": "precision_06",
+    "category": "precision",
+    "image": "images/precision_06.png",
+    "target": "the top-left corner of the white square",
+    "x": 350,
+    "y": 500
+  },
+  {
+    "id": "precision_07",
+    "category": "precision",
+    "image": "images/precision_07.png",
+    "target": "the right endpoint of the horizontal yellow line",
+    "x": 920,
+    "y": 200
+  },
+  {
+    "id": "precision_08",
+    "category": "precision",
+    "image": "images/precision_08.png",
+    "target": "the center of the innermost ring of the target",
+    "x": 1400,
+    "y": 850
+  },
+  {
+    "id": "precision_09",
+    "category": "precision",
+    "image": "images/precision_09.png",
+    "target": "the nose of the small arrow pointing right",
+    "x": 320,
+    "y": 150
+  }
+]

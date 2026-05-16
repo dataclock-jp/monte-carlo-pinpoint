@@ -1,0 +1,188 @@
+Using claude CLI (subscription) for VLM calls
+Benchmark: 20 cases x 2 methods x 3 repeats = 120 runs (120 to do)
+Model: claude-sonnet-4-20250514
+======================================================================
+
+[ui_button_00] target='the center of the 'Import' button in the toolbar' gt=(70,25)
+  grid       rep0: (1,21) dist=69.1px Q=4 t=61.35s
+  grid       rep1: (1,21) dist=69.1px Q=4 t=57.47s
+  grid       rep2: (1,21) dist=69.1px Q=4 t=55.11s
+  pinpoint   rep0: (55,17) dist=17.0px Q=37 t=511.06s
+  pinpoint   rep1: (36,25) dist=34.0px Q=37 t=496.41s
+  pinpoint   rep2: (44,0) dist=36.1px Q=34 t=462.89s
+
+[ui_button_01] target='the center of the 'Cut' button in the toolbar' gt=(174,22)
+  grid       rep0: (47,21) dist=127.0px Q=4 t=54.8s
+  grid       rep1: (194,21) dist=20.0px Q=4 t=54.63s
+  grid       rep2: (62,21) dist=112.0px Q=4 t=53.5s
+  pinpoint   rep0: (174,22) dist=0.0px Q=12 t=168.9s
+  pinpoint   rep1: (79,22) dist=95.0px Q=12 t=170.35s
+  pinpoint   rep2: (79,22) dist=95.0px Q=12 t=168.23s
+
+[ui_button_02] target='the center of the 'Save' button in the toolbar' gt=(286,84)
+  grid       rep0: (250,20) dist=73.4px Q=4 t=54.26s
+  grid       rep1: (250,20) dist=73.4px Q=4 t=54.83s
+  grid       rep2: (250,79) dist=36.3px Q=4 t=51.9s
+  pinpoint   rep0: (271,75) dist=17.5px Q=37 t=499.09s
+  pinpoint   rep1: (286,82) dist=2.0px Q=37 t=497.44s
+  pinpoint   rep2: (239,93) dist=47.9px Q=37 t=490.88s
+
+[ui_button_03] target='the center of the 'Open' button in the toolbar' gt=(514,39)
+  grid       rep0: (478,4) dist=50.2px Q=4 t=54.12s
+  grid       rep1: (478,0) dist=53.1px Q=4 t=55.47s
+  grid       rep2: (452,0) dist=73.2px Q=5 t=68.33s
+  pinpoint   rep0: (535,24) dist=25.8px Q=37 t=502.5s
+  pinpoint   rep1: (516,23) dist=16.1px Q=37 t=504.5s
+  pinpoint   rep2: (554,30) dist=41.0px Q=37 t=514.84s
+
+[ui_button_04] target='the center of the 'Save' button in the toolbar' gt=(538,27)
+  grid       rep0: (538,0) dist=27.0px Q=4 t=54.68s
+  grid       rep1: (507,0) dist=41.1px Q=4 t=61.51s
+  grid       rep2: (522,0) dist=31.4px Q=4 t=54.52s
+  pinpoint   rep0: (538,26) dist=1.0px Q=12 t=165.1s
+  pinpoint   rep1: (538,26) dist=1.0px Q=12 t=162.05s
+  pinpoint   rep2: (538,26) dist=1.0px Q=12 t=168.95s
+
+[ui_button_05] target='the center of the 'Help' button in the toolbar' gt=(634,62)
+  grid       rep0: (707,12) dist=88.5px Q=4 t=55.23s
+  grid       rep1: (630,20) dist=42.2px Q=4 t=56.47s
+  grid       rep2: (645,13) dist=50.2px Q=4 t=53.32s
+  pinpoint   rep0: (631,60) dist=3.6px Q=37 t=503.36s
+  pinpoint   rep1: (690,41) dist=59.8px Q=37 t=490.56s
+  pinpoint   rep2: (656,63) dist=22.0px Q=37 t=504.17s
+
+[ui_button_06] target='the center of the 'File' button in the toolbar' gt=(769,24)
+  grid       rep0: (707,21) dist=62.1px Q=4 t=55.36s
+  grid       rep1: (707,21) dist=62.1px Q=4 t=54.15s
+  grid       rep2: (707,21) dist=62.1px Q=4 t=56.1s
+  pinpoint   rep0: (724,21) dist=45.1px Q=37 t=514.69s
+  pinpoint   rep1: (736,28) dist=33.2px Q=37 t=510.61s
+  pinpoint   rep2: (742,29) dist=27.5px Q=37 t=498.01s
+
+[ui_button_07] target='the center of the 'Redo' button in the toolbar' gt=(1080,30)
+  grid       rep0: (None,4) dist=FAIL Q=4 t=55.58s
+  grid       rep1: (1044,20) dist=37.4px Q=4 t=57.29s
+  grid       rep2: (1044,0) dist=46.9px Q=4 t=59.56s
+  pinpoint   rep0: (1120,18) dist=41.8px Q=37 t=520.69s
+  pinpoint   rep1: (1138,39) dist=58.7px Q=37 t=504.49s
+  pinpoint   rep2: (1108,17) dist=30.9px Q=37 t=508.85s
+
+[ui_button_08] target='the center of the 'Search' button in the toolbar' gt=(349,74)
+  grid       rep0: (373,63) dist=26.4px Q=4 t=60.92s
+  grid       rep1: (373,58) dist=28.8px Q=4 t=55.63s
+  grid       rep2: (373,63) dist=26.4px Q=4 t=57.18s
+  pinpoint   rep0: (348,74) dist=1.0px Q=12 t=166.84s
+  pinpoint   rep1: (348,74) dist=1.0px Q=12 t=168.16s
+  pinpoint   rep2: (348,74) dist=1.0px Q=12 t=163.21s
+
+[ui_button_09] target='the center of the 'Print' button in the toolbar' gt=(393,34)
+  grid       rep0: (370,0) dist=41.0px Q=4 t=51.42s
+  grid       rep1: (370,0) dist=41.0px Q=4 t=53.61s
+  grid       rep2: (369,0) dist=41.6px Q=4 t=53.67s
+  pinpoint   rep0: (392,34) dist=1.0px Q=12 t=170.75s
+  pinpoint   rep1: (392,34) dist=1.0px Q=12 t=170.7s
+  pinpoint   rep2: (442,0) dist=59.6px Q=31 t=421.01s
+
+[ui_dense_00] target='the center of the 'Image' icon in the ribbon' gt=(45,52)
+  grid       rep0: (3,46) dist=42.4px Q=4 t=60.3s
+  grid       rep1: (5,38) dist=42.4px Q=4 t=59.89s
+  grid       rep2: (1,4) dist=65.1px Q=4 t=52.86s
+  pinpoint   rep0: (48,54) dist=3.6px Q=37 t=512.56s
+  pinpoint   rep1: (42,45) dist=7.6px Q=37 t=528.4s
+  pinpoint   rep2: (28,49) dist=17.3px Q=37 t=506.32s
+
+[ui_dense_01] target='the center of the 'Bell' icon in the dark toolbar' gt=(85,30)
+  grid       rep0: (21,4) dist=69.1px Q=4 t=60.3s
+  grid       rep1: (21,0) dist=70.7px Q=4 t=58.86s
+  grid       rep2: (8,3) dist=81.6px Q=4 t=56.14s
+  pinpoint   rep0: (92,29) dist=7.1px Q=37 t=516.83s
+  pinpoint   rep1: (86,12) dist=18.0px Q=37 t=503.41s
+  pinpoint   rep2: (82,16) dist=14.3px Q=37 t=517.93s
+
+[ui_dense_02] target='the center of the 'Undo' icon in the palette' gt=(280,85)
+  grid       rep0: (250,58) dist=40.4px Q=4 t=55.69s
+  grid       rep1: (266,58) dist=30.4px Q=4 t=53.71s
+  grid       rep2: (258,54) dist=38.0px Q=4 t=56.94s
+  pinpoint   rep0: (258,78) dist=23.1px Q=37 t=501.58s
+  pinpoint   rep1: (260,76) dist=21.9px Q=37 t=496.83s
+  pinpoint   rep2: (278,71) dist=14.1px Q=37 t=512.27s
+
+[ui_dense_03] target='the center of the 'Image' icon in the compact bar' gt=(202,20)
+  grid       rep0: (None,0) dist=FAIL Q=4 t=94.06s
+  grid       rep1: (None,0) dist=FAIL Q=3 t=40.53s
+  grid       rep2: (203,0) dist=20.0px Q=4 t=54.11s
+  pinpoint   rep0: (196,9) dist=12.5px Q=37 t=547.7s
+  pinpoint   rep1: (205,17) dist=4.2px Q=36 t=505.95s
+  pinpoint   rep2: (226,0) dist=31.2px Q=31 t=438.53s
+
+[ui_dense_04] target='the center of the 'Link' icon in the dark grid' gt=(322,72)
+  grid       rep0: (287,58) dist=37.7px Q=4 t=53.11s
+  grid       rep1: (411,58) dist=90.1px Q=4 t=56.85s
+  grid       rep2: (280,58) dist=44.3px Q=4 t=62.45s
+  pinpoint   rep0: (348,96) dist=35.4px Q=37 t=509.31s
+  pinpoint   rep1: (324,66) dist=6.3px Q=37 t=512.72s
+  pinpoint   rep2: (323,60) dist=12.0px Q=37 t=494.26s
+
+[ui_dense_05] target='the center of the 'Stop' icon in the wide buttons' gt=(775,50)
+  grid       rep0: (708,7) dist=79.6px Q=4 t=53.99s
+  grid       rep1: (708,10) dist=78.0px Q=4 t=57.13s
+  grid       rep2: (708,25) dist=71.5px Q=4 t=53.45s
+  pinpoint   rep0: (805,36) dist=33.1px Q=37 t=498.74s
+  pinpoint   rep1: (681,20) dist=98.7px Q=37 t=505.16s
+  pinpoint   rep2: (745,47) dist=30.1px Q=37 t=513.57s
+
+[ui_dense_06] target='the center of the 'Save' icon in the IDE toolbar' gt=(430,37)
+  grid       rep0: (317,4) dist=117.7px Q=4 t=56.4s
+  grid       rep1: (433,5) dist=32.1px Q=4 t=58.48s
+  grid       rep2: (370,0) dist=70.5px Q=4 t=53.39s
+  pinpoint   rep0: (431,29) dist=8.1px Q=37 t=516.75s
+  pinpoint   rep1: (364,37) dist=66.0px Q=12 t=170.5s
+  pinpoint   rep2: (437,28) dist=11.4px Q=37 t=502.74s
+
+[ui_dense_07] target='the center of the 'Save' icon in the card grid' gt=(680,72)
+  grid       rep0: (675,54) dist=18.7px Q=4 t=53.92s
+  grid       rep1: (660,20) dist=55.7px Q=4 t=52.64s
+  grid       rep2: (707,63) dist=28.5px Q=4 t=53.74s
+  pinpoint   rep0: (676,65) dist=8.1px Q=37 t=499.33s
+  pinpoint   rep1: (677,65) dist=7.6px Q=37 t=507.45s
+  pinpoint   rep2: (673,66) dist=9.2px Q=38 t=558.56s
+
+[ui_dense_08] target='the center of the 'Ruler' icon in the status bar' gt=(519,31)
+  grid       rep0: (507,4) dist=29.5px Q=4 t=70.36s
+  grid       rep1: (522,0) dist=31.1px Q=4 t=59.51s
+  grid       rep2: (507,0) dist=33.2px Q=4 t=52.68s
+  pinpoint   rep0: (500,0) dist=36.4px Q=38 t=531.82s
+  pinpoint   rep1: (573,49) dist=56.9px Q=39 t=560.17s
+  pinpoint   rep2: (523,52) dist=21.4px Q=39 t=581.16s
+
+[ui_dense_09] target='the center of the 'Chart' icon in the menu strip' gt=(812,59)
+  grid       rep0: (828,54) dist=16.8px Q=4 t=53.69s
+  grid       rep1: (875,7) dist=81.7px Q=4 t=54.03s
+  grid       rep2: (828,7) dist=54.4px Q=4 t=55.37s
+  pinpoint   rep0: (799,40) dist=23.0px Q=39 t=552.3s
+  pinpoint   rep1: (826,40) dist=23.6px Q=39 t=547.85s
+  pinpoint   rep2: (817,7) dist=52.2px Q=39 t=566.27s
+
+Results: D:\ClaudeProject\Video2AI. Translating Motion into Machine Understanding\video2ai\benchmark\results.json
+
+================================================================================
+BENCHMARK SUMMARY
+================================================================================
+
+Category        |       grid dist    grid Q |   pinpoint dist  pinpoint Q
+-------------------------------------------------------------------------
+ui_button       |     54.6px     4.0 |     27.3px    27.5
+ui_dense        |     52.5px     4.0 |     23.8px    36.3
+
+SUCCESS RATE
+--------------------------------------------------
+  <=  5px:  grid=  0.0%  pinpoint= 21.7%
+  <= 10px:  grid=  0.0%  pinpoint= 33.3%
+  <= 20px:  grid=  7.0%  pinpoint= 50.0%
+  <= 50px:  grid= 50.9%  pinpoint= 85.0%
+
+STAGE B
+--------------------------------------------------
+  hit rate: 0/60 = 0.0%
+
+Summary: D:\ClaudeProject\Video2AI. Translating Motion into Machine Understanding\video2ai\benchmark\summary.txt

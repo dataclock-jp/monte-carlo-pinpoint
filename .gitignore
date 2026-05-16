@@ -1,0 +1,44 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+*.egg
+dist/
+build/
+.env
+.venv
+venv/
+env/
+
+# PyPI / setuptools
+*.tar.gz
+*.whl
+MANIFEST
+
+# テスト用動画・出力
+test_video.mp4
+test_output*/
+output_*/
+test_*/
+*.v2ai
+transcribe_log.txt
+
+# Whisper モデルキャッシュ
+~/.cache/whisper/
+
+# LaTeX build artifacts (paper)
+docs/paper/main.aux
+docs/paper/main.bbl
+docs/paper/main.blg
+docs/paper/main.fdb_latexmk
+docs/paper/main.fls
+docs/paper/main.log
+docs/paper/main.out
+
+# Neo MCP runtime local DB
+neo.db
+
+# Playwright MCP capture artifacts
+.playwright-mcp/

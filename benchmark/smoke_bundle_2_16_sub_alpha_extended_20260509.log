@@ -1,0 +1,43 @@
+Using claude CLI (subscription) for VLM calls
+Benchmark: 5 cases x 1 methods x 1 repeats = 5 runs (5 to do)
+Model: claude-sonnet-4-20250514
+======================================================================
+
+[ambiguous_01] target='the faint circle in the center' gt=(960,540)
+  pinpoint   rep0: (958,543) dist=3.6px Q=29 t=538.25s
+
+[precision_01] target='the tip of the thin blue needle pointing up' gt=(750,280)
+  pinpoint   rep0: (750,279) dist=1.0px Q=30 t=599.04s
+
+[precision_02] target='the center of the tiny green dot' gt=(902,602)
+  pinpoint   rep0: (903,614) dist=12.0px Q=29 t=563.99s
+
+[precision_03] target='the exact center of the small orange circle' gt=(490,350)
+  pinpoint   rep0: (487,356) dist=6.7px Q=29 t=571.79s
+
+[precision_04] target='the crosshair intersection' gt=(1320,680)
+  pinpoint   rep0: (1320,681) dist=1.0px Q=29 t=555.49s
+
+Results: D:\ClaudeProject\Video2AI. Translating Motion into Machine Understanding\video2ai\benchmark\results.json
+
+================================================================================
+BENCHMARK SUMMARY
+================================================================================
+
+Category        |   pinpoint dist  pinpoint Q
+---------------------------------------------
+ambiguous       |      3.6px    29.0
+precision       |      5.2px    29.2
+
+SUCCESS RATE
+--------------------------------------------------
+  <=  5px:  pinpoint= 60.0%
+  <= 10px:  pinpoint= 80.0%
+  <= 20px:  pinpoint=100.0%
+  <= 50px:  pinpoint=100.0%
+
+STAGE B
+--------------------------------------------------
+  hit rate: 0/5 = 0.0%
+
+Summary: D:\ClaudeProject\Video2AI. Translating Motion into Machine Understanding\video2ai\benchmark\summary.txt

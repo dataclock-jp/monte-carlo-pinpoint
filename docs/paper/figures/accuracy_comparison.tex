@@ -1,0 +1,40 @@
+%% accuracy_comparison.tex — Bar chart comparing Grid vs Pinpoint accuracy
+%% Include via \input{figures/accuracy_comparison} in main.tex
+%% Data from benchmark run 2026-04-09 (zoom-force improvement, 50 cases)
+
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    bar width=12pt,
+    width=\columnwidth,
+    height=5.5cm,
+    ylabel={Mean Error (px)},
+    symbolic x coords={ui\_button, ui\_dense, natural, ambiguous, precision},
+    xtick=data,
+    xticklabel style={font=\small, rotate=15, anchor=east},
+    ymin=0, ymax=280,
+    legend style={
+      at={(0.5,1.02)}, anchor=south,
+      legend columns=2, font=\small,
+      /tikz/every even column/.append style={column sep=0.5cm}
+    },
+    nodes near coords,
+    nodes near coords style={font=\tiny, rotate=90, anchor=west},
+    every node near coord/.append style={xshift=0pt},
+    enlarge x limits=0.15,
+  ]
+
+  % Grid (Phase 1): 45/51 success, 6 FAIL, median 67.9px
+  \addplot coordinates {
+    (ui\_button, 103.1) (ui\_dense, 146.4) (natural, 59.3) (ambiguous, 59.9) (precision, 22.6)
+  };
+
+  % Pinpoint (Phase 1+1.5+2): 50/50 success, 0 FAIL, median 79.0px
+  \addplot coordinates {
+    (ui\_button, 105.8) (ui\_dense, 254.2) (natural, 60.1) (ambiguous, 128.5) (precision, 90.7)
+  };
+
+  \legend{Grid (Phase~1), Pinpoint (Full)}
+
+\end{axis}
+\end{tikzpicture}
